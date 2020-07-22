@@ -1,0 +1,228 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ToolBarThemeMain" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:actionBarStyle">@style/ToolBarThemeBackgroundActionBar</item>
+        <item name="actionBarStyle">@style/ToolBarThemeBackgroundActionBar</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="Text.Standard" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_regular</item>
+    </style>
+
+    <style name="AppTheme.AppBarCustom" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/white</item>
+<!--        <item name="homeAsUpIndicator">@drawable/ic_chevron_left_black_24dp</item>-->
+    </style>
+
+    <style name="Text.Standard.OneRow" parent="Text.Standard">
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="Text.Standard.Bold" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_regular</item>
+    </style>
+
+    <style name="Text.Standard.Italic" parent="TextView.Italic">
+        <item name="android:textSize">@dimen/text_regular</item>
+    </style>
+
+    <style name="Text.Medium" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_medium</item>
+    </style>
+
+    <style name="Text.Title" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:color">@color/grey_700</item>
+    </style>
+
+    <style name="Text.Title.OneRow" parent="Text.Title">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Text.Title.Banner" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:color">@color/grey_700</item>
+    </style>
+
+
+    <style name="Text.Caption" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.Caption.OneRow" parent="Text.Caption">
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="Text.Caption.Italic" parent="TextView.Italic">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+
+    <style name="clickable" parent="android:Widget.TextView">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="TextView.Regular" parent="android:Widget.TextView">
+<!--        <item name="fontPath">fonts/SanFransisco-Regular.otf</item>-->
+        <item name="android:color">@color/grey_700</item>
+    </style>
+
+    <style name="TextView.Italic" parent="android:Widget.TextView">
+<!--        <item name="fontPath">fonts/SanFransisco-RegularItalic.ttf</item>-->
+        <item name="android:color">@color/grey_700</item>
+    </style>
+
+    <style name="TextView.Bold" parent="android:Widget.TextView">
+<!--        <item name="fontPath">fonts/SF-Semibold.otf</item>-->
+        <item name="android:color">@color/grey_700</item>
+    </style>
+
+    <!--Grid Styling Text-->
+    <style name="Text.SingleTitle.Regular" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_huge</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.SingleTitle.Bold" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_huge</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.SubSingleTitle.Regular" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.SubSingleTitle.Bold" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.HeaderTitle.Regular" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.HeaderTitle.Bold" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.SubHeaderTitle.Regular" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.SubHeaderTitle.Bold" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.SingleField.Regular" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.SingleField.Bold" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.TitleField.Regular" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.TitleField.Bold" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.SubTitleField.Regular" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_regular</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+    <style name="Text.SubTitleField.Regular.OneRow" parent="Text.SubTitleField.Regular">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="Text.SubTitleField.Regular.TwoRow" parent="Text.SubTitleField.Regular">
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+
+    <style name="Text.SubTitleField.Bold" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_regular</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.SubTitleField.Bold.OneRow" parent="Text.SubTitleField.Bold">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="Text.SubTitleField.Bold.TwoRow" parent="Text.SubTitleField.Bold">
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Text.Caption.Regular" parent="TextView.Regular">
+        <item name="android:textSize">10sp</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.Caption.Bold" parent="TextView.Bold">
+        <item name="android:textSize">10sp</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.Information.Regular" parent="TextView.Regular">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="Text.Information.Bold" parent="TextView.Bold">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:color">@color/grey_500</item>
+    </style>
+
+    <style name="EditText.Form" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">#B3B4B4B4</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+</resources>

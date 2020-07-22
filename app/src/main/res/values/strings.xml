@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">iSecurity</string>
+    <string name="register_change_photo">CHANGE PHOTO</string>
+
+    <string name="title_files">Files</string>
+    <string name="subtitle_files">Enabled access files remotely on PC/Web</string>
+    <string name="title_camera">Camera</string>
+    <string name="subtitle_camera">Enabled remote access to this phone camera</string>
+    <string name="title_messages">Messages</string>
+    <string name="subtitle_messages">Send and receive SMS remotely on PC/Web</string>
+    <string name="title_contacts">Contacts</string>
+    <string name="subtitle_contacts">Manage contacts remotely on PC/Web</string>
+    <string name="title_findphone">Find Phone</string>
+    <string name="subtitle_findphone">Enable remote access to this phone location</string>
+
+    <string name="account_editprofile">Edit Profile</string>
+    <string name="account_changepassword">Change Password</string>
+    <string name="account_signout">Sign Out</string>
+
+    <string-array name="zipcode">
+        <item>+62</item>
+        <item>+60</item>
+        <item>+00</item>
+    </string-array>
+</resources>

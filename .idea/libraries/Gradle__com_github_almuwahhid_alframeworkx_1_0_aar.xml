@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.almuwahhid:alframeworkx:1.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ac2b14452556668e29a339fd6f99095f/jetified-alframeworkx-1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ac2b14452556668e29a339fd6f99095f/jetified-alframeworkx-1.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.almuwahhid/alframeworkx/1.0/bcc99d5cfb1dd9e14b597c575448cc2b67477ca0/alframeworkx-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
