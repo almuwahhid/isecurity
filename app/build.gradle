@@ -3,17 +3,130 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
-    defaultConfig {
-        applicationId "com.mobile.isecurity"
-        minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+    def package_name = "com.mobile.isecurity"
+    def app_alias_name = "iSecurity"
+    def versionPropsFile = file('version.properties')
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    flavorDimensions "default"
+    if (versionPropsFile.canRead()) {
+        Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+        def runTasks = gradle.startParameter.taskNames
+
+        if (runTasks.grep(':app:assembleRelease')) {
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFile = new File(
+                            output.outputFile.parent,
+                            output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
+                }
+            }
+        }
+
+        def version_major = versionProps['VERSION_MAJOR'].toInteger()
+        def version_minor = versionProps['VERSION_MINOR'].toInteger()
+        def version_maintenance = versionProps['VERSION_MAINTENANCE'].toInteger()
+        def version_build = versionProps['VERSION_BUILD'].toInteger() + 1
+        def version_code = versionProps['VERSION_CODE'].toInteger()
+
+        versionProps['VERSION_MAJOR'] = version_major.toString()
+        versionProps['VERSION_MINOR'] = version_minor.toString()
+        versionProps['VERSION_MAINTENANCE'] = version_maintenance.toString()
+        versionProps['VERSION_BUILD'] = version_build.toString()
+        versionProps['VERSION_CODE'] = version_code.toString()
+
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        defaultConfig {
+            applicationId package_name
+            minSdkVersion 19
+            multiDexEnabled true
+            targetSdkVersion 28
+            versionCode version_code
+            versionName "${version_major}.${version_minor}.${version_maintenance}.${version_build}"
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+            def addUrl = { constantName, constantValue ->
+                buildConfigField "String", "${constantName}", "\"${constantValue}\""
+            }
+            addUrl("base_api", "http://13.234.168.0/public/projects/api/")
+            addUrl("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+        }
+
+        signingConfigs {
+            release {
+//                storeFile file('/Users/al/AndroidStudioProjects/legalisasi-dokumen-kemlu/key_legalisasi.jks')
+//                storePassword 'dev@legalisasi'
+//                keyAlias 'KeyLegalisasi'
+//                keyPassword 'dev@legalisasi'
+            }
+            debug {
+
+            }
+        }
+
+        productFlavors {
+            development {
+                applicationId package_name + ".dev"
+                versionName "${version_major}.${version_minor}.${version_maintenance}.${version_build}"
+                def makeAConstant = { constantName, constantValue ->
+                    manifestPlaceholders += [(constantName): constantValue]
+                    buildConfigField "String", "${constantName}", "\"${constantValue}\""
+                }
+                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
+                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+                resValue "string", "app_name", "Dev " + app_alias_name
+                makeAConstant("application_name", "Dev " + app_alias_name)
+                /*resValue "string", "google_maps_key",
+                        (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")*/
+                manifestPlaceholders = [
+                        appIcon: "@mipmap/ic_launcher"
+                ]
+//                multiDexEnabled true
+            }
+
+            production {
+                applicationId package_name
+                if (version_maintenance == 0) {
+                    versionName "${version_major}.${version_minor}"
+                } else {
+                    versionName "${version_major}.${version_minor}.${version_maintenance}"
+                }
+
+                def makeAConstant = { constantName, constantValue ->
+                    manifestPlaceholders += [(constantName): constantValue]
+                    buildConfigField "String", "${constantName}", "\"${constantValue}\""
+                }
+                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
+                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+                makeAConstant("application_name", app_alias_name)
+                resValue "string", "app_name", app_alias_name
+                /*resValue "string", "google_maps_key",
+                        (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")*/
+                manifestPlaceholders = [
+                        appIcon: "@mipmap/ic_launcher"
+                ]
+            }
+        }
+    } else {
+        throw new GradleException("Could not read version.properties!")
     }
 
     buildTypes {
@@ -21,6 +134,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 
 }

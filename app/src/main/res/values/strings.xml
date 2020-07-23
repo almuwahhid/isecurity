@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">iSecurity</string>
+<!--    <string name="app_name">iSecurity</string>-->
     <string name="register_change_photo">CHANGE PHOTO</string>
 
     <string name="title_files">Files</string>
