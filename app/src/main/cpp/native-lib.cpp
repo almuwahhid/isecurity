@@ -9,6 +9,15 @@
 // return env->NewStringUTF(hello.c_str());
 // }
 
+std::string stringAPPKEY = "cSNOBVMHFgU8exSIxS";
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_mobile_isecurity_data_Api_stringAPPKEY(
+        JNIEnv *env,
+        jclass type) {
+        return env->NewStringUTF(stringAPPKEY.c_str());
+}
+
 std::string stringLogin = "login";
 extern "C"
 JNIEXPORT jstring JNICALL

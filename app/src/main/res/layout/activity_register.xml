@@ -32,6 +32,7 @@
             <TextView
                 android:layout_marginTop="@dimen/dimen_8dp"
                 android:textColor="@color/colorPrimary"
+                android:id="@+id/tv_change_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Text.Information.Regular"
@@ -70,13 +71,31 @@
                 android:inputType="textEmailAddress"
                 android:textColorHint="#B3B4B4B4" />
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_height="wrap_content"
+            app:passwordToggleDrawable="@drawable/password_selector"
+            app:passwordToggleEnabled="true">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_password"
+                android:padding="8dp"
+                android:background="@drawable/bg_field"
+                style="@style/EditText.Form"
+                android:drawablePadding="20dp"
+                android:drawableTint="#B3B4B4B4"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_14dp"
             android:orientation="vertical">
             <TextView
-                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:layout_marginLeft="@dimen/dimen_12dp"
                 android:textSize="@dimen/dimen_12dp"
                 android:textColor="@color/grey_500"
                 android:text="Contact No."
@@ -85,11 +104,11 @@
                 android:layout_height="wrap_content"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_48dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <Spinner
                     android:id="@+id/spinner"
-                    android:layout_width="@dimen/dimen_56dp"
+                    android:layout_width="@dimen/dimen_96dp"
                     android:drawSelectorOnTop="true"
                     android:entries="@array/zipcode"
                     android:layout_height="wrap_content">
@@ -100,6 +119,7 @@
                     android:layout_height="wrap_content"></AutoCompleteTextView>-->
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_marginLeft="@dimen/dimen_4dp"
+                    android:id="@+id/edt_phone"
                     android:layout_width="match_parent"
                     android:paddingBottom="@dimen/dimen_4dp"
                     style="@style/EditText.Form"
@@ -107,7 +127,7 @@
                     android:background="@drawable/bg_field"
                     android:drawableTint="#B3B4B4B4"
                     android:hint="Contact Number"
-                    android:inputType="textEmailAddress"
+                    android:inputType="phone"
                     android:textColorHint="#B3B4B4B4" />
             </LinearLayout>
         </LinearLayout>

@@ -1,0 +1,19 @@
+{
+  "buildFiles": [
+    "/Users/al/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake",
+    "/Users/al/AndroidStudioProjects/iSecurity/app/CMakeLists.txt",
+    "/Users/al/Library/Android/sdk/ndk-bundle/build/cmake/platforms.cmake"
+  ],
+  "cleanCommands": [
+    "/Users/al/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/al/AndroidStudioProjects/iSecurity/app/.cxx/cmake/productionDebug/x86\" clean"
+  ],
+  "buildTargetsCommand": "/Users/al/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/al/AndroidStudioProjects/iSecurity/app/.cxx/cmake/productionDebug/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "native-lib-Debug-x86": {
+      "artifactName": "native-lib",
+      "buildCommand": "/Users/al/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/al/AndroidStudioProjects/iSecurity/app/.cxx/cmake/productionDebug/x86\" native-lib",
+      "abi": "x86",
+      "output": "/Users/al/AndroidStudioProjects/iSecurity/app/build/intermediates/cmake/productionDebug/obj/x86/libnative-lib.so"
+    }
+  }
+}

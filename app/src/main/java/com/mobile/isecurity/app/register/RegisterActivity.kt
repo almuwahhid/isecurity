@@ -1,20 +1,44 @@
 package com.mobile.isecurity.app.register
 
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import com.mobile.isecurity.R
+import com.mobile.isecurity.core.application.iSecurityActivityPermission
+import com.mobile.isecurity.data.DataConstant
+import com.mobile.isecurity.data.model.UserModel
+import com.mobile.isecurity.util.DialogImagePicker
+import com.mobile.isecurity.util.iSecurityUtil
+import com.squareup.picasso.Picasso
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.toolbar_main.*
-import lib.alframeworkx.Activity.ActivityPermission
+import lib.alframeworkx.Activity.Interfaces.PermissionResultInterface
+import lib.alframeworkx.easyphotopicker.DefaultCallback
+import lib.alframeworkx.easyphotopicker.EasyImage
+import lib.alframeworkx.utils.AlStatic
+import lib.alframeworkx.utils.VolleyMultipartRequest
+import lib.alframeworkx.utils.avatarview.loader.PicassoLoader
+import java.io.File
+import java.util.*
 
-class RegisterActivity : ActivityPermission() {
+class RegisterActivity : iSecurityActivityPermission(), RegisterView.View {
 
-    val postalcodes = arrayOf(
-        "+60",
-        "+62",
-        "+01"
+
+    lateinit var presenter: RegisterPresenter
+    protected var RequiredPermissions = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA
     )
+    val imageLoader = PicassoLoader()
+    var uri: Uri? = null
+    var isPictOpened = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,31 +48,121 @@ class RegisterActivity : ActivityPermission() {
         supportActionBar!!.title = "Register"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        /*val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            this,
-            android.R.layout.select_dialog_singlechoice,
-            postalcodes
-        )
-        postalcode.threshold = 1
-        postalcode.setAdapter(adapter)*/
+        presenter = RegisterPresenter(context, this)
 
-        val dayValues = resources.getStringArray(R.array.zipcode)
-        val adapter: ArrayAdapter<String> = object : ArrayAdapter<String>(
+        setFormsToValidate()
+        val status: MutableList<String> = ArrayList()
+        status.add("+60")
+        status.add("+62")
+        status.add("+01")
+
+        val adapter = ArrayAdapter<String>(
             this,
-            R.layout.spinner_item, dayValues) {
-            override fun getCount(): Int {
-                val c = super.getCount()
-                if (spinner.selectedItemPosition < c - 1) return c
-                return if (c > 0) c - 1 else c
-            }
-        }
+            R.layout.simple_spinner_dropdown_item, status)
         spinner.setAdapter(adapter)
-//        spinner.setSelection(0)
-        spinner.setSelection(dayValues.size - 1);
 
         avatarview.setImageResource(R.drawable.ic_account_circle_black_24dp)
         btn_register.setOnClickListener({
-            finish()
+            validate()
         })
+
+        avatarview.setOnClickListener({
+            askCompactPermissions(RequiredPermissions, object : PermissionResultInterface {
+                override fun permissionDenied() {
+
+                }
+
+                override fun permissionGranted() {
+                    DialogImagePicker(context, object : DialogImagePicker.OnDialogImagePicker {
+                        override fun onCameraClick() {
+                            EasyImage.openCamera(this@RegisterActivity, 0)
+                        }
+
+                        override fun onFileManagerClick() {
+                            EasyImage.openGallery(this@RegisterActivity, 0)
+                        }
+
+                    })
+                }
+
+            })
+        })
+    }
+
+    internal var forms: ArrayList<Int> = ArrayList()
+    private fun setFormsToValidate() {
+        forms.add(R.id.edt_email)
+        forms.add(R.id.edt_password)
+        forms.add(R.id.edt_name)
+        forms.add(R.id.edt_phone)
+    }
+
+    private fun validate() {
+        if (AlStatic.isFormValid(this, window.decorView, forms, "Field Reqiured")) {
+            val param = DataConstant.headerRequest()
+            param["name"] = edt_name.text.toString()
+            param["email"] = edt_email.text.toString()
+            param["phone"] = edt_phone.text.toString()
+            param["password"] = edt_password.text.toString()
+            param["countryCode"] = spinner.selectedItem.toString()
+            if(isPictOpened) {
+                presenter.sendRegisterData(param, VolleyMultipartRequest.DataPart(uri!!.path, iSecurityUtil.getBytesFile(context, uri), iSecurityUtil.getTypeFile(context, uri!!)))
+            } else {
+                presenter.sendRegisterData(param, null)
+            }
+
+        }
+    }
+
+    override fun onSuccessRegister(message: String) {
+        AlStatic.ToastShort(context, message)
+        finish()
+    }
+
+    override fun onHideLoading() {
+        AlStatic.hideLoadingDialog(context)
+    }
+
+    override fun onLoading() {
+        AlStatic.showLoadingDialog(context, R.drawable.ic_logo)
+    }
+
+    override fun onError(message: String?) {
+        AlStatic.ToastShort(context, message)
+    }
+
+    private fun startCropActivity(uri: Uri) {
+        CropImage.activity(uri)
+            .setCropShape(CropImageView.CropShape.RECTANGLE)
+            .start(this@RegisterActivity)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
+                Log.d("ikiopo", "")
+                uri = result.uri
+                isPictOpened = true
+
+//                val bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri)
+                Picasso.with(context)
+                    .load(uri)
+                    .fit()
+                    .into(avatarview)
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error.toString()
+                AlStatic.ToastShort(context, "" + error)
+            }
+        } else {
+            EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), object : DefaultCallback(){
+                override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
+                    startCropActivity(Uri.fromFile(imageFiles[0]))
+                }
+            })
+        }
     }
 }

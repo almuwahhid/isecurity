@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
+import com.google.gson.Gson
+import com.mobile.isecurity.BuildConfig
 import com.mobile.isecurity.R
 import com.mobile.isecurity.app.changepassword.ChangePasswordActivity
 import com.mobile.isecurity.app.editprofile.EditProfileAcitivity
 import com.mobile.isecurity.app.login.LoginActivity
+import com.mobile.isecurity.data.model.UserModel
+import com.mobile.isecurity.util.iSecurityUtil
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_account.view.*
 import lib.alframeworkx.Activity.FragmentPermission
@@ -22,11 +26,18 @@ class AccountFragment : FragmentPermission() {
         }
     }
 
+    lateinit var user : UserModel;
+    var gson = Gson()
+
     override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_account, container, false)
 
-//        Picasso.with(context).load(R.drawable.ic_account_circle_black_24dp).fit().into(view.avatarview)
-        view.avatarview.setImageResource(R.drawable.ic_account_circle_black_24dp)
+        user = iSecurityUtil.userLoggedIn(context!!, gson)!!
+
+        Picasso.with(context).load(BuildConfig.base_image+user.profile_image).fit().into(view.avatarview)
+        view.tv_name.setText(user.name)
+        view.tv_email.setText(user.email)
+//        view.avatarview.setImageResource(R.drawable.ic_account_circle_black_24dp)
         view.lay_editprofile.setOnClickListener({
             startActivity(Intent(context, EditProfileAcitivity::class.java))
         })
@@ -35,6 +46,7 @@ class AccountFragment : FragmentPermission() {
         })
 
         view.lay_signout.setOnClickListener({
+            iSecurityUtil.logout(context!!)
             activity!!.finish()
             startActivity(Intent(context, LoginActivity::class.java))
         })

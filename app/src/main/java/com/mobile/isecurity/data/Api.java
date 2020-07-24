@@ -9,6 +9,12 @@ public class Api {
 
     private static String base_api = BuildConfig.base_api;
 
+    public static native String stringAPPKEY();
+
+    public static String app_key() {
+        return base_api + stringAPPKEY();
+    }
+
     public static native String stringLogin();
 
     public static String login() {
