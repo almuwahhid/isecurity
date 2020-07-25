@@ -41,4 +41,14 @@ public class Api {
     public static String forgot_password() {
         return base_api + stringForgotPassword();
     }
+
+    public static native String stringLocation();
+    public static String update_location() {
+        return base_api + stringLocation();
+    }
+
+    public static native String stringAccessPermission();
+    public static String update_access_permission() {
+        return base_api + stringAccessPermission();
+    }
 }

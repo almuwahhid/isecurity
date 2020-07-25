@@ -3,29 +3,33 @@ package com.mobile.isecurity.app.detailsetting
 import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.location.LocationListener
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
-import androidx.core.content.PermissionChecker
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.mobile.isecurity.R
+import com.mobile.isecurity.app.detailsetting.presenter.CameraPermissionPresenter
+import com.mobile.isecurity.app.detailsetting.presenter.FilePermissionPresenter
+import com.mobile.isecurity.app.detailsetting.presenter.LocationPermissionPresenter
+import com.mobile.isecurity.app.detailsetting.presenter.SMSPermissionPresenter
+import com.mobile.isecurity.core.application.iSecurityActivityPermission
 import com.mobile.isecurity.core.service.MainService
 import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.SecurityMenuModel
+import com.mobile.isecurity.data.model.UserModel
 import com.mobile.isecurity.util.iSecurityUtil
 import kotlinx.android.synthetic.main.activity_detail_setting.*
 import kotlinx.android.synthetic.main.toolbar_main.*
-import lib.alframeworkx.Activity.ActivityGeneral
-import lib.alframeworkx.Activity.ActivityPermission
 import lib.alframeworkx.Activity.Interfaces.PermissionResultInterface
 import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.AlertDialogBuilder
 
-class DetailSettingActivity : ActivityPermission() {
+class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.View {
 
     lateinit var securityMenuModel: SecurityMenuModel
     var gson = Gson()
@@ -36,12 +40,22 @@ class DetailSettingActivity : ActivityPermission() {
     private val LocationPermissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
     private val ContactPermissions = arrayOf(Manifest.permission.READ_CONTACTS)
 
+    lateinit var userModel: UserModel
+
+    lateinit var presenterLocation : LocationPermissionPresenter
+    lateinit var presenterFile : FilePermissionPresenter
+    lateinit var presenterSMS : SMSPermissionPresenter
+    lateinit var presenterCamera : CameraPermissionPresenter
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_setting)
 
         if(intent.hasExtra("data")){
             securityMenuModel = intent.getSerializableExtra("data") as SecurityMenuModel
+            userModel = iSecurityUtil.userLoggedIn(context, gson)!!
+            presenterLocation = LocationPermissionPresenter(context, userModel, this)
         } else {
             finish()
         }
@@ -52,15 +66,15 @@ class DetailSettingActivity : ActivityPermission() {
             val message = "Are you sure to "+(if(securityMenuModel.status == 0) "Enable" else "Disable")+" "+securityMenuModel.title+" Permissions ?"
             AlertDialogBuilder(context, message, "Yes", "No", object  : AlertDialogBuilder.OnAlertDialog{
                 override fun onPositiveButton(dialog: DialogInterface?) {
-                    securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-                    AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-                    initEnableComponent(securityMenuModel.status)
-
-                    if(securityMenuModel.status == 1){
-                        ask(securityMenuModel.id)
-                    } else {
-                        stop(securityMenuModel.id)
-                    }
+//                    securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+//                    AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
+//                    initEnableComponent(securityMenuModel.status)
+                    ask(securityMenuModel.id)
+//                    if(securityMenuModel.status == 1){
+//                        ask(securityMenuModel.id)
+//                    } else {
+//                        stop(securityMenuModel.id)
+//                    }
                 }
 
                 override fun onNegativeButton(dialog: DialogInterface?) {
@@ -124,13 +138,11 @@ class DetailSettingActivity : ActivityPermission() {
             StringConstant.ID_FINDPHONE -> {
                 askCompactPermissions(LocationPermissions!!, object : PermissionResultInterface{
                     override fun permissionDenied() {
-                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-                        initEnableComponent(securityMenuModel.status)
+
                     }
 
                     override fun permissionGranted() {
-
+                        presenterLocation.setAccessPermission(if(securityMenuModel.status == 0) ""+1 else ""+0)
                     }
 
                 })
@@ -138,13 +150,13 @@ class DetailSettingActivity : ActivityPermission() {
             StringConstant.ID_CONTACTS -> {
                 askCompactPermissions(ContactPermissions!!, object : PermissionResultInterface{
                     override fun permissionDenied() {
-                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-                        initEnableComponent(securityMenuModel.status)
+
                     }
 
                     override fun permissionGranted() {
-
+                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
+                        initEnableComponent(securityMenuModel.status)
                     }
 
                 })
@@ -152,13 +164,13 @@ class DetailSettingActivity : ActivityPermission() {
             StringConstant.ID_MESSAGES -> {
                 askCompactPermissions(SMSPermissions!!, object : PermissionResultInterface{
                     override fun permissionDenied() {
-                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-                        initEnableComponent(securityMenuModel.status)
+
                     }
 
                     override fun permissionGranted() {
-
+                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
+                        initEnableComponent(securityMenuModel.status)
                     }
 
                 })
@@ -166,13 +178,13 @@ class DetailSettingActivity : ActivityPermission() {
             StringConstant.ID_FILES -> {
                 askCompactPermissions(FilePermissions!!, object : PermissionResultInterface{
                     override fun permissionDenied() {
-                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-                        initEnableComponent(securityMenuModel.status)
+
                     }
 
                     override fun permissionGranted() {
-
+                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
+                        initEnableComponent(securityMenuModel.status)
                     }
 
                 })
@@ -212,6 +224,25 @@ class DetailSettingActivity : ActivityPermission() {
                 })
             }
         }
+    }
+
+    override fun onRequestNewLocation(message: String) {
+        AlStatic.ToastShort(context, message)
+        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
+        initEnableComponent(securityMenuModel.status)
+    }
+
+    override fun onHideLoading() {
+        AlStatic.hideLoadingDialog(context)
+    }
+
+    override fun onLoading() {
+        AlStatic.showLoadingDialog(context, R.drawable.ic_logo)
+    }
+
+    override fun onError(message: String?) {
+        AlStatic.ToastShort(context, message)
     }
 
 }
