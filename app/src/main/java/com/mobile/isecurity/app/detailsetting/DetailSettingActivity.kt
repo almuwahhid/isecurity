@@ -56,6 +56,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
             securityMenuModel = intent.getSerializableExtra("data") as SecurityMenuModel
             userModel = iSecurityUtil.userLoggedIn(context, gson)!!
             presenterLocation = LocationPermissionPresenter(context, userModel, this)
+            presenterSMS = SMSPermissionPresenter(context, userModel, this)
         } else {
             finish()
         }
@@ -168,9 +169,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                     }
 
                     override fun permissionGranted() {
-                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-                        initEnableComponent(securityMenuModel.status)
+                        presenterSMS.setAccessPermission(if(securityMenuModel.status == 0) ""+1 else ""+0)
                     }
 
                 })
@@ -228,6 +227,12 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
     override fun onRequestNewLocation(message: String) {
         AlStatic.ToastShort(context, message)
+        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
+        initEnableComponent(securityMenuModel.status)
+    }
+
+    override fun onRequestNewSMS(message: String) {
         securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
         AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
         initEnableComponent(securityMenuModel.status)

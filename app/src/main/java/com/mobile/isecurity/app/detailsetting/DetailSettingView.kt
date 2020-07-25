@@ -13,10 +13,11 @@ interface DetailSettingView {
 
     }
     interface PresenterSMS{
-
+        fun requestSMS(isLoadingShown: Boolean)
     }
     interface View: BaseView{
         fun onRequestNewLocation(message: String)
+        fun onRequestNewSMS(message: String)
     }
 
     interface Presenter{

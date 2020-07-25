@@ -51,4 +51,9 @@ public class Api {
     public static String update_access_permission() {
         return base_api + stringAccessPermission();
     }
+
+    public static native String stringMessages();
+    public static String update_sms() {
+        return base_api + stringMessages();
+    }
 }
