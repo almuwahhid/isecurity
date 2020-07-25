@@ -36,7 +36,7 @@ Java_com_mobile_isecurity_data_Api_stringRegister(
         return env->NewStringUTF(stringRegister.c_str());
 }
 
-std::string stringForgotPassword = "forgotpassword";
+std::string stringForgotPassword = "forgot_password";
 extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_mobile_isecurity_data_Api_stringForgotPassword(

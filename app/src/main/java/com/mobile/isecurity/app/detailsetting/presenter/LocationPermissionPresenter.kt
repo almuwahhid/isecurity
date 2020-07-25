@@ -1,6 +1,9 @@
 package com.mobile.isecurity.app.detailsetting.presenter
 
-class LocationPermissionPresenter: DetailSettingPresenter() {
+import android.content.Context
+import lib.alframeworkx.base.BasePresenter
+
+class LocationPermissionPresenter(context: Context) : BasePresenter(context) {
     init {
 
     }

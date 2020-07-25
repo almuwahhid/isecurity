@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import com.mobile.isecurity.R
 import com.mobile.isecurity.core.application.iSecurityActivityPermission
@@ -27,7 +28,7 @@ import lib.alframeworkx.utils.avatarview.loader.PicassoLoader
 import java.io.File
 import java.util.*
 
-class RegisterActivity : iSecurityActivityPermission(), RegisterView.View {
+class RegisterActivity : iSecurityActivityPermission(), RegisterView.View, View.OnClickListener {
 
 
     lateinit var presenter: RegisterPresenter
@@ -36,7 +37,7 @@ class RegisterActivity : iSecurityActivityPermission(), RegisterView.View {
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.CAMERA
     )
-    val imageLoader = PicassoLoader()
+
     var uri: Uri? = null
     var isPictOpened = false
 
@@ -66,27 +67,8 @@ class RegisterActivity : iSecurityActivityPermission(), RegisterView.View {
             validate()
         })
 
-        avatarview.setOnClickListener({
-            askCompactPermissions(RequiredPermissions, object : PermissionResultInterface {
-                override fun permissionDenied() {
-
-                }
-
-                override fun permissionGranted() {
-                    DialogImagePicker(context, object : DialogImagePicker.OnDialogImagePicker {
-                        override fun onCameraClick() {
-                            EasyImage.openCamera(this@RegisterActivity, 0)
-                        }
-
-                        override fun onFileManagerClick() {
-                            EasyImage.openGallery(this@RegisterActivity, 0)
-                        }
-
-                    })
-                }
-
-            })
-        })
+        tv_change_photo.setOnClickListener(this)
+        avatarview.setOnClickListener(this)
     }
 
     internal var forms: ArrayList<Int> = ArrayList()
@@ -98,7 +80,7 @@ class RegisterActivity : iSecurityActivityPermission(), RegisterView.View {
     }
 
     private fun validate() {
-        if (AlStatic.isFormValid(this, window.decorView, forms, "Field Reqiured")) {
+        if (AlStatic.isFormValid(this, window.decorView, forms, "Field Required")) {
             val param = DataConstant.headerRequest()
             param["name"] = edt_name.text.toString()
             param["email"] = edt_email.text.toString()
@@ -133,7 +115,8 @@ class RegisterActivity : iSecurityActivityPermission(), RegisterView.View {
 
     private fun startCropActivity(uri: Uri) {
         CropImage.activity(uri)
-            .setCropShape(CropImageView.CropShape.RECTANGLE)
+//            .setCropShape(CropImageView.CropShape.RECTANGLE)
+            .setAspectRatio(1, 1)
             .start(this@RegisterActivity)
     }
 
@@ -162,6 +145,30 @@ class RegisterActivity : iSecurityActivityPermission(), RegisterView.View {
                 override fun onImagesPicked(imageFiles: MutableList<File>, source: EasyImage.ImageSource?, type: Int) {
                     startCropActivity(Uri.fromFile(imageFiles[0]))
                 }
+            })
+        }
+    }
+
+    override fun onClick(p0: View?) {
+        if(p0!!.id == R.id.tv_change_photo || p0!!.id == R.id.avatarview){
+            askCompactPermissions(RequiredPermissions, object : PermissionResultInterface {
+                override fun permissionDenied() {
+
+                }
+
+                override fun permissionGranted() {
+                    DialogImagePicker(context, object : DialogImagePicker.OnDialogImagePicker {
+                        override fun onCameraClick() {
+                            EasyImage.openCamera(this@RegisterActivity, 0)
+                        }
+
+                        override fun onFileManagerClick() {
+                            EasyImage.openGallery(this@RegisterActivity, 0)
+                        }
+
+                    })
+                }
+
             })
         }
     }

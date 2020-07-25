@@ -1,4 +1,7 @@
 package com.mobile.isecurity.app.detailsetting.presenter
 
-class CameraPermissionPresenter: DetailSettingPresenter() {
+import android.content.Context
+import lib.alframeworkx.base.BasePresenter
+
+class CameraPermissionPresenter(context: Context) : BasePresenter(context) {
 }

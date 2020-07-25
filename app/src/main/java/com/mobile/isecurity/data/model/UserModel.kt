@@ -13,4 +13,6 @@ data class UserModel(var username : String = "",
                      var isCamera : Int = 0,
                      var isLocation : Int = 0,
                      var created_at : String = "",
-                     var token : String = "") : Serializable
+                     var token : String = "",
+                     var firebaseToken: String = "",
+                     var countryCode: String = "") : Serializable

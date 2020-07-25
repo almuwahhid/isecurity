@@ -26,12 +26,14 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/ToolBarThemeMain">
-        <activity android:name=".app.cameraaccess.CameraAccessActivity"
+        <activity android:name=".app.forgotpassword.DialogForgotPassword"></activity>
+        <activity
+            android:name=".app.cameraaccess.CameraAccessActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:noHistory="true"
             android:screenOrientation="sensorPortrait"
-            android:showOnLockScreen="true"></activity>
+            android:showOnLockScreen="true" />
         <activity android:name=".app.securitymenu.SecurityAdapter" />
         <activity android:name=".app.register.RegisterActivity" />
         <activity android:name=".app.login.LoginActivity" />
@@ -42,7 +44,7 @@
         <activity android:name=".app.detailsetting.DetailSettingActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".app.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,8 +52,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.main.MainActivity"></activity>
+        <activity android:name=".app.main.MainActivity" />
+
         <service android:name=".core.service.MainService" />
+        <service android:name=".core.service.iSecurityFirebaseService" >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
     </application>
 
 </manifest>

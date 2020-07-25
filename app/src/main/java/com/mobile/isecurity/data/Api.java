@@ -26,4 +26,19 @@ public class Api {
     public static String register() {
         return base_api + stringRegister();
     }
+
+    public static native String stringUpdateProfile();
+    public static String update_profile() {
+        return base_api + stringUpdateProfile();
+    }
+
+    public static native String stringUpdatePassword();
+    public static String change_password() {
+        return base_api + stringUpdatePassword();
+    }
+
+    public static native String stringForgotPassword();
+    public static String forgot_password() {
+        return base_api + stringForgotPassword();
+    }
 }

@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "267920358244",
+    "firebase_url": "https://isecurity-c28e5.firebaseio.com",
+    "project_id": "isecurity-c28e5",
+    "storage_bucket": "isecurity-c28e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267920358244:android:43da8fbe30a47af05bd871",
+        "android_client_info": {
+          "package_name": "com.isecurityapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267920358244-dp7nq56sssj00qumck8oqu366pt65p7o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.isecurityapp",
+            "certificate_hash": "12897d8c8686a24edacf1998ed5053c8788aaa40"
+          }
+        },
+        {
+          "client_id": "267920358244-71803c9auqoil0g6cmlqdl0s3l7kd51a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxtpU7UwsutIx-YpNUTritwOi1kMlO20I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267920358244-71803c9auqoil0g6cmlqdl0s3l7kd51a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "267920358244-ope0ao1d5novul6ujuhi8db14uaolesc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.isecurityapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267920358244:android:868560cff459198e5bd871",
+        "android_client_info": {
+          "package_name": "com.isecurityapp.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267920358244-qprmg6jtb71ntoqgl5aef1pv86ukbmhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.isecurityapp.dev",
+            "certificate_hash": "12897d8c8686a24edacf1998ed5053c8788aaa40"
+          }
+        },
+        {
+          "client_id": "267920358244-71803c9auqoil0g6cmlqdl0s3l7kd51a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxtpU7UwsutIx-YpNUTritwOi1kMlO20I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267920358244-71803c9auqoil0g6cmlqdl0s3l7kd51a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "267920358244-ope0ao1d5novul6ujuhi8db14uaolesc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.isecurityapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

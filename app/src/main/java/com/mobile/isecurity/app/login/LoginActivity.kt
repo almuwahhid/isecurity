@@ -2,8 +2,13 @@ package com.mobile.isecurity.app.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.FirebaseApp
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.Gson
 import com.mobile.isecurity.R
+import com.mobile.isecurity.app.forgotpassword.DialogForgotPassword
 import com.mobile.isecurity.app.main.MainActivity
 import com.mobile.isecurity.app.register.RegisterActivity
 import com.mobile.isecurity.core.application.iSecurityActivity
@@ -26,10 +31,15 @@ class LoginActivity : iSecurityActivity(), LoginView.View {
 
         presenter = LoginPresenter(context, this)
 
+
         if(iSecurityUtil.isUserLoggedIn(context)){
            finish()
            startActivity(Intent(context, MainActivity::class.java))
         }
+
+        tv_forgotpassword.setOnClickListener({
+            DialogForgotPassword(context)
+        })
 
         btn_login.setOnClickListener({
             if(edt_username.text.toString().equals("")){
@@ -46,9 +56,24 @@ class LoginActivity : iSecurityActivity(), LoginView.View {
     }
 
     override fun onSuccessLogin(userModel: UserModel, message : String) {
-        AlStatic.setSPString(context, StringConstant.LOGIN_SP, gson.toJson(userModel))
-        finish()
-        startActivity(Intent(context, MainActivity::class.java))
+        FirebaseApp.initializeApp(context)
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.d(LoginActivity::class.java.name, "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+                AlStatic.ToastShort(context, message)
+                userModel.firebaseToken = task.result?.token!!
+                Log.d(LoginActivity::class.java.name, "getInstanceId success"+ task.result?.token!!)
+                AlStatic.setSPString(context, StringConstant.LOGIN_SP, gson.toJson(userModel))
+                finish()
+                startActivity(Intent(context, MainActivity::class.java))
+                // Log and toast
+//                val msg = getString(R.string.msg_token_fmt, token)
+//                Log.d(TAG, msg)
+//                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+            })
     }
 
     override fun onHideLoading() {
