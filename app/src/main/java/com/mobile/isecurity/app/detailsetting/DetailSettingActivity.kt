@@ -8,15 +8,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.mobile.isecurity.R
-import com.mobile.isecurity.app.detailsetting.presenter.CameraPermissionPresenter
-import com.mobile.isecurity.app.detailsetting.presenter.FilePermissionPresenter
-import com.mobile.isecurity.app.detailsetting.presenter.LocationPermissionPresenter
-import com.mobile.isecurity.app.detailsetting.presenter.SMSPermissionPresenter
+import com.mobile.isecurity.app.detailsetting.presenter.*
 import com.mobile.isecurity.core.application.iSecurityActivityPermission
 import com.mobile.isecurity.core.service.MainService
 import com.mobile.isecurity.data.StringConstant
@@ -43,6 +37,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
     lateinit var userModel: UserModel
 
     lateinit var presenterLocation : LocationPermissionPresenter
+    lateinit var presenterContact: ContactPermissionPresenter
     lateinit var presenterFile : FilePermissionPresenter
     lateinit var presenterSMS : SMSPermissionPresenter
     lateinit var presenterCamera : CameraPermissionPresenter
@@ -57,6 +52,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
             userModel = iSecurityUtil.userLoggedIn(context, gson)!!
             presenterLocation = LocationPermissionPresenter(context, userModel, this)
             presenterSMS = SMSPermissionPresenter(context, userModel, this)
+            presenterContact = ContactPermissionPresenter(context, userModel, this)
         } else {
             finish()
         }
@@ -155,9 +151,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                     }
 
                     override fun permissionGranted() {
-                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-                        initEnableComponent(securityMenuModel.status)
+                        presenterContact.setAccessPermission(if(securityMenuModel.status == 0) ""+1 else ""+0)
                     }
 
                 })
@@ -225,14 +219,22 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
         }
     }
 
-    override fun onRequestNewLocation(message: String) {
+    override fun onRequestNewLocation(isSuccess: Boolean, message: String) {
         AlStatic.ToastShort(context, message)
         securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
         AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
         initEnableComponent(securityMenuModel.status)
     }
 
-    override fun onRequestNewSMS(message: String) {
+    override fun onRequestNewSMS(isSuccess: Boolean, message: String) {
+        AlStatic.ToastShort(context, message)
+        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
+        initEnableComponent(securityMenuModel.status)
+    }
+
+    override fun onRequestNewContact(isSuccess: Boolean, message: String) {
+        AlStatic.ToastShort(context, message)
         securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
         AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
         initEnableComponent(securityMenuModel.status)

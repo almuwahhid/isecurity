@@ -12,12 +12,16 @@ interface DetailSettingView {
     interface PresenterCamera{
 
     }
+    interface PresenterContact{
+        fun requestContact(isLoadingShown: Boolean)
+    }
     interface PresenterSMS{
         fun requestSMS(isLoadingShown: Boolean)
     }
     interface View: BaseView{
-        fun onRequestNewLocation(message: String)
-        fun onRequestNewSMS(message: String)
+        fun onRequestNewLocation(isSuccess: Boolean, message: String)
+        fun onRequestNewSMS(isSuccess: Boolean, message: String)
+        fun onRequestNewContact(isSuccess: Boolean, message: String)
     }
 
     interface Presenter{

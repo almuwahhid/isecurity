@@ -33,9 +33,9 @@ class LocationPermissionPresenter(context: Context, userModel: UserModel, view: 
                         view.onHideLoading()
                         try {
                             if (response!!.getString("status").equals("ok")) {
-                                view!!.onRequestNewLocation(response.getString("message"))
+                                view!!.onRequestNewLocation(true, response.getString("message"))
                             } else {
-                                view!!.onError(response.getString("message"))
+                                view!!.onRequestNewLocation(false, response.getString("message"))
                             }
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -78,7 +78,7 @@ class LocationPermissionPresenter(context: Context, userModel: UserModel, view: 
                             requestNewLocation(false)
                         } else {
                             view.onHideLoading()
-                            view!!.onRequestNewLocation(response.getString("message"))
+                            view!!.onRequestNewLocation(true, response.getString("message"))
                         }
                     } else {
                         view!!.onError(response.getString("message"))

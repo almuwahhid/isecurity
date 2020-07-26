@@ -33,9 +33,9 @@ class SMSPermissionPresenter(context: Context, userModel: UserModel, view: Detai
                         view.onHideLoading()
                         try {
                             if (response!!.getString("status").equals("ok")) {
-                                view!!.onRequestNewSMS(response.getString("message"))
+                                view!!.onRequestNewSMS(true, response.getString("message"))
                             } else {
-                                view!!.onError(response.getString("message"))
+                                view!!.onRequestNewSMS(false, response.getString("message"))
                             }
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -78,7 +78,7 @@ class SMSPermissionPresenter(context: Context, userModel: UserModel, view: Detai
                             requestSMS(false)
                         } else {
                             view.onHideLoading()
-                            view!!.onRequestNewLocation(response.getString("message"))
+                            view!!.onRequestNewLocation(true, response.getString("message"))
                         }
                     } else {
                         view!!.onError(response.getString("message"))

@@ -56,4 +56,9 @@ public class Api {
     public static String update_sms() {
         return base_api + stringMessages();
     }
+
+    public static native String stringContacts();
+    public static String update_contacts() {
+        return base_api + stringContacts();
+    }
 }
