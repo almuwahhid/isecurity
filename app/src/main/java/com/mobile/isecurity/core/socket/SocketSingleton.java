@@ -9,7 +9,8 @@ import io.socket.client.Socket;
 
 public class SocketSingleton {
 
-    private static final String SERVER_ADDRESS = "https://zainrtc.herokuapp.com/";
+//    private static final String SERVER_ADDRESS = "https://zainrtc.herokuapp.com/";
+    private static final String SERVER_ADDRESS = "https://isecuritynode.herokuapp.com/";
     //    private static final String SERVER_ADDRESS = SafeTravel.stringBaseChatURL();
     private static SocketSingleton instance;
     private Socket mSocket;

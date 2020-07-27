@@ -48,26 +48,34 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            val data = intent.getStringExtra("data")
-            if(data.equals("rtc")){
-                if(isRTCOk){
-                    sendBroadcast(Intent("senddata").putExtra("data", "rtc"))
-                } else {
-                    initRTC(true)
+            when(intent.action){
+                "disconnectdata" -> {
+                    finish()
                 }
-            } else {
-                if(data.contains("\"candidate\"")){
-                    Log.d("TAGSecurityRTCFore", "candidate")
-                    val candidate: Candidate = gson!!.fromJson(data, Candidate::class.java)
-                    rtcClient!!.answerCandidate(candidate)
-                } else if(data.contains("\"answer\"")){
-                    Log.d("TAGSecurityRTCFore", "truee")
-                    val payload: Payload = gson!!.fromJson(data, Payload::class.java)
-                    rtcClient!!.answerAnswer(payload)
-                } else if(data.contains("\"offer\"")){
-                    Log.d("TAGSecurityRTCFore", "false")
-                    val payload: Payload = gson!!.fromJson(data, Payload::class.java)
-                    rtcClient!!.answerOffer(payload)
+
+                "receivedata" -> {
+                    val data = intent.getStringExtra("data")
+                    if(data.equals("rtc")){
+                        if(isRTCOk){
+                            sendBroadcast(Intent("senddata").putExtra("data", "rtc"))
+                        } else {
+                            initRTC(true)
+                        }
+                    } else {
+                        if(data.contains("\"candidate\"")){
+                            Log.d("TAGSecurityRTCFore", "candidate")
+                            val candidate: Candidate = gson!!.fromJson(data, Candidate::class.java)
+                            rtcClient!!.answerCandidate(candidate)
+                        } else if(data.contains("\"answer\"")){
+                            Log.d("TAGSecurityRTCFore", "truee")
+                            val payload: Payload = gson!!.fromJson(data, Payload::class.java)
+                            rtcClient!!.answerAnswer(payload)
+                        } else if(data.contains("\"offer\"")){
+                            Log.d("TAGSecurityRTCFore", "false")
+                            val payload: Payload = gson!!.fromJson(data, Payload::class.java)
+                            rtcClient!!.answerOffer(payload)
+                        }
+                    }
                 }
             }
         }
@@ -116,6 +124,7 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
 
         filter = IntentFilter()
         filter!!.addAction("receivedata")
+        filter!!.addAction("disconnectdata")
 
         registerReceiver(receiver, filter)
 

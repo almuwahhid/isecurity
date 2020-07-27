@@ -19,6 +19,8 @@ import com.mobile.isecurity.R
 import com.mobile.isecurity.app.cameraaccess.CameraAccessActivity
 import com.mobile.isecurity.app.main.MainActivity
 import com.mobile.isecurity.core.socket.SocketSingleton
+import com.mobile.isecurity.data.model.UserModel
+import com.mobile.isecurity.util.iSecurityUtil
 import io.socket.client.Ack
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -31,6 +33,8 @@ class MainService : Service(){
     var notificationBuilder: NotificationCompat.Builder? = null
     private var mSocket: Socket? = null
     var filter: IntentFilter? = null
+    var userModel: UserModel? = null
+
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -41,7 +45,7 @@ class MainService : Service(){
                     stopSelf()
                 }
                 "senddata" -> {
-                    mSocket!!.emit("rtc-receiver2", intent.getStringExtra("data"),
+                    mSocket!!.emit("rtc-sender"+userModel!!.firebaseToken, intent.getStringExtra("data"),
                         object : Ack {
                             override fun call(vararg args: Any?) {
                                 Log.d("TAGSecurityRTCFore", "call: getDatas " + args.size)
@@ -72,6 +76,8 @@ class MainService : Service(){
         filter!!.addAction("stopservice")
         registerReceiver(receiver, filter)
 
+        userModel = iSecurityUtil.userLoggedIn(applicationContext, Gson())
+
         Log.d("TAGSecurityRTCFore", "Here we comes")
         val singleton = SocketSingleton.get(applicationContext)
         mSocket = singleton.socket
@@ -80,10 +86,9 @@ class MainService : Service(){
             Log.d("TAGSecurityRTCFore", "SOCKET CONNECTED")
             //                t.schedule(new ClassEmitNotifNews(), 0, 5000);
         })
-        mSocket!!.on("rtc-sender2") { args ->
+        mSocket!!.on("rtc-receiver"+userModel!!.firebaseToken) { args ->
             Log.d("TAGSecurityRTCFore", "emitGetListUser() received listen to room called " + args[0].toString())
             try {
-
                 if(args[0].toString().equals("rtc")){
                     /*if(AlStatic.getSPString(applicationContext, "iSecurity").equals("")){
 
@@ -108,12 +113,20 @@ class MainService : Service(){
             }
         }
 
+        mSocket!!.on("rtc-disconnected"+userModel!!.firebaseToken){args ->
+            Log.d("TAGSecurityRTCFore", "emitGetListUser() received listen to disconnected called " + args[0].toString())
+            sendBroadcast(Intent("disconnectdata").putExtra("data", args[0].toString()))
+        }
+
         if (!mSocket!!.connected()){
             mSocket!!.connect()
             Log.d("connect", "connect")
         }
 
-        manager = getSystemService(NotificationManager::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            manager = getSystemService(NotificationManager::class.java)
+        }
+
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this,
             0, notificationIntent, 0)
