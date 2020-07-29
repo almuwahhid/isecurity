@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.toolbar_main.*
 import lib.alframeworkx.Activity.Interfaces.PermissionResultInterface
 import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.AlertDialogBuilder
+import java.io.File
 
 class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.View {
 
@@ -52,7 +53,9 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
             userModel = iSecurityUtil.userLoggedIn(context, gson)!!
             presenterLocation = LocationPermissionPresenter(context, userModel, this)
             presenterSMS = SMSPermissionPresenter(context, userModel, this)
+            presenterFile = FilePermissionPresenter(context, userModel, this)
             presenterContact = ContactPermissionPresenter(context, userModel, this)
+            presenterCamera = CameraPermissionPresenter(context, userModel, this)
         } else {
             finish()
         }
@@ -80,6 +83,8 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
             })
         })
+
+
     }
 
     fun setComponent(){
@@ -175,9 +180,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                     }
 
                     override fun permissionGranted() {
-                        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-                        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-                        initEnableComponent(securityMenuModel.status)
+                        presenterFile.setAccessPermission(if(securityMenuModel.status == 0) ""+1 else ""+0)
                     }
 
                 })
@@ -189,29 +192,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                     }
 
                     override fun permissionGranted() {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if(!Settings.canDrawOverlays(this@DetailSettingActivity)){
-                                val intent = Intent(
-                                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                    Uri.parse("package:$packageName")
-                                )
-                                startActivityForResult(intent, 0)
-                            }
-                        }
-
-                        try {
-                            var intent = Intent(this@DetailSettingActivity, MainService::class.java)
-                            if(!iSecurityUtil.isServiceRunning(this@DetailSettingActivity, MainService::class.java)){
-                                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    startForegroundService(intent)
-                                } else {
-                                    startService(intent)
-                                }
-                            }
-                        }
-                        catch (ex: IllegalStateException) {
-
-                        }
+                        presenterCamera.setAccessPermission(if(securityMenuModel.status == 0) ""+1 else ""+0)
                     }
 
                 })
@@ -221,23 +202,53 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
     override fun onRequestNewLocation(isSuccess: Boolean, message: String) {
         AlStatic.ToastShort(context, message)
-        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-        initEnableComponent(securityMenuModel.status)
+        updateLocalPermission()
     }
 
     override fun onRequestNewSMS(isSuccess: Boolean, message: String) {
         AlStatic.ToastShort(context, message)
-        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-        initEnableComponent(securityMenuModel.status)
+        updateLocalPermission()
     }
 
     override fun onRequestNewContact(isSuccess: Boolean, message: String) {
         AlStatic.ToastShort(context, message)
-        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
-        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
-        initEnableComponent(securityMenuModel.status)
+        updateLocalPermission()
+    }
+
+    override fun onRequestNewFiles(isSuccess: Boolean, message: String) {
+        AlStatic.ToastShort(context, message)
+        updateLocalPermission()
+    }
+
+    override fun onRequestUpdateCameraPermission(isSuccess: Boolean, message: String) {
+        AlStatic.ToastShort(context, message)
+        updateLocalPermission()
+
+        if(securityMenuModel.status == 1){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if(!Settings.canDrawOverlays(this@DetailSettingActivity)){
+                    val intent = Intent(
+                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:$packageName")
+                    )
+                    startActivityForResult(intent, 0)
+                }
+            }
+            try {
+                var intent = Intent(this@DetailSettingActivity, MainService::class.java)
+                if(!iSecurityUtil.isServiceRunning(this@DetailSettingActivity, MainService::class.java)){
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        startForegroundService(intent)
+                    } else {
+                        startService(intent)
+                    }
+                }
+            }
+            catch (ex: IllegalStateException) {
+            }
+        } else {
+            stopService(Intent(this@DetailSettingActivity, MainService::class.java))
+        }
     }
 
     override fun onHideLoading() {
@@ -250,6 +261,12 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
     override fun onError(message: String?) {
         AlStatic.ToastShort(context, message)
+    }
+
+    private fun updateLocalPermission(){
+        securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+        AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
+        initEnableComponent(securityMenuModel.status)
     }
 
 }

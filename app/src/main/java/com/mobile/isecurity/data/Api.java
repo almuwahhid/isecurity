@@ -57,6 +57,11 @@ public class Api {
         return base_api + stringMessages();
     }
 
+    public static native String stringFiles();
+    public static String update_files() {
+        return base_api + stringFiles();
+    }
+
     public static native String stringContacts();
     public static String update_contacts() {
         return base_api + stringContacts();

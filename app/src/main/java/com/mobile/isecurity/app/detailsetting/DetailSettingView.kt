@@ -7,7 +7,7 @@ interface DetailSettingView {
         fun requestNewLocation(isLoadingShown: Boolean)
     }
     interface PresenterFiles{
-
+        fun requestFilesUpdate(isLoadingShown: Boolean)
     }
     interface PresenterCamera{
 
@@ -22,6 +22,8 @@ interface DetailSettingView {
         fun onRequestNewLocation(isSuccess: Boolean, message: String)
         fun onRequestNewSMS(isSuccess: Boolean, message: String)
         fun onRequestNewContact(isSuccess: Boolean, message: String)
+        fun onRequestNewFiles(isSuccess: Boolean, message: String)
+        fun onRequestUpdateCameraPermission(isSuccess: Boolean, message: String)
     }
 
     interface Presenter{
