@@ -9,6 +9,6 @@ interface LoginView {
     }
 
     interface Presenter{
-        fun requestLogin(username: String, password : String)
+        fun requestLogin(username: String, password : String, token : String)
     }
 }

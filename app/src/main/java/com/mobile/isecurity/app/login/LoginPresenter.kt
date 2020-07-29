@@ -18,7 +18,7 @@ class LoginPresenter(context: Context?, view: LoginView.View) : BasePresenter(co
         this.view = view
     }
 
-    override fun requestLogin(username: String, password: String) {
+    override fun requestLogin(username: String, password: String, token: String) {
         AlRequest.POST(Api.login(), context, object : AlRequest.OnPostRequest{
             override fun onSuccess(response: JSONObject?) {
                 view!!.onHideLoading()
@@ -49,6 +49,7 @@ class LoginPresenter(context: Context?, view: LoginView.View) : BasePresenter(co
                 val param = DataConstant.headerRequest()
                 param["email"] = username
                 param["password"] = password
+                param["deviceToken"] = token
                 return param
             }
 
