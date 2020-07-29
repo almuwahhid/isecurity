@@ -2,22 +2,17 @@ package chat.rocket.android.call.GTRTC
 
 
 import android.content.Context
-import android.content.Intent
 import android.hardware.camera2.CameraDevice
 import android.media.MediaRecorder
 import android.opengl.EGLContext
-import android.os.Build
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.WindowManager
-import androidx.annotation.RequiresApi
 import com.almuwahhid.isecurityrtctest.Candidate
 import com.almuwahhid.isecurityrtctest.Payload
-
 import com.google.gson.Gson
 import com.mobile.isecurity.core.rtc.GTPeerConnectionParameters
-
 import org.json.JSONException
 import org.json.JSONObject
 import org.webrtc.*
@@ -248,7 +243,8 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
     private fun getVideoCapturer(): VideoCapturer {
         //            TODO : here
 //        TODO("Not yet implemented")
-        val frontCameraDeviceName = VideoCapturerAndroid.getNameOfBackFacingDevice()
+//        val frontCameraDeviceName = VideoCapturerAndroid.getNameOfBackFacingDevice()
+        val frontCameraDeviceName = VideoCapturerAndroid.getNameOfFrontFacingDevice()
         videoCapturer = VideoCapturerAndroid.create(frontCameraDeviceName)
         return videoCapturer!!
     }

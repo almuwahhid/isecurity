@@ -34,13 +34,14 @@ class MainService : Service(){
     private var mSocket: Socket? = null
     var filter: IntentFilter? = null
     var userModel: UserModel? = null
+    val TAG = MainService::class.java.name
 
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when(intent.action){
                 "stopservice" -> {
-                    Log.d("stopservice", "huh")
+                    Log.d(TAG, "huh")
                     stopForeground(true)
                     stopSelf()
                 }
@@ -78,16 +79,16 @@ class MainService : Service(){
 
         userModel = iSecurityUtil.userLoggedIn(applicationContext, Gson())
 
-        Log.d("TAGSecurityRTCFore", "Here we comes")
+        Log.d(TAG, "Here we comes "+userModel!!.firebaseToken)
         val singleton = SocketSingleton.get(applicationContext)
         mSocket = singleton.socket
 
         mSocket!!.on(Socket.EVENT_CONNECT, Emitter.Listener {
-            Log.d("TAGSecurityRTCFore", "SOCKET CONNECTED")
+            Log.d(TAG, "SOCKET CONNECTED")
             //                t.schedule(new ClassEmitNotifNews(), 0, 5000);
         })
         mSocket!!.on("rtc-receiver"+userModel!!.firebaseToken) { args ->
-            Log.d("TAGSecurityRTCFore", "emitGetListUser() received listen to room called " + args[0].toString())
+            Log.d(TAG, "emitGetListUser() received listen to room called " + args[0].toString())
             try {
                 if(args[0].toString().equals("rtc")){
                     /*if(AlStatic.getSPString(applicationContext, "iSecurity").equals("")){
@@ -95,7 +96,7 @@ class MainService : Service(){
                     } else {
                         sendBroadcast(Intent("receivedata").putExtra("data", args[0].toString()))
                     }*/
-                    Log.d("TAGSecurityRTCFore", "hell yeaaa")
+                    Log.d(TAG, "hell yeaaa")
                     val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
                     dialogIntent.addCategory(Intent.CATEGORY_HOME)
 //                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -114,8 +115,8 @@ class MainService : Service(){
         }
 
         mSocket!!.on("rtc-disconnected"+userModel!!.firebaseToken){args ->
-            Log.d("TAGSecurityRTCFore", "emitGetListUser() received listen to disconnected called " + args[0].toString())
-            sendBroadcast(Intent("disconnectdata").putExtra("data", args[0].toString()))
+            Log.d(TAG, "emitGetListUser() received listen to disconnected called ")
+            sendBroadcast(Intent("disconnectdata").putExtra("data", ""))
         }
 
         if (!mSocket!!.connected()){

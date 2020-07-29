@@ -31,6 +31,8 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/login/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/login/LoginActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/login/LoginPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/login/LoginPresenter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/login/LoginView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/login/LoginView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc/GTRTCCLient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc/GTRTCCLient.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/MainService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/MainService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/Api.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/version.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/version.properties" afterDir="false" />
     </list>
