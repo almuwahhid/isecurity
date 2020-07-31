@@ -46,7 +46,7 @@ class MainService : Service(){
                     stopSelf()
                 }
                 "senddata" -> {
-                    mSocket!!.emit("rtc-sender"+userModel!!.firebaseToken, intent.getStringExtra("data"),
+                    mSocket!!.emit("rtc-receiver"+userModel!!.firebaseToken, intent.getStringExtra("data"),
                         object : Ack {
                             override fun call(vararg args: Any?) {
                                 Log.d("TAGSecurityRTCFore", "call: getDatas " + args.size)
@@ -87,7 +87,7 @@ class MainService : Service(){
             Log.d(TAG, "SOCKET CONNECTED")
             //                t.schedule(new ClassEmitNotifNews(), 0, 5000);
         })
-        mSocket!!.on("rtc-receiver"+userModel!!.firebaseToken) { args ->
+        mSocket!!.on("rtc-sender"+userModel!!.firebaseToken) { args ->
             Log.d(TAG, "emitGetListUser() received listen to room called " + args[0].toString())
             try {
                 if(args[0].toString().equals("rtc")){

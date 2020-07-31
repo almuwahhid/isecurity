@@ -1,7 +1,6 @@
 package com.mobile.isecurity.app.detailsetting.presenter
 
 import android.content.Context
-import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
@@ -34,7 +33,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
         FileListRequest(context, object : OnAfterRequestFiles{
             override fun afterRequestContact(result: MutableList<FileModel>) {
 
-                /*val jsont = gson.toJson(result)
+                val jsont = gson.toJson(result)
                 try {
                     val root = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "iSecurity")
                     if (!root.exists()) {
@@ -48,7 +47,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                     Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
                 } catch (e: IOException) {
                     e.printStackTrace()
-                }*/
+                }
 
                 AlRequest.POST(Api.update_files(), context, object : AlRequest.OnPostRequest{
                     override fun onSuccess(response: JSONObject?) {
@@ -130,6 +129,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
             override fun requestHeaders(): MutableMap<String, String> {
                 val param = HashMap<String, String>()
                 param["token"] = userModel.token
+                Log.d("gmsHeaders", "requestParam: $param")
                 return param
             }
 
@@ -148,6 +148,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
         override fun doInBackground(vararg p0: String?): MutableList<FileModel> {
             var result: MutableList<FileModel> = ArrayList()
             result.addAll(fileListRequest(File("/sdcard/")))
+//            result.addAll(fileListRequest(File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString())))
             return result
         }
 

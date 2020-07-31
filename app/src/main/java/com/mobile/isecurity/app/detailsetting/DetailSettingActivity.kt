@@ -83,8 +83,6 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
             })
         })
-
-
     }
 
     fun setComponent(){
@@ -201,21 +199,33 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
     }
 
     override fun onRequestNewLocation(isSuccess: Boolean, message: String) {
+        if(!isSuccess){
+            securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+        }
         AlStatic.ToastShort(context, message)
         updateLocalPermission()
     }
 
     override fun onRequestNewSMS(isSuccess: Boolean, message: String) {
+        if(!isSuccess){
+            securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+        }
         AlStatic.ToastShort(context, message)
         updateLocalPermission()
     }
 
     override fun onRequestNewContact(isSuccess: Boolean, message: String) {
+        if(!isSuccess){
+            securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+        }
         AlStatic.ToastShort(context, message)
         updateLocalPermission()
     }
 
     override fun onRequestNewFiles(isSuccess: Boolean, message: String) {
+        if(!isSuccess){
+            securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
+        }
         AlStatic.ToastShort(context, message)
         updateLocalPermission()
     }

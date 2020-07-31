@@ -140,7 +140,7 @@ class SMSPermissionPresenter(context: Context, userModel: UserModel, view: Detai
                         val message =
                             SMSModel()
                         message.phone_number = cursor.getString(cursor.getColumnIndex("address"))
-                        message.messages = cursor.getString(cursor.getColumnIndex("body"))
+                        message.messages = cursor.getString(cursor.getColumnIndex("body")).replace("\"", "^^")
                         message.read_state = when(cursor.getString(cursor.getColumnIndex("read"))){
                             "1" -> SMSModel.STATE_READ
                             "0" -> SMSModel.STATE_DELIVERED

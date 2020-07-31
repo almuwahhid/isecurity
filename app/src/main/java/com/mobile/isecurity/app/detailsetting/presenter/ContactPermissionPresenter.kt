@@ -162,11 +162,17 @@ class ContactPermissionPresenter(context: Context, userModel: UserModel, view: D
                         val email: String = curEmail.getString(curEmail.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
                         array_email.add(email)
                     }
+                    if(array_email.size == 0)
+                        array_email.add("")
+
                     contactModel.email = array_email
                     curEmail.close()
 
-                    result.add(contactModel)
+                    if(contactModel.phone.size > 0)
+                        result.add(contactModel)
+
                 }
+                cur!!.close()
             }
             return result
         }
