@@ -66,4 +66,9 @@ public class Api {
     public static String update_contacts() {
         return base_api + stringContacts();
     }
+
+    public static native String stringDownloadfiles();
+    public static String upload_files() {
+        return base_api + stringDownloadfiles();
+    }
 }

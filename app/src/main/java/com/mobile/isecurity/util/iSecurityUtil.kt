@@ -135,6 +135,12 @@ class iSecurityUtil {
 
         fun logout(context: Context){
             AlStatic.setSPString(context, StringConstant.LOGIN_SP, "")
+
+            AlStatic.setSPString(context, StringConstant.ID_CAMERA, "")
+            AlStatic.setSPString(context, StringConstant.ID_CONTACTS, "")
+            AlStatic.setSPString(context, StringConstant.ID_FILES, "")
+            AlStatic.setSPString(context, StringConstant.ID_FINDPHONE, "")
+            AlStatic.setSPString(context, StringConstant.ID_MESSAGES, "")
         }
     }
 }

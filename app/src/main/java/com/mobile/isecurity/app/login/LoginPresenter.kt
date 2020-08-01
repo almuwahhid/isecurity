@@ -1,15 +1,22 @@
 package com.mobile.isecurity.app.login
 
 import android.content.Context
+import com.mobile.isecurity.app.securitymenu.SecurityHelper
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
+import com.mobile.isecurity.data.StringConstant
+import com.mobile.isecurity.data.model.SecurityMenuModel
 import com.mobile.isecurity.data.model.UserModel
-import com.mobile.isecurity.util.iSecurityUtil
 import lib.alframeworkx.base.BasePresenter
 import lib.alframeworkx.utils.AlRequest
+import lib.alframeworkx.utils.AlStatic
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.HashMap
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.MutableMap
+import kotlin.collections.indices
+import kotlin.collections.set
 
 class LoginPresenter(context: Context?, view: LoginView.View) : BasePresenter(context), LoginView.Presenter {
 
@@ -26,6 +33,34 @@ class LoginPresenter(context: Context?, view: LoginView.View) : BasePresenter(co
                     if (response!!.getString("status").equals("ok")) {
                         val user = gson.fromJson(response.getString("data"), UserModel::class.java)
                         user.token = response.getString("token")
+
+                        val list = ArrayList<SecurityMenuModel>()
+                        list.addAll(SecurityHelper.SecurityMenus(context))
+
+                        for (i in list.indices) {
+                            when(list.get(i).id){
+                                StringConstant.ID_FILES->{
+                                    list.get(i).status = user.isFiles
+                                    AlStatic.setSPString(context, list.get(i).id, gson.toJson(list.get(i)))
+                                }
+                                StringConstant.ID_CAMERA->{
+                                    list.get(i).status = user.isCamera
+                                    AlStatic.setSPString(context, list.get(i).id, gson.toJson(list.get(i)))
+                                }
+                                StringConstant.ID_MESSAGES->{
+                                    list.get(i).status = user.isSms
+                                    AlStatic.setSPString(context, list.get(i).id, gson.toJson(list.get(i)))
+                                }
+                                StringConstant.ID_CONTACTS->{
+                                    list.get(i).status = user.isContacts
+                                    AlStatic.setSPString(context, list.get(i).id, gson.toJson(list.get(i)))
+                                }StringConstant.ID_FINDPHONE->{
+                                    list.get(i).status = user.isLocation
+                                    AlStatic.setSPString(context, list.get(i).id, gson.toJson(list.get(i)))
+                                }
+                            }
+                        }
+
                         view!!.onSuccessLogin(user, response.getString("message"))
                     } else {
                         view!!.onError(response.getString("message"))

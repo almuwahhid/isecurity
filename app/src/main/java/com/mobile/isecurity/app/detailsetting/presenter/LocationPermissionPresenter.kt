@@ -2,17 +2,17 @@ package com.mobile.isecurity.app.detailsetting.presenter
 
 import android.content.Context
 import android.location.Location
+import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.mobile.isecurity.app.detailsetting.DetailSettingView
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
 import com.mobile.isecurity.data.model.UserModel
-import lib.alframeworkx.base.BasePresenter
 import lib.alframeworkx.utils.AlRequest
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.HashMap
+import java.util.*
 
 class LocationPermissionPresenter(context: Context, userModel: UserModel, view: DetailSettingView.View) : DetailSettingPresenter(context), DetailSettingView.PresenterLocation {
 
@@ -62,6 +62,7 @@ class LocationPermissionPresenter(context: Context, userModel: UserModel, view: 
                     override fun requestHeaders(): MutableMap<String, String> {
                         val param = HashMap<String, String>()
                         param["token"] = userModel.token
+                        Log.d("gmsHeaders", "requestHeaders: $param")
                         return param
                     }
 

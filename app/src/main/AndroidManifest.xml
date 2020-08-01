@@ -55,7 +55,7 @@
         <activity android:name=".app.main.MainActivity" />
 
         <service android:name=".core.service.MainService" />
-        <service android:name=".core.service.iSecurityFirebaseService" >
+        <service android:name=".core.service.Firebase.iSecurityFirebaseService" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

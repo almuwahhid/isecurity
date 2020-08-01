@@ -58,7 +58,7 @@ class ContactPermissionPresenter(context: Context, userModel: UserModel, view: D
 
                     override fun requestParam(): MutableMap<String, String> {
                         val param = DataConstant.headerRequest()
-                        param["messages"] = gson.toJson(result)
+                        param["phoneNumbers"] = gson.toJson(result)
                         return param
                     }
 
@@ -162,15 +162,18 @@ class ContactPermissionPresenter(context: Context, userModel: UserModel, view: D
                         val email: String = curEmail.getString(curEmail.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
                         array_email.add(email)
                     }
-                    if(array_email.size == 0)
-                        array_email.add("")
+//                    if(array_email.size == 0)
+//                        array_email.add("")
 
                     contactModel.email = array_email
                     curEmail.close()
 
-                    if(contactModel.phone.size > 0)
-                        result.add(contactModel)
-
+                    if(contactModel.phone.size > 0){
+                        if(result.size < 1){
+                            result.add(contactModel)
+                        }
+//                        result.add(contactModel)
+                    }
                 }
                 cur!!.close()
             }

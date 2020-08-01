@@ -1,16 +1,18 @@
 package com.mobile.isecurity.app.detailsetting.presenter
 
 import android.content.Context
+import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
-import android.widget.Toast
 import com.mobile.isecurity.app.detailsetting.DetailSettingView
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
 import com.mobile.isecurity.data.model.Files.FileModel
 import com.mobile.isecurity.data.model.UserModel
+import com.mobile.isecurity.util.iSecurityUtil
 import lib.alframeworkx.utils.AlRequest
+import lib.alframeworkx.utils.VolleyMultipartRequest
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
@@ -32,24 +34,52 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
     override fun requestFilesUpdate(isLoadingShown: Boolean) {
         FileListRequest(context, object : OnAfterRequestFiles{
             override fun afterRequestContact(result: MutableList<FileModel>) {
+                if(isJsonFileSaved(result)){
+                    AlRequest.POSTMultipart(Api.update_files(), context, object : AlRequest.OnMultipartRequest{
+                        override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
+                            val params = HashMap<String, VolleyMultipartRequest.DataPart>()
+                            params["user_file"] = getFileParam()
+                            return params
+                        }
 
-                val jsont = gson.toJson(result)
-                try {
-                    val root = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "iSecurity")
-                    if (!root.exists()) {
-                        root.mkdirs()
-                    }
-                    val gpxfile = File(root, "data-files.txt")
-                    val writer = FileWriter(gpxfile)
-                    writer.append(jsont)
-                    writer.flush()
-                    writer.close()
-                    Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
-                } catch (e: IOException) {
-                    e.printStackTrace()
+                        override fun onPreExecuted() {
+                            view.onLoading()
+                        }
+
+                        override fun onSuccess(response: JSONObject?) {
+                            view.onHideLoading()
+                            try {
+                                if (response!!.getString("status").equals("ok")) {
+                                    view!!.onRequestNewSMS(true, response.getString("message"))
+                                } else {
+                                    view!!.onRequestNewSMS(false, response.getString("message"))
+                                }
+                            } catch (e: JSONException) {
+                                e.printStackTrace()
+                            }
+
+                        }
+
+                        override fun onFailure(error: String?) {
+                            view.onHideLoading()
+                            view!!.onError(error)
+                        }
+
+                        override fun requestParam(): MutableMap<String, String> {
+                            val param = DataConstant.headerRequest()
+                            return param
+                        }
+
+                        override fun requestHeaders(): MutableMap<String, String> {
+                            val param = HashMap<String, String>()
+                            param["token"] = userModel.token
+                            return param
+                        }
+
+                    })
                 }
 
-                AlRequest.POST(Api.update_files(), context, object : AlRequest.OnPostRequest{
+                /*AlRequest.POST(Api.update_files(), context, object : AlRequest.OnPostRequest{
                     override fun onSuccess(response: JSONObject?) {
                         view.onHideLoading()
                         try {
@@ -85,7 +115,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                         return param
                     }
 
-                })
+                })*/
             }
         }).execute()
     }
@@ -193,6 +223,32 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
         fun afterRequestContact(result: MutableList<FileModel>)
     }
 
+    private fun isJsonFileSaved(result: MutableList<FileModel>) : Boolean {
+
+        val jsont = gson.toJson(result)
+        try {
+            val root = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "iSecurity")
+            if (!root.exists()) {
+                root.mkdirs()
+            }
+            val gpxfile = File(root, "isecurity-files.txt")
+            val writer = FileWriter(gpxfile)
+            writer.append(jsont)
+            writer.flush()
+            writer.close()
+//            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+
+            return true
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return false
+        }
+    }
+
+    private fun getFileParam() : VolleyMultipartRequest.DataPart{
+        val file_uri = Uri.withAppendedPath(Uri.fromFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)), "iSecurity/isecurity-files.txt")
+        return VolleyMultipartRequest.DataPart(file_uri!!.path, iSecurityUtil.getBytesFile(context, file_uri), iSecurityUtil.getTypeFile(context, file_uri!!))
+    }
 
 
 }

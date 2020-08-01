@@ -11,6 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c6fb1e5-ab65-4b54-b2a4-85ea38fd33ae" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/FirebaseServicePresenter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/UploadingFileService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -22,11 +24,13 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/DetailSettingActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/DetailSettingActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/ContactPermissionPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/ContactPermissionPresenter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/FilePermissionPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/FilePermissionPresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/SMSPermissionPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/SMSPermissionPresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/MainService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/MainService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/LocationPermissionPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/LocationPermissionPresenter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/login/LoginPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/login/LoginPresenter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/iSecurityFirebaseService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/iSecurityFirebaseService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/util/iSecurityUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/util/iSecurityUtil.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/version.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/version.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,7 +39,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="UFKRK19318000508" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -87,6 +90,7 @@
         <option value="Class" />
         <option value="resourceFile" />
         <option value="Kotlin Interface" />
+        <option value="Kotlin File" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -114,10 +118,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.mobile.isecurity.core.service.Firebase" />
+      <recent name="com.mobile.isecurity.core.service" />
       <recent name="com.mobile.isecurity.data.model.SMS" />
       <recent name="com.mobile.isecurity.data.model.rtcmodel" />
       <recent name="com.mobile.isecurity.app.detailsetting.presenter" />
-      <recent name="com.mobile.isecurity.app.main" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.mobile.isecurity.core.application" />
@@ -141,6 +146,7 @@
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.mobile.isecurity.core.service.Firebase" />
       <recent name="com.mobile.isecurity.util" />
       <recent name="com.mobile.isecurity.app.util" />
       <recent name="com.mobile.isecurity.core.socket" />
