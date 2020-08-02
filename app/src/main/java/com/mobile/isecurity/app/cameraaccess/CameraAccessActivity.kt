@@ -203,7 +203,9 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
-                    finish()
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        finish()
+                    }
                 }
             }
         }
