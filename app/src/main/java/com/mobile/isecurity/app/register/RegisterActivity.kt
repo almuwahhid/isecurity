@@ -4,19 +4,16 @@ import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.mobile.isecurity.R
 import com.mobile.isecurity.core.application.iSecurityActivityPermission
 import com.mobile.isecurity.data.DataConstant
-import com.mobile.isecurity.data.model.UserModel
 import com.mobile.isecurity.util.DialogImagePicker
 import com.mobile.isecurity.util.iSecurityUtil
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import lib.alframeworkx.Activity.Interfaces.PermissionResultInterface
@@ -24,9 +21,9 @@ import lib.alframeworkx.easyphotopicker.DefaultCallback
 import lib.alframeworkx.easyphotopicker.EasyImage
 import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.VolleyMultipartRequest
-import lib.alframeworkx.utils.avatarview.loader.PicassoLoader
 import java.io.File
 import java.util.*
+
 
 class RegisterActivity : iSecurityActivityPermission(), RegisterView.View, View.OnClickListener {
 
@@ -52,15 +49,23 @@ class RegisterActivity : iSecurityActivityPermission(), RegisterView.View, View.
         presenter = RegisterPresenter(context, this)
 
         setFormsToValidate()
-        val status: MutableList<String> = ArrayList()
-        status.add("+60")
-        status.add("+62")
-        status.add("+01")
+//        val status: MutableList<String> = ArrayList()
+//        status.add("+60")
+//        status.add("+62")
+//        status.add("+01")
 
-        val adapter = ArrayAdapter<String>(
+        /*val adapter = ArrayAdapter<String>(
             this,
-            R.layout.simple_spinner_dropdown_item, status)
-        spinner.setAdapter(adapter)
+            R.layout.simple_spinner_dropdown_item, status)*/
+//        spinner.setAdapter(adapter)
+
+        ccp.setOnCountryChangeListener { selectedCountry ->
+//            Toast.makeText(
+//                context,
+//                "Updated " + selectedCountry.name,
+//                Toast.LENGTH_SHORT
+//            ).show()
+        }
 
         avatarview.setImageResource(R.drawable.ic_account_circle_black_24dp)
         btn_register.setOnClickListener({
@@ -86,7 +91,8 @@ class RegisterActivity : iSecurityActivityPermission(), RegisterView.View, View.
             param["email"] = edt_email.text.toString()
             param["phone"] = edt_phone.text.toString()
             param["password"] = edt_password.text.toString()
-            param["countryCode"] = spinner.selectedItem.toString()
+//            param["countryCode"] = spinner.selectedItem.toString()
+            param["countryCode"] = "+"+ccp.selectedCountryCode
             if(isPictOpened) {
                 presenter.sendRegisterData(param, VolleyMultipartRequest.DataPart(uri!!.path, iSecurityUtil.getBytesFile(context, uri), iSecurityUtil.getTypeFile(context, uri!!)))
             } else {

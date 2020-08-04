@@ -1,9 +1,9 @@
 package com.mobile.isecurity.app.editprofile
 
+//import kotlinx.android.synthetic.main.activity_edit_profile_acitivity.spinner
 import android.Manifest
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter
 import com.google.gson.Gson
 import com.mobile.isecurity.BuildConfig
 import com.mobile.isecurity.R
-import com.mobile.isecurity.app.forgotpassword.DialogForgotPassword
 import com.mobile.isecurity.core.application.iSecurityActivityPermission
 import com.mobile.isecurity.data.DataConstant
 import com.mobile.isecurity.data.StringConstant
@@ -22,28 +21,21 @@ import com.mobile.isecurity.util.DialogImagePicker
 import com.mobile.isecurity.util.iSecurityUtil
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_edit_profile_acitivity.*
-import kotlinx.android.synthetic.main.activity_edit_profile_acitivity.avatarview
-import kotlinx.android.synthetic.main.activity_edit_profile_acitivity.edt_email
-import kotlinx.android.synthetic.main.activity_edit_profile_acitivity.edt_name
-import kotlinx.android.synthetic.main.activity_edit_profile_acitivity.edt_phone
-import kotlinx.android.synthetic.main.activity_edit_profile_acitivity.spinner
 import kotlinx.android.synthetic.main.toolbar_main.*
-import lib.alframeworkx.Activity.ActivityGeneral
 import lib.alframeworkx.Activity.Interfaces.PermissionResultInterface
 import lib.alframeworkx.easyphotopicker.DefaultCallback
 import lib.alframeworkx.easyphotopicker.EasyImage
 import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.VolleyMultipartRequest
 import java.io.File
-import java.util.ArrayList
+import java.util.*
 
 class EditProfileAcitivity : iSecurityActivityPermission(), View.OnClickListener, EditProfileView.View {
 
     lateinit var user : UserModel
     var gson = Gson()
-    lateinit var status : MutableList<String>
+//    lateinit var status : MutableList<String>
     lateinit var adapter : ArrayAdapter<String>
     lateinit var presenter : EditProfilePresenter
 
@@ -67,14 +59,15 @@ class EditProfileAcitivity : iSecurityActivityPermission(), View.OnClickListener
         user = iSecurityUtil.userLoggedIn(context!!, gson)!!
         presenter = EditProfilePresenter(context, this)
 
-        status = ArrayList()
-        status.add("+60")
-        status.add("+62")
-        status.add("+01")
-        adapter = ArrayAdapter<String>(
-            this,
-            R.layout.simple_spinner_dropdown_item, status)
-        spinner.setAdapter(adapter)
+//        status = ArrayList()
+//        status.add("+60")
+//        status.add("+62")
+//        status.add("+01")
+//        adapter = ArrayAdapter<String>(
+//            this,
+//            R.layout.simple_spinner_dropdown_item, status)
+//        spinner.setAdapter(adapter)
+
         initProfile(user, true)
 
         setFormsToValidate()
@@ -92,7 +85,8 @@ class EditProfileAcitivity : iSecurityActivityPermission(), View.OnClickListener
             param["name"] = edt_name.text.toString()
             param["email"] = edt_email.text.toString()
             param["phone"] = edt_phone.text.toString()
-            param["countryCode"] = spinner.selectedItem.toString()
+//            param["countryCode"] = spinner.selectedItem.toString()
+            param["countryCode"] = "+"+ccp.selectedCountryCode
             if(isPictOpened) {
                 presenter.sendUpdateData(user.token, param, VolleyMultipartRequest.DataPart(uri!!.path, iSecurityUtil.getBytesFile(context, uri), iSecurityUtil.getTypeFile(context, uri!!)))
             } else {
@@ -121,7 +115,13 @@ class EditProfileAcitivity : iSecurityActivityPermission(), View.OnClickListener
         edt_email.setText(userModel.email)
         edt_name.setText(userModel.name)
         edt_phone.setText(userModel.phone)
-        spinner.setSelection(getSelectionIndexCode())
+//        spinner.setSelection(getSelectionIndexCode())
+//        Log.d("codes", "hi"+user.country_code)
+        try {
+            ccp.setDefaultCountryUsingPhoneCodeAndApply(Integer.parseInt(user.country_code.split("+").get(user.country_code.split("+").size-1)))
+        } catch (e : Exception){
+//            Log.d("codes", "hi "+e.message)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -133,10 +133,10 @@ class EditProfileAcitivity : iSecurityActivityPermission(), View.OnClickListener
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getSelectionIndexCode(): Int{
-        for (i in 0 until status.size) {if(status.get(i).equals(user.countryCode)) return i else return 0}
-        return 0
-    }
+//    private fun getSelectionIndexCode(): Int{
+//        for (i in 0 until status.size) {if(status.get(i).equals(user.countryCode)) return i else return 0}
+//        return 0
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        menuInflater.inflate(R.menu.menu_password, menu)

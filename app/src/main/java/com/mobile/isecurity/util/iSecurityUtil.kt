@@ -2,11 +2,13 @@ package com.mobile.isecurity.util
 
 import android.app.ActivityManager
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.webkit.MimeTypeMap
 import com.google.gson.Gson
+import com.mobile.isecurity.core.service.MainService
 import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.UserModel
 import lib.alframeworkx.utils.AlStatic
@@ -141,6 +143,7 @@ class iSecurityUtil {
             AlStatic.setSPString(context, StringConstant.ID_FILES, "")
             AlStatic.setSPString(context, StringConstant.ID_FINDPHONE, "")
             AlStatic.setSPString(context, StringConstant.ID_MESSAGES, "")
+            context.stopService(Intent(context, MainService::class.java))
         }
     }
 }

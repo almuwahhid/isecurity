@@ -105,7 +105,7 @@ class ContactPermissionPresenter(context: Context, userModel: UserModel, view: D
 
             override fun requestParam(): MutableMap<String, String> {
                 val param = DataConstant.headerRequest()
-                param["isSms"] = ""+access
+                param["isContacts"] = ""+access
                 return param
             }
 
@@ -169,10 +169,10 @@ class ContactPermissionPresenter(context: Context, userModel: UserModel, view: D
                     curEmail.close()
 
                     if(contactModel.phone.size > 0){
-                        if(result.size < 1){
-                            result.add(contactModel)
-                        }
-//                        result.add(contactModel)
+//                        if(result.size < 1){
+//                            result.add(contactModel)
+//                        }
+                        result.add(contactModel)
                     }
                 }
                 cur!!.close()

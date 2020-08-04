@@ -43,7 +43,9 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                         }
 
                         override fun onPreExecuted() {
-                            view.onLoading()
+//                            view.onLoading()
+                            if(isLoadingShown)
+                                view!!.onLoading()
                         }
 
                         override fun onSuccess(response: JSONObject?) {
@@ -199,16 +201,35 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                         Log.d("paths", "path = "+datafile.path)
                         Log.d("paths", "absolute path = "+datafile.absoluteFile)
                         try {
-                            data.type_file = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
+                            var name = ""
+                            var x = datafile.absolutePath!!.split("/")
+                            for (i in 0 until x.size) {
+                                if(i < (x.size-1)){
+                                    if(i > 0){
+                                        name = name+"/"+x.get(i)
+                                    } else {
+                                        name = name+x.get(i)
+                                    }
+
+                                }
+                            }
+                            data.uri = name
                         } catch (e: Exception){
 
                         }
 
                         if(!datafile.isDirectory()){
                             data.type = FileModel.TYPE_FILE
+                            try{
+                                data.type_file = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
+                            } catch (e: Exception){
+
+                            }
                         } else {
                             data.type = FileModel.TYPE_FOLDER
-                            data.child_files = fileListRequest(datafile)
+                            data.type_file = ""
+//                            data.child_files = fileListRequest(datafile)
+                            result.addAll(fileListRequest(datafile))
                         }
 
                         result.add(data)

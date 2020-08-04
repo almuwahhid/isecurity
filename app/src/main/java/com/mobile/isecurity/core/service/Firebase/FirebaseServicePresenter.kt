@@ -3,6 +3,7 @@ package com.mobile.isecurity.core.service.Firebase
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
 import com.mobile.isecurity.data.model.UserModel
@@ -12,6 +13,7 @@ import lib.alframeworkx.utils.AlRequest
 import lib.alframeworkx.utils.VolleyMultipartRequest
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.File
 import java.util.HashMap
 
 class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
@@ -50,13 +52,28 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
 
             override fun requestParam(): MutableMap<String, String> {
                 val param = DataConstant.headerRequest()
-                param["directory"] = path
+                var name = ""
+                var x = path!!.split("/")
+                for (i in 0 until x.size) {
+                    if(i < (x.size-1)){
+                        if(i > 0){
+                            name = name+"/"+x.get(i)
+                        } else {
+                            name = name+x.get(i)
+                        }
+
+                    }
+                }
+                param["directory"] = name+"/"
+                param["file"] = path
+                param["deviceToken"] = userModel!!.firebaseToken
                 return param
             }
 
             override fun requestHeaders(): MutableMap<String, String> {
                 val param = HashMap<String, String>()
                 param["token"] = userModel!!.token
+                Log.d("token : ", userModel!!.token)
                 return param
             }
 
@@ -64,6 +81,20 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
     }
 
     private fun getFileParam(file_uri: Uri) : VolleyMultipartRequest.DataPart{
-        return VolleyMultipartRequest.DataPart(file_uri!!.path, iSecurityUtil.getBytesFile(context, file_uri), iSecurityUtil.getTypeFile(context, file_uri!!))
+//        var name = ""
+//        var x = file_uri!!.path!!.split("/")
+//        for (i in 0 until x.size) {
+//            if(i < (x.size-1)){
+//                if(i > 0){
+//                    name = name+"/"+x.get(i)
+//                } else {
+//                    name = name+x.get(i)
+//                }
+//
+//            }
+//        }
+        val new_uri = Uri.parse(File("file://"+file_uri.toString()).toString())
+
+        return VolleyMultipartRequest.DataPart(new_uri.path, iSecurityUtil.getBytesFile(context, new_uri), iSecurityUtil.getTypeFile(context, new_uri!!))
     }
 }

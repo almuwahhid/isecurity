@@ -15,4 +15,4 @@ data class UserModel(var username : String = "",
                      var created_at : String = "",
                      var token : String = "",
                      var firebaseToken: String = "",
-                     var countryCode: String = "") : Serializable
+                     var country_code: String = "") : Serializable

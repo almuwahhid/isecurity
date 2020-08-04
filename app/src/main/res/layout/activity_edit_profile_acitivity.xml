@@ -88,13 +88,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Spinner
+                <!--<Spinner
                     android:id="@+id/spinner"
                     android:layout_width="@dimen/dimen_96dp"
                     android:drawSelectorOnTop="true"
                     android:entries="@array/zipcode"
                     android:layout_height="wrap_content">
-                </Spinner>
+                </Spinner>-->
+                <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                    android:id="@+id/ccp"
+                    app:ccp_showFullName="false"
+                    android:layout_width="wrap_content"
+                    android:paddingTop="@dimen/dimen_4dp"
+                    android:paddingBottom="@dimen/dimen_4dp"
+                    android:layout_marginLeft="@dimen/dimen_12dp"
+                    app:ccp_defaultCode="81"
+                    android:layout_height="wrap_content" />
                 <!--<AutoCompleteTextView
                     android:id="@+id/postalcode"
                     android:layout_width="@dimen/dimen_56dp"

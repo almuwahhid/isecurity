@@ -1,0 +1,2 @@
+ninja: Entering directory `/Users/al/AndroidStudioProjects/iSecurity/app/.cxx/cmake/productionDebug/armeabi-v7a'
+ninja: no work to do.
