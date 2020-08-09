@@ -60,6 +60,7 @@ class LoginPresenter(context: Context?, view: LoginView.View) : BasePresenter(co
                                 }
                             }
                         }
+                        AlStatic.setSPString(context, StringConstant.ID_BLOCKINGSMS, ""+user.isNotification)
 
                         view!!.onSuccessLogin(user, response.getString("message"))
                     } else {
@@ -82,7 +83,7 @@ class LoginPresenter(context: Context?, view: LoginView.View) : BasePresenter(co
 
             override fun requestParam(): MutableMap<String, String> {
                 val param = DataConstant.headerRequest()
-                param["email"] = username
+                param["phone"] = username
                 param["password"] = password
                 param["deviceToken"] = token
                 return param

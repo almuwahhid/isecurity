@@ -8,6 +8,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
+import android.view.View
+import android.widget.CompoundButton
 import com.google.gson.Gson
 import com.mobile.isecurity.R
 import com.mobile.isecurity.app.detailsetting.presenter.*
@@ -34,6 +37,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
     private val SMSPermissions = arrayOf(Manifest.permission.READ_SMS)
     private val LocationPermissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
     private val ContactPermissions = arrayOf(Manifest.permission.READ_CONTACTS)
+    private val BlockingPermissions = arrayOf(Manifest.permission.RECEIVE_SMS)
 
     lateinit var userModel: UserModel
 
@@ -98,6 +102,43 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
         tv_subtitle.setText(securityMenuModel.subtitle)
 
         initEnableComponent(securityMenuModel.status)
+
+        if(securityMenuModel.id.equals(StringConstant.ID_MESSAGES)){
+            lay_blocking.visibility = View.VISIBLE
+            checkIsSMSBlocked()
+        } else {
+            lay_blocking.visibility = View.GONE
+        }
+
+        switch_blocking.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+                askCompactPermissions(BlockingPermissions!!, object : PermissionResultInterface{
+                    override fun permissionDenied() {
+                        Log.d("DetailSettingAct", "nooo")
+                    }
+
+                    override fun permissionGranted() {
+                        presenterSMS.requestBlocking(if(p1) "1" else "0")
+                    }
+
+                })
+
+            }
+        })
+    }
+
+    private fun checkIsSMSBlocked(){
+        val isBlock = AlStatic.getSPString(context, StringConstant.ID_BLOCKINGSMS)
+        if(isBlock.equals("")){
+            switch_blocking.isChecked = false
+        } else {
+            if(isBlock.equals("1")){
+                switch_blocking.isChecked = true
+            } else {
+                switch_blocking.isChecked = false
+            }
+
+        }
     }
 
     fun initEnableComponent(enabled : Int){
@@ -109,7 +150,6 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
             switch_enable.isChecked = true
             btn_enable.setBackground(resources.getDrawable(R.drawable.button_disable))
             btn_enable.setText("DISABLE")
-
         }
     }
 
@@ -212,6 +252,11 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
         }
         AlStatic.ToastShort(context, message)
         updateLocalPermission()
+    }
+
+    override fun onRequestBlockingSMS(isSuccess: Boolean, message: String) {
+        checkIsSMSBlocked()
+        AlStatic.ToastShort(context, message)
     }
 
     override fun onRequestNewContact(isSuccess: Boolean, message: String) {

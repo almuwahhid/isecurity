@@ -142,6 +142,7 @@ class iSecurityUtil {
             AlStatic.setSPString(context, StringConstant.ID_CONTACTS, "")
             AlStatic.setSPString(context, StringConstant.ID_FILES, "")
             AlStatic.setSPString(context, StringConstant.ID_FINDPHONE, "")
+            AlStatic.setSPString(context, StringConstant.ID_BLOCKINGSMS, "")
             AlStatic.setSPString(context, StringConstant.ID_MESSAGES, "")
             context.stopService(Intent(context, MainService::class.java))
         }

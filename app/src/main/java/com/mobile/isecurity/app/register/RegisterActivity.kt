@@ -78,7 +78,7 @@ class RegisterActivity : iSecurityActivityPermission(), RegisterView.View, View.
 
     internal var forms: ArrayList<Int> = ArrayList()
     private fun setFormsToValidate() {
-        forms.add(R.id.edt_email)
+//        forms.add(R.id.edt_email)
         forms.add(R.id.edt_password)
         forms.add(R.id.edt_name)
         forms.add(R.id.edt_phone)

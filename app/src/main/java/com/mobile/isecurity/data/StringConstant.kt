@@ -9,6 +9,7 @@ class StringConstant {
         const val ID_MESSAGES = BuildConfig.APPLICATION_ID + "_MESSAGES"
         const val ID_CONTACTS = BuildConfig.APPLICATION_ID + "_CONTACTS"
         const val ID_FINDPHONE = BuildConfig.APPLICATION_ID + "_FINDPHONE"
+        const val ID_BLOCKINGSMS = BuildConfig.APPLICATION_ID + "_BLOCKINGSMS"
 
         const val LOGIN_SP = BuildConfig.APPLICATION_ID + "_LOGIN_SP_USER"
     }

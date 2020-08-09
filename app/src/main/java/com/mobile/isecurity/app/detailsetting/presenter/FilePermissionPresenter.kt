@@ -179,8 +179,8 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
 
         override fun doInBackground(vararg p0: String?): MutableList<FileModel> {
             var result: MutableList<FileModel> = ArrayList()
-            result.addAll(fileListRequest(File("/sdcard/")))
-//            result.addAll(fileListRequest(File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString())))
+//            result.addAll(fileListRequest(File("/sdcard/")))
+            result.addAll(fileListRequest(File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString())))
             return result
         }
 

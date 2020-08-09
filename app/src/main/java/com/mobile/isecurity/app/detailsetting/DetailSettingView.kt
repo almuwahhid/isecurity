@@ -17,10 +17,12 @@ interface DetailSettingView {
     }
     interface PresenterSMS{
         fun requestSMS(isLoadingShown: Boolean)
+        fun requestBlocking(access: String)
     }
     interface View: BaseView{
         fun onRequestNewLocation(isSuccess: Boolean, message: String)
         fun onRequestNewSMS(isSuccess: Boolean, message: String)
+        fun onRequestBlockingSMS(isSuccess: Boolean, message: String)
         fun onRequestNewContact(isSuccess: Boolean, message: String)
         fun onRequestNewFiles(isSuccess: Boolean, message: String)
         fun onRequestUpdateCameraPermission(isSuccess: Boolean, message: String)

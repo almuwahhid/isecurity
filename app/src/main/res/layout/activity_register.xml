@@ -67,7 +67,7 @@
                 android:background="@drawable/bg_field"
                 android:drawablePadding="20dp"
                 android:drawableTint="#B3B4B4B4"
-                android:hint="Email"
+                android:hint="Email (Optional)"
                 android:inputType="textEmailAddress"
                 android:textColorHint="#B3B4B4B4" />
         </com.google.android.material.textfield.TextInputLayout>

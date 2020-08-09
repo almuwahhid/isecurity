@@ -43,8 +43,8 @@ class LoginActivity : iSecurityActivity(), LoginView.View {
         })
 
         btn_login.setOnClickListener({
-            if(edt_username.text.toString().equals("")){
-                edt_username.setError("Email is Required")
+            if(edt_phone.text.toString().equals("")){
+                edt_phone.setError("Email is Required")
             } else if(edt_password.text.toString().equals("")){
                 edt_password.setError("Password is Required")
             } else {
@@ -56,7 +56,7 @@ class LoginActivity : iSecurityActivity(), LoginView.View {
                             return@OnCompleteListener
                         }
                         token = task.result?.token!!
-                        presenter!!.requestLogin(edt_username.text.toString(), edt_password.text.toString(), token)
+                        presenter!!.requestLogin(edt_phone.text.toString(), edt_password.text.toString(), token)
 
                         // Log and toast
 //                val msg = getString(R.string.msg_token_fmt, token)
