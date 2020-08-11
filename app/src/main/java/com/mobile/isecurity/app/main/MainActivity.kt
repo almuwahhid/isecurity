@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.mobile.isecurity.R
 import com.mobile.isecurity.app.accountmenu.AccountFragment
 import com.mobile.isecurity.app.securitymenu.SecurityFragment
+import com.mobile.isecurity.core.application.iSecurityActivity
 import com.mobile.isecurity.core.service.MainService
 import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.SecurityMenuModel
@@ -20,7 +21,7 @@ import lib.alframeworkx.Activity.ActivityGeneral
 import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.BottomNavDisable
 
-class MainActivity : ActivityGeneral(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : iSecurityActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     var fragment: Fragment? = null
     lateinit var securityFragment : SecurityFragment

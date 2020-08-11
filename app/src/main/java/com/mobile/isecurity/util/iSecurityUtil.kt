@@ -8,6 +8,8 @@ import android.os.Build
 import android.util.Log
 import android.webkit.MimeTypeMap
 import com.google.gson.Gson
+import com.mobile.isecurity.core.service.ActiveState.ActiveStatePresenter
+import com.mobile.isecurity.core.service.ActiveState.ActiveStateView
 import com.mobile.isecurity.core.service.MainService
 import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.UserModel
@@ -123,7 +125,7 @@ class iSecurityUtil {
                 AlStatic.getSPString(context, StringConstant.LOGIN_SP), UserModel::class.java) else null)
         }
 
-        public fun isUserLoggedIn(context: Context): Boolean {
+        fun isUserLoggedIn(context: Context): Boolean {
             if(AlStatic.getSPString(context, StringConstant.LOGIN_SP).equals("")) {
                 return false
             } else {
@@ -136,8 +138,13 @@ class iSecurityUtil {
         }
 
         fun logout(context: Context){
-            AlStatic.setSPString(context, StringConstant.LOGIN_SP, "")
+            ActiveStatePresenter(context, userLoggedIn(context, Gson())!!, object : ActiveStateView.View{
+                override fun onUpdateActiveState(state: Int) {
 
+                }
+            }).updateActiveState(0)
+
+            AlStatic.setSPString(context, StringConstant.LOGIN_SP, "")
             AlStatic.setSPString(context, StringConstant.ID_CAMERA, "")
             AlStatic.setSPString(context, StringConstant.ID_CONTACTS, "")
             AlStatic.setSPString(context, StringConstant.ID_FILES, "")
