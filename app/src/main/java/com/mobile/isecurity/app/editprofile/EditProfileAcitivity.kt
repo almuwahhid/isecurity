@@ -98,7 +98,7 @@ class EditProfileAcitivity : iSecurityActivityPermission(), View.OnClickListener
 
     internal var forms: ArrayList<Int> = ArrayList()
     private fun setFormsToValidate() {
-        forms.add(R.id.edt_email)
+//        forms.add(R.id.edt_email)
         forms.add(R.id.edt_name)
         forms.add(R.id.edt_phone)
     }

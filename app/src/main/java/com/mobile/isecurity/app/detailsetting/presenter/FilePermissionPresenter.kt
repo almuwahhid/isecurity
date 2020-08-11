@@ -214,6 +214,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                                 }
                             }
                             data.uri = name
+                            data.file_size = ""+name.length
                         } catch (e: Exception){
 
                         }

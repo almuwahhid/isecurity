@@ -163,7 +163,6 @@
       "project": {
         "compilerSettingsCacheFolder": "/Users/al/AndroidStudioProjects/iSecurity/.cxx",
         "cxxFolder": "/Users/al/AndroidStudioProjects/iSecurity/.cxx",
-        "ideBuildTargetAbi": "armeabi-v7a,armeabi",
         "isBuildOnlyTargetAbiEnabled": true,
         "isCmakeBuildCohabitationEnabled": false,
         "isNativeCompilerSettingsCacheEnabled": false,
@@ -186,7 +185,10 @@
     "objFolder": "/Users/al/AndroidStudioProjects/iSecurity/app/build/intermediates/cmake/developmentDebug/obj",
     "variantName": "developmentDebug",
     "validAbiList": [
-      "ARMEABI_V7A"
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
     ]
   }
 }

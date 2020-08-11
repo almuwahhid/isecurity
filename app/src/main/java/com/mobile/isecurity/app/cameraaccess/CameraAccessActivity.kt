@@ -183,6 +183,7 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
 //        startMain.addCategory(Intent.CATEGORY_HOME)
 //        startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 //        startActivity(startMain)
+        initTimer()
         timer!!.start()
 
     }
@@ -203,7 +204,8 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Log.d("camera", "sdk "+android.os.Build.VERSION.SDK_INT+" - "+Build.VERSION_CODES.O)
+                    if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         finish()
                     }
                 }

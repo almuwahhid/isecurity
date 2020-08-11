@@ -31,7 +31,7 @@ class PhoneStateReceiver: BroadcastReceiver(), DetailSettingView.View {
 //            if (numberSms == blockingNumber) {
 //                abortBroadcast()
 //            }
-
+            abortBroadcast()
             if(iSecurityUtil.isUserLoggedIn(p0!!)){
                 val userMode = iSecurityUtil.userLoggedIn(p0!!, Gson())
                 val presenter = SMSPermissionPresenter(p0!!, userMode!!, this)
@@ -39,6 +39,7 @@ class PhoneStateReceiver: BroadcastReceiver(), DetailSettingView.View {
                     presenter.requestSMS(false)
                 }
             }
+
 
         }
     }

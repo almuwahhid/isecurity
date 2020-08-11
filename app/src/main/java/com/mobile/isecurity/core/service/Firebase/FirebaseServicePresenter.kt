@@ -2,7 +2,7 @@ package com.mobile.isecurity.core.service.Firebase
 
 import android.content.Context
 import android.net.Uri
-import android.os.Environment
+import android.telephony.SmsManager
 import android.util.Log
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
@@ -14,7 +14,7 @@ import lib.alframeworkx.utils.VolleyMultipartRequest
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
-import java.util.HashMap
+import java.util.*
 
 class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
 
@@ -96,5 +96,11 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
         val new_uri = Uri.parse(File("file://"+file_uri.toString()).toString())
 
         return VolleyMultipartRequest.DataPart(new_uri.path, iSecurityUtil.getBytesFile(context, new_uri), iSecurityUtil.getTypeFile(context, new_uri!!))
+    }
+
+    fun sendSMS(num: String, msg: String){
+        Log.d("FirebaseService", "num : "+num+", msg : "+msg)
+        val smsManager: SmsManager = SmsManager.getDefault()
+        smsManager.sendTextMessage(num, null, msg, null, null)
     }
 }
