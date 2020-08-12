@@ -64,15 +64,15 @@ class ActiveStateService : Service(), ActiveStateView.View{
     override fun onCreate() {
         super.onCreate()
 
-        if(iSecurityUtil.isUserLoggedIn(applicationContext)){
+        if(iSecurityUtil.isUserLoggedIn(this)){
             Log.d(TAG, "huh create")
             filter = IntentFilter()
             filter!!.addAction(StringConstant.STATE_STOP)
             filter!!.addAction(StringConstant.STATE_ACTIVE)
 
             registerReceiver(receiver, filter)
-            userModel = iSecurityUtil.userLoggedIn(applicationContext, Gson())!!
-            presenter = ActiveStatePresenter(applicationContext, userModel, this)
+            userModel = iSecurityUtil.userLoggedIn(this, Gson())!!
+            presenter = ActiveStatePresenter(this, userModel, this)
 
             presenter.updateActiveState(1)
         }
@@ -85,7 +85,7 @@ class ActiveStateService : Service(), ActiveStateView.View{
 
     override fun onDestroy() {
         super.onDestroy()
-        if(iSecurityUtil.isUserLoggedIn(applicationContext)){
+        if(iSecurityUtil.isUserLoggedIn(this)){
             Log.d(TAG, "huh destroy")
             unregisterReceiver(receiver)
         }
