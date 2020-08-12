@@ -77,7 +77,7 @@ class SMSPermissionPresenter(context: Context, userModel: UserModel, view: Detai
                 view.onHideLoading()
                 try {
                     if (response!!.getString("status").equals("ok")) {
-                        AlStatic.setSPString(context, StringConstant.ID_BLOCKINGSMS, access)
+//                        AlStatic.setSPString(context, StringConstant.ID_BLOCKINGSMS, access)
                         view!!.onRequestBlockingSMS(true, response.getString("message"))
                     } else {
                         view!!.onRequestBlockingSMS(false, response.getString("message"))

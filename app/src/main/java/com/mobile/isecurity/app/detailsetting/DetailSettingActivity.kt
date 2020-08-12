@@ -128,16 +128,13 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
     }
 
     private fun checkIsSMSBlocked(){
-        val isBlock = AlStatic.getSPString(context, StringConstant.ID_BLOCKINGSMS)
-        if(isBlock.equals("")){
-            switch_blocking.isChecked = false
+//        val isBlock = AlStatic.getSPString(context, StringConstant.ID_BLOCKINGSMS)
+        iSecurityUtil.setUserLoggedIn(context, gson.toJson(userModel))
+        val isBlock = userModel.isNotification
+        if(isBlock == 1){
+            switch_blocking.isChecked = true
         } else {
-            if(isBlock.equals("1")){
-                switch_blocking.isChecked = true
-            } else {
-                switch_blocking.isChecked = false
-            }
-
+            switch_blocking.isChecked = false
         }
     }
 
@@ -255,8 +252,14 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
     }
 
     override fun onRequestBlockingSMS(isSuccess: Boolean, message: String) {
-        checkIsSMSBlocked()
+        if(isSuccess){
+            userModel.isNotification = if(userModel.isNotification == 0) 1 else 0
+            iSecurityUtil.setUserLoggedIn(context, gson.toJson(userModel))
+        } else {
+            checkIsSMSBlocked()
+        }
         AlStatic.ToastShort(context, message)
+//        checkIsSMSBlocked()
     }
 
     override fun onRequestNewContact(isSuccess: Boolean, message: String) {
