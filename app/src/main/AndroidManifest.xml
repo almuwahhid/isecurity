@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
@@ -49,7 +50,23 @@
         <activity android:name=".app.changepassword.ChangePasswordActivity" />
         <activity android:name=".app.accountmenu.AccountFragment" />
         <activity android:name=".app.securitymenu.SecurityFragment" />
-        <activity android:name=".app.detailsetting.DetailSettingActivity" />
+        <activity android:name=".app.detailsetting.DetailSettingActivity"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
+            <intent-filter>
+                <category android:name="android.intent.category.APP_MESSAGING" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SENDTO" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -62,13 +79,27 @@
         </activity>
         <activity android:name=".app.main.MainActivity" />
 
-        <service android:name=".core.service.MainService" />
+        <service android:name=".core.service.MainService"
+                 android:launchMode="singleTask"/>
         <service android:name=".core.service.Firebase.iSecurityFirebaseService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service android:name=".core.service.ActiveState.ActiveStateService">
+        </service>
+        <service android:name=".core.service.FileUploadService.FileUploadService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
         </service>
 
         <receiver
@@ -77,10 +108,18 @@
             android:exported="true"
             android:permission="android.permission.RECEIVE_SMS">
             <!-- android:permission="android.permission.BROADCAST_SMS"   -->
-            <intent-filter android:priority="2147483647">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            <intent-filter android:priority="9999999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"
+                    android:priority="9999999"/>
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
             </intent-filter>
         </receiver>
+        <!--<receiver android:name=".SmsReceiver"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter>
+
+            </intent-filter>
+        </receiver>-->
     </application>
 
 </manifest>

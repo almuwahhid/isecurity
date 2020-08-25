@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.os.Handler
 import android.os.PersistableBundle
 import android.util.Log
 import com.mobile.isecurity.core.service.ActiveState.ActiveStateService
@@ -17,6 +18,10 @@ open class iSecurityActivity : ActivityGeneral() {
 
     val TAG = iSecurityActivityPermission::class.java.name
     var filter_core: IntentFilter? = null
+    var online_state = true
+
+    private var mHandler: Handler? = null
+    var mStatusChecker: Runnable? = null
 
     private val receiver_core: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -52,17 +57,41 @@ open class iSecurityActivity : ActivityGeneral() {
             } else {
                 sendBroadcast(Intent(StringConstant.STATE_ACTIVE))
             }
+            online_state = true
+            if(mStatusChecker == null){
+                mHandler = Handler()
+                mStatusChecker = object : Runnable {
+                    override fun run() {
+                        try {
+                            sendBroadcast(Intent(StringConstant.UPDATE_STATE))
+                        } finally {
+                            if(online_state)
+                                mHandler!!.postDelayed(this, 1000)
+                        }
+                    }
+                }
+            }
+            startRepeatingTask()
         }
+    }
+
+    open fun startRepeatingTask() {
+        mStatusChecker!!.run()
+    }
+
+    open fun stopRepeatingTask() {
+        mHandler!!.removeCallbacks(mStatusChecker)
     }
 
     override fun onStop() {
         super.onStop()
         unregisterReceiver(receiver_core)
-        if(iSecurityUtil.isUserLoggedIn(context)) {
+        if(iSecurityUtil.isUserLoggedIn(context) && mHandler != null) {
+            online_state = false
             Log.d(TAG, "huh STATE STOP")
             sendBroadcast(Intent(StringConstant.STATE_STOP))
+            stopRepeatingTask()
         }
     }
-
 
 }

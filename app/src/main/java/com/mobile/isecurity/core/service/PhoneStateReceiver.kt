@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import com.mobile.isecurity.app.detailsetting.DetailSettingView
 import com.mobile.isecurity.app.detailsetting.presenter.SMSPermissionPresenter
 import com.mobile.isecurity.data.StringConstant
+import com.mobile.isecurity.data.model.UserModel
 import com.mobile.isecurity.util.iSecurityUtil
 import lib.alframeworkx.utils.AlStatic
 
@@ -31,11 +32,12 @@ class PhoneStateReceiver: BroadcastReceiver(), DetailSettingView.View {
 //            if (numberSms == blockingNumber) {
 //                abortBroadcast()
 //            }
-            abortBroadcast()
+
             if(iSecurityUtil.isUserLoggedIn(p0!!)){
                 val userMode = iSecurityUtil.userLoggedIn(p0!!, Gson())
-                val presenter = SMSPermissionPresenter(p0!!, userMode!!, this)
-                if(isBlocked(p0!!)){
+                if(isBlocked(userMode!!)){
+                    abortBroadcast()
+                    val presenter = SMSPermissionPresenter(p0!!, userMode!!, this)
                     presenter.requestSMS(false)
                 }
             }
@@ -44,16 +46,12 @@ class PhoneStateReceiver: BroadcastReceiver(), DetailSettingView.View {
         }
     }
 
-    private fun isBlocked(context: Context): Boolean{
-        val isBlock = AlStatic.getSPString(context, StringConstant.ID_BLOCKINGSMS)
-        if(isBlock.equals("")){
-            return false
+    private fun isBlocked(userModel: UserModel): Boolean{
+        val isBlock = userModel.isNotification
+        if(isBlock == 1){
+            return true
         } else {
-            if(isBlock.equals("1")){
-                return true
-            } else {
-                return false
-            }
+            return false
         }
     }
 

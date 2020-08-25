@@ -135,3 +135,12 @@ Java_com_mobile_isecurity_data_Api_stringDownloadfiles(
         jclass type) {
     return env->NewStringUTF(stringDownloadfiles.c_str());
 }
+
+std::string stringUpdateSMSStatus = "outBoxMessageStatus";
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_mobile_isecurity_data_Api_stringUpdateSMSStatus(
+        JNIEnv *env,
+        jclass type) {
+    return env->NewStringUTF(stringUpdateSMSStatus.c_str());
+}

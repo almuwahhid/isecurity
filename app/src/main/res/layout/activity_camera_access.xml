@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:id="@+id/lay_center"
             android:layout_centerHorizontal="true"
             android:orientation="vertical">
             <ImageView
@@ -41,7 +42,19 @@
                 android:textSize="@dimen/dimen_24dp"
                 android:textColor="@color/white"
                 android:layout_height="wrap_content"/>
+
         </LinearLayout>
+        <TextView
+            android:layout_marginBottom="@dimen/dimen_56dp"
+            android:layout_width="wrap_content"
+            android:text="WAITING..."
+            android:id="@+id/tv_status"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            android:textSize="@dimen/dimen_18dp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

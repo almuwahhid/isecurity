@@ -71,4 +71,9 @@ public class Api {
     public static String upload_files() {
         return base_api + stringDownloadfiles();
     }
+
+    public static native String stringUpdateSMSStatus();
+    public static String upade_sms_status() {
+        return base_api + stringUpdateSMSStatus();
+    }
 }

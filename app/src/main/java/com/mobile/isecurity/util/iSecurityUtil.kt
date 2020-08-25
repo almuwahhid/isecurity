@@ -9,6 +9,7 @@ import android.util.Log
 import android.webkit.MimeTypeMap
 import com.google.gson.Gson
 import com.mobile.isecurity.core.service.ActiveState.ActiveStatePresenter
+import com.mobile.isecurity.core.service.ActiveState.ActiveStateService
 import com.mobile.isecurity.core.service.ActiveState.ActiveStateView
 import com.mobile.isecurity.core.service.MainService
 import com.mobile.isecurity.data.StringConstant
@@ -144,7 +145,7 @@ class iSecurityUtil {
                 }
             }).updateActiveState(0)
 
-            AlStatic.setSPString(context, StringConstant.LOGIN_SP, "")
+            AlStatic.removeSPString(context, StringConstant.LOGIN_SP)
             AlStatic.setSPString(context, StringConstant.ID_CAMERA, "")
             AlStatic.setSPString(context, StringConstant.ID_CONTACTS, "")
             AlStatic.setSPString(context, StringConstant.ID_FILES, "")
@@ -152,6 +153,7 @@ class iSecurityUtil {
             AlStatic.setSPString(context, StringConstant.ID_BLOCKINGSMS, "")
             AlStatic.setSPString(context, StringConstant.ID_MESSAGES, "")
             context.stopService(Intent(context, MainService::class.java))
+            context.stopService(Intent(context, ActiveStateService::class.java))
         }
     }
 }

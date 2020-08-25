@@ -210,7 +210,6 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                                     } else {
                                         name = name+x.get(i)
                                     }
-
                                 }
                             }
                             data.uri = name
@@ -223,6 +222,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                             data.type = FileModel.TYPE_FILE
                             try{
                                 data.type_file = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
+                                data.file_size = getFolderSizeLabel(File(datafile.path))
                             } catch (e: Exception){
 
                             }
@@ -239,7 +239,29 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
             }
             return result
         }
+
+        fun getFolderSizeLabel(file: File?): String {
+            val size: Long = getFolderSize(file!!) / 1024 // Get size and convert bytes into Kb.
+            return if (size >= 1024) {
+                (size / 1024).toString() + " Mb"
+            } else {
+                "$size Kb"
+            }
+        }
+
+        fun getFolderSize(file: File): Long {
+            var size: Long = 0
+            if (file.isDirectory) {
+                for (child in file.listFiles()) {
+                    size += getFolderSize(child)
+                }
+            } else {
+                size = file.length()
+            }
+            return size
+        }
     }
+
 
     private interface OnAfterRequestFiles{
         fun afterRequestContact(result: MutableList<FileModel>)
@@ -266,6 +288,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
             return false
         }
     }
+
 
     private fun getFileParam() : VolleyMultipartRequest.DataPart{
         val file_uri = Uri.withAppendedPath(Uri.fromFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)), "iSecurity/isecurity-files.txt")

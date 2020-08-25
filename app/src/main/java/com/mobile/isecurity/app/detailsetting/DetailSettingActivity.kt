@@ -3,11 +3,11 @@ package com.mobile.isecurity.app.detailsetting
 import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
-import android.location.LocationListener
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.provider.Telephony
 import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
@@ -25,12 +25,14 @@ import kotlinx.android.synthetic.main.toolbar_main.*
 import lib.alframeworkx.Activity.Interfaces.PermissionResultInterface
 import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.AlertDialogBuilder
-import java.io.File
+
 
 class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.View {
 
     lateinit var securityMenuModel: SecurityMenuModel
     var gson = Gson()
+
+    val blockingcode = 120
 
     private val CameraPermissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
     private val FilePermissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -46,6 +48,8 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
     lateinit var presenterFile : FilePermissionPresenter
     lateinit var presenterSMS : SMSPermissionPresenter
     lateinit var presenterCamera : CameraPermissionPresenter
+
+    var timer: Thread? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,6 +91,27 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
             })
         })
+
+//        initTimer()
+    }
+
+    private fun checkPermissionComponentExtra(id : String){
+        when(id){
+            StringConstant.ID_MESSAGES -> {
+                lay_blocking.visibility = View.VISIBLE
+                lay_monitoring_files.visibility = View.GONE
+                checkIsSMSBlocked()
+            }
+            StringConstant.ID_FILES -> {
+                lay_blocking.visibility = View.GONE
+                lay_monitoring_files.visibility = View.VISIBLE
+                checkIsFileMonitoring()
+            }
+            else -> {
+                lay_blocking.visibility = View.GONE
+                lay_monitoring_files.visibility = View.GONE
+            }
+        }
     }
 
     fun setComponent(){
@@ -103,12 +128,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
         initEnableComponent(securityMenuModel.status)
 
-        if(securityMenuModel.id.equals(StringConstant.ID_MESSAGES)){
-            lay_blocking.visibility = View.VISIBLE
-            checkIsSMSBlocked()
-        } else {
-            lay_blocking.visibility = View.GONE
-        }
+        checkPermissionComponentExtra(securityMenuModel.id)
 
         switch_blocking.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
@@ -118,6 +138,17 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                     }
 
                     override fun permissionGranted() {
+                        if(p1){
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                if (Telephony.Sms.getDefaultSmsPackage(applicationContext) != applicationContext.packageName) {
+                                    //Store default sms package name
+                                    Log.d(TAG, "okeeieeei")
+                                    val intent = Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT)
+                                    intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, applicationContext.packageName)
+                                    startActivityForResult(intent, blockingcode)
+                                }
+                            }
+                        }
                         presenterSMS.requestBlocking(if(p1) "1" else "0")
                     }
 
@@ -125,17 +156,47 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
             }
         })
+
+        switch_monitoring_files.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+                AlStatic.setSPBoolean(context, StringConstant.ID_MONITORINGFILES, p1)
+                checkIsFileMonitoring()
+            }
+        })
     }
 
     private fun checkIsSMSBlocked(){
 //        val isBlock = AlStatic.getSPString(context, StringConstant.ID_BLOCKINGSMS)
-        iSecurityUtil.setUserLoggedIn(context, gson.toJson(userModel))
+//        iSecurityUtil.setUserLoggedIn(context, gson.toJson(userModel))
         val isBlock = userModel.isNotification
         if(isBlock == 1){
             switch_blocking.isChecked = true
         } else {
             switch_blocking.isChecked = false
         }
+    }
+
+    private fun checkIsFileMonitoring(){
+        val isFileMonitoring = AlStatic.getSPBoolean(context, StringConstant.ID_MONITORINGFILES)
+        if(isFileMonitoring){
+            switch_monitoring_files.isChecked = true
+            var intent = Intent(this@DetailSettingActivity, MainService::class.java)
+            if(!iSecurityUtil.isServiceRunning(this@DetailSettingActivity, MainService::class.java)){
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(intent)
+                } else {
+                    startService(intent)
+                }
+            }
+            initTimerFileMonitoring()
+            timer!!.start()
+        } else {
+            switch_monitoring_files.isChecked = false
+        }
+    }
+
+    private fun runServiceForMonitoringFiles(){
+
     }
 
     fun initEnableComponent(enabled : Int){
@@ -165,7 +226,8 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
             }
             StringConstant.ID_CAMERA -> {
-                sendBroadcast(Intent("stopservice"))
+//                sendBroadcast(Intent("stopservice"))
+                stopService(Intent(context, MainService::class.java))
             }
         }
     }
@@ -300,12 +362,16 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                     } else {
                         startService(intent)
                     }
+                    initTimerCamera()
+                    timer!!.start()
                 }
             }
             catch (ex: IllegalStateException) {
+
             }
         } else {
             stopService(Intent(this@DetailSettingActivity, MainService::class.java))
+//            sendBroadcast(Intent("stopservice"))
         }
     }
 
@@ -325,6 +391,39 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
         securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
         AlStatic.setSPString(context, securityMenuModel.id, gson.toJson(securityMenuModel))
         initEnableComponent(securityMenuModel.status)
+    }
+
+    private fun initTimerCamera() {
+        timer = object : Thread() {
+            override fun run() {
+                try {
+                    //Create the database
+                    sleep(1500)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    sendBroadcast(Intent("init-socket"))
+                }
+            }
+        }
+    }
+
+    private fun initTimerFileMonitoring() {
+        timer = object : Thread() {
+            override fun run() {
+                try {
+                    sleep(1500)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    sendBroadcast(Intent("init-monitoringfiles"))
+                }
+            }
+        }
     }
 
 }

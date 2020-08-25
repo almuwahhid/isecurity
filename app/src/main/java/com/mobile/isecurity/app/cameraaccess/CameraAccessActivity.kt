@@ -18,7 +18,6 @@ import com.almuwahhid.isecurityrtctest.Candidate
 import com.almuwahhid.isecurityrtctest.GTRTC.CallStatic
 import com.almuwahhid.isecurityrtctest.Payload
 import com.google.gson.Gson
-import com.mobile.isecurity.BuildConfig
 import com.mobile.isecurity.R
 import com.mobile.isecurity.core.rtc.GTPeerConnectionParameters
 import com.mobile.isecurity.core.service.MainService
@@ -51,6 +50,11 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
             when(intent.action){
                 "disconnectdata" -> {
                     finish()
+                }
+
+                "changemode" -> {
+//                    rtcClient!!.getVideoCapturer(rtcClient!!.checkIsFront())
+                    rtcClient!!.switchCamera(!rtcClient!!.checkIsFront())
                 }
 
                 "receivedata" -> {
@@ -124,6 +128,7 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
 
         filter = IntentFilter()
         filter!!.addAction("receivedata")
+        filter!!.addAction("changemode")
         filter!!.addAction("disconnectdata")
 
         registerReceiver(receiver, filter)
@@ -142,7 +147,7 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
         VideoRendererGui.setView(glview_call) {
             init()
             if(rtcClient!=null){
-                rtcClient!!.initPeer()
+                rtcClient!!.initPeer(false)
             }
             if(istrue){
                 sendBroadcast(Intent("senddata").putExtra("data", "rtc"))
@@ -208,6 +213,10 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
                     if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         finish()
                     }
+//                    runOnUiThread {
+//                        tv_status.setText("STREAMING...")
+//                    }
+
                 }
             }
         }

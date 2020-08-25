@@ -40,6 +40,7 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
     private var params: GTPeerConnectionParameters? = null
     private var peer : Peer? = null
     private var videoCapturer : VideoCapturer? = null
+    private var videoConstraints : MediaConstraints? = null
 
     private var offerCommand = CreateOfferCommand()
     private var answerCommand = CreateAnswerCommand()
@@ -52,11 +53,18 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
     private var windowManager: WindowManager? = null
     var mediaRecorder: MediaRecorder? = null
     var layoutParams: WindowManager.LayoutParams? = null
+    var isFront = true
+    var videoTrack : VideoTrack?? = null
+
+    fun checkIsFront(): Boolean{
+        return isFront
+    }
 
 
     private fun initRTC(){
-
         iceServers.add(PeerConnection.IceServer("stun:stun-cjt.kemlu.go.id:5349"))
+//        iceServers.add(PeerConnection.IceServer("stun:stun.stunprotocol.org:3478"))
+//        iceServers.add(PeerConnection.IceServer("stun:stun.l.google.com:19302"))
         pcConstraints.mandatory.add(MediaConstraints.KeyValuePair("OfferToReceiveAudio", "false"))
         pcConstraints.mandatory.add(MediaConstraints.KeyValuePair("OfferToReceiveVideo", "true"))
         pcConstraints.optional.add(MediaConstraints.KeyValuePair("DtlsSrtpKeyAgreement", "true"))
@@ -204,8 +212,8 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
         }
     }
 
-    fun initPeer(){
-        setCamera()
+    fun initPeer(isTrue: Boolean){
+        setCamera(isTrue)
         peer = Peer()
 //        offerCommand.execute(JSONObject())
     }
@@ -213,40 +221,64 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
 //    public fun initStream(model: GTCallModel){
     fun initStream(){
         if(peer == null){
-            setCamera()
+            setCamera(false)
             peer = Peer()
 //            peer!!.pc!!.addStream(localMS)
         }
     }
 
-    private fun setCamera() {
+    fun setCamera(isFront : Boolean) {
         localMS = factory!!.createLocalMediaStream("ARDAMS")
         Log.d(TAG, "setCamera: " + localMS!!.label())
         if (params!!.videoCallEnabled) {
 
         }
 
-        val videoConstraints = MediaConstraints()
-        videoConstraints.mandatory.add(MediaConstraints.KeyValuePair("maxHeight", Integer.toString(params!!.videoHeight)))
-        videoConstraints.mandatory.add(MediaConstraints.KeyValuePair("maxWidth", Integer.toString(params!!.videoWidth)))
-        videoConstraints.mandatory.add(MediaConstraints.KeyValuePair("maxFrameRate", Integer.toString(params!!.videoFps)))
-        videoConstraints.mandatory.add(MediaConstraints.KeyValuePair("minFrameRate", Integer.toString(params!!.videoFps)))
+        videoConstraints = MediaConstraints()
+        videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("maxHeight", Integer.toString(params!!.videoHeight)))
+        videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("maxWidth", Integer.toString(params!!.videoWidth)))
+        videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("maxFrameRate", Integer.toString(params!!.videoFps)))
+        videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("minFrameRate", Integer.toString(params!!.videoFps)))
 
-        videoSource = factory!!.createVideoSource(getVideoCapturer(), videoConstraints)
-        localMS!!.addTrack(factory!!.createVideoTrack("ARDAMSv0", videoSource))
+        videoSource = factory!!.createVideoSource(getVideoCapturer(isFront), videoConstraints)
+        videoTrack = factory!!.createVideoTrack("ARDAMSv0", videoSource)
+        localMS!!.addTrack(videoTrack!!)
         val audioSource = factory!!.createAudioSource(MediaConstraints())
 //        localMS!!.addTrack(factory!!.createAudioTrack("ARDAMSa0", audioSource))
-
         rtccLient!!.onLocalStream(localMS!!)
     }
 
-    private fun getVideoCapturer(): VideoCapturer {
+    fun getVideoCapturer(isFront : Boolean): VideoCapturer {
+        this.isFront = isFront
         //            TODO : here
 //        TODO("Not yet implemented")
 //        val frontCameraDeviceName = VideoCapturerAndroid.getNameOfBackFacingDevice()
-        val frontCameraDeviceName = VideoCapturerAndroid.getNameOfFrontFacingDevice()
+        var frontCameraDeviceName = ""
+        if(isFront){
+            frontCameraDeviceName = VideoCapturerAndroid.getNameOfFrontFacingDevice()
+//            frontCameraDeviceName = VideoCapturerAndroid.getNameOfBackFacingDevice()
+        } else {
+            frontCameraDeviceName = VideoCapturerAndroid.getNameOfBackFacingDevice()
+        }
         videoCapturer = VideoCapturerAndroid.create(frontCameraDeviceName)
         return videoCapturer!!
+    }
+
+    fun switchCamera(isFront: Boolean){
+        peer!!.pc!!.removeStream(localMS)
+        localMS!!.removeTrack(videoTrack!!)
+
+        videoConstraints = MediaConstraints()
+        videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("maxHeight", Integer.toString(params!!.videoHeight)))
+        videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("maxWidth", Integer.toString(params!!.videoWidth)))
+        videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("maxFrameRate", Integer.toString(params!!.videoFps)))
+        videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("minFrameRate", Integer.toString(params!!.videoFps)))
+
+        videoSource = factory!!.createVideoSource(getVideoCapturer(isFront), videoConstraints)
+        videoTrack = factory!!.createVideoTrack("ARDAMSv0", videoSource)
+        localMS!!.addTrack(videoTrack)
+        rtccLient!!.onLocalStream(localMS!!)
+        peer!!.pc!!.addStream(localMS)
     }
 
 

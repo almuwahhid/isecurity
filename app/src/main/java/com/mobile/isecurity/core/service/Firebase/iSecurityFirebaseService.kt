@@ -4,14 +4,17 @@ import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
+import com.mobile.isecurity.data.model.Files.FileModels
 import com.mobile.isecurity.util.iSecurityUtil
 
 class iSecurityFirebaseService : FirebaseMessagingService() {
 
     val KEY_FILEDOWNLOAD = "filedownload"
+    val KEY_FILEDOWNLOADS = "filedownloads"
     val KEY_INBOXMESSAGE = "inbox_message"
     val KEY_BLOCKINGMESSAGE = "message_status"
     val TAG = iSecurityFirebaseService::class.java.name
+    val gson = Gson()
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -22,9 +25,12 @@ class iSecurityFirebaseService : FirebaseMessagingService() {
                 KEY_FILEDOWNLOAD-> {
                     presenter.requestFile(remoteMessage.getData().get("path")!!);
                 }
+                KEY_FILEDOWNLOADS-> {
+                    presenter.uploadListFile(0, gson!!.fromJson(remoteMessage.getData().get("datas")!!, FileModels::class.java));
+                }
             }
         } catch (e: Exception){
-
+            Log.d("iSecurityService", "hoho "+e.message)
         }
 
         try {
@@ -32,8 +38,9 @@ class iSecurityFirebaseService : FirebaseMessagingService() {
                 KEY_INBOXMESSAGE-> {
 //                presenter.requestFile(remoteMessage.getData().get("path")!!);
                     val msg = remoteMessage.getData().get("message")!!
+                    val id = remoteMessage.getData().get("message_id")!!
                     val number = remoteMessage.getData().get("country_code")!!+remoteMessage.getData().get("receiver_no")!!
-                    presenter.sendSMS(number, msg)
+                    presenter.sendSMS(id, number, msg)
                 }
                 KEY_BLOCKINGMESSAGE-> {
                     Log.d(TAG, "here")
@@ -53,7 +60,7 @@ class iSecurityFirebaseService : FirebaseMessagingService() {
                 }
             }
         } catch (e: Exception){
-
+            Log.d("iSecurityService", "heheo "+e.message)
         }
 
 

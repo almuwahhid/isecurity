@@ -32,7 +32,7 @@ class ActiveStateService : Service(), ActiveStateView.View{
             Log.d(TAG, "huh "+intent.action)
             when(intent.action){
                 StringConstant.STATE_STOP -> {
-                    Observable.interval(2, TimeUnit.SECONDS)
+                    Observable.interval(3, TimeUnit.SECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
                         .take(2)
                         .subscribeWith(object : DisposableObserver<Long?>() {
@@ -57,6 +57,10 @@ class ActiveStateService : Service(), ActiveStateView.View{
                 StringConstant.STATE_ACTIVE -> {
                     serviceIsRunning = true
                 }
+
+                StringConstant.UPDATE_STATE -> {
+                    presenter.updateActiveState(1)
+                }
             }
         }
     }
@@ -64,16 +68,16 @@ class ActiveStateService : Service(), ActiveStateView.View{
     override fun onCreate() {
         super.onCreate()
 
+        filter = IntentFilter()
+        filter!!.addAction(StringConstant.STATE_STOP)
+        filter!!.addAction(StringConstant.STATE_ACTIVE)
+        filter!!.addAction(StringConstant.UPDATE_STATE)
+
+        registerReceiver(receiver, filter)
         if(iSecurityUtil.isUserLoggedIn(this)){
             Log.d(TAG, "huh create")
-            filter = IntentFilter()
-            filter!!.addAction(StringConstant.STATE_STOP)
-            filter!!.addAction(StringConstant.STATE_ACTIVE)
-
-            registerReceiver(receiver, filter)
             userModel = iSecurityUtil.userLoggedIn(this, Gson())!!
             presenter = ActiveStatePresenter(this, userModel, this)
-
             presenter.updateActiveState(1)
         }
     }
@@ -85,9 +89,10 @@ class ActiveStateService : Service(), ActiveStateView.View{
 
     override fun onDestroy() {
         super.onDestroy()
+        unregisterReceiver(receiver)
         if(iSecurityUtil.isUserLoggedIn(this)){
             Log.d(TAG, "huh destroy")
-            unregisterReceiver(receiver)
+
         }
     }
 

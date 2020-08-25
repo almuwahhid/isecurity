@@ -1,8 +1,10 @@
 package com.mobile.isecurity.app.main
 
+import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -12,16 +14,18 @@ import com.mobile.isecurity.R
 import com.mobile.isecurity.app.accountmenu.AccountFragment
 import com.mobile.isecurity.app.securitymenu.SecurityFragment
 import com.mobile.isecurity.core.application.iSecurityActivity
+import com.mobile.isecurity.core.application.iSecurityActivityPermission
 import com.mobile.isecurity.core.service.MainService
 import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.SecurityMenuModel
 import com.mobile.isecurity.util.iSecurityUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import lib.alframeworkx.Activity.ActivityGeneral
+import lib.alframeworkx.Activity.Interfaces.PermissionResultInterface
 import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.BottomNavDisable
 
-class MainActivity : iSecurityActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : iSecurityActivityPermission(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     var fragment: Fragment? = null
     lateinit var securityFragment : SecurityFragment
@@ -32,9 +36,26 @@ class MainActivity : iSecurityActivity(), BottomNavigationView.OnNavigationItemS
 
     var gson = Gson()
 
+    var timer: Thread? = null
+
+    private val allpermissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_CONTACTS, Manifest.permission.RECEIVE_SMS)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        askCompactPermissions(allpermissions!!, object : PermissionResultInterface {
+            override fun permissionDenied() {
+                Log.d("MainActivity", "nooo")
+                AlStatic.ToastShort(context, "You must to accept all permissions first")
+                finish()
+            }
+
+            override fun permissionGranted() {
+
+            }
+
+        })
 
         BottomNavDisable.disableShiftMode(navigation)
 
@@ -60,6 +81,8 @@ class MainActivity : iSecurityActivity(), BottomNavigationView.OnNavigationItemS
                         } else {
                             startService(intent)
                         }
+                        initTimer()
+                        timer!!.start()
                     }
                 }
                 catch (ex: IllegalStateException) {
@@ -67,6 +90,8 @@ class MainActivity : iSecurityActivity(), BottomNavigationView.OnNavigationItemS
                 }
             }
         }
+
+
     }
 
     private fun initializeNavFragment(curFragment: Fragment) {
@@ -128,6 +153,23 @@ class MainActivity : iSecurityActivity(), BottomNavigationView.OnNavigationItemS
         if (tagAccount != null) {
 //            initAnimNav(transaction);
             transaction.hide(tagAccount)
+        }
+    }
+
+    private fun initTimer() {
+        timer = object : Thread() {
+            override fun run() {
+                try {
+                    //Create the database
+                    sleep(1500)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    sendBroadcast(Intent("init-socket"))
+                }
+            }
         }
     }
 }
