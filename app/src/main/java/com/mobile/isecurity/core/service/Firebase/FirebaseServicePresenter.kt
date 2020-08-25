@@ -89,13 +89,14 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
         })
     }
 
-    fun uploadListFile(position: Int, fileModels: FileModels){
-        if(position < fileModels.datas.size-1 ){
-            val fileModel = fileModels.datas.get(position)
+    fun uploadListFile(position: Int, fileModels: List<String>, filetoken : String){
+        userModel = iSecurityUtil.userLoggedIn(context, gson)!!
+        if(position <= fileModels.size-1 ){
+            val fileModel = fileModels.get(position)
             AlRequest.POSTMultipart(Api.upload_files(), context, object : AlRequest.OnMultipartRequest{
                 override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
                     val params = HashMap<String, VolleyMultipartRequest.DataPart>()
-                    params["file"] = getFileParam(Uri.parse(fileModel.uri))
+                    params["file"] = getFileParam(Uri.parse(fileModel))
                     return params
                 }
 
@@ -106,7 +107,7 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                 override fun onSuccess(response: JSONObject?) {
                     try {
                         if (response!!.getString("status").equals("ok")) {
-                            uploadListFile(position+1, fileModels)
+                            uploadListFile(position+1, fileModels, filetoken)
 //                            view.onRequestResult(true)
                         } else {
 //                            view.onRequestResult(false)
@@ -124,7 +125,7 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                 override fun requestParam(): MutableMap<String, String> {
                     val param = DataConstant.headerRequest()
                     var name = ""
-                    var x = fileModel.uri!!.split("/")
+                    var x = fileModel.split("/")
                     for (i in 0 until x.size) {
                         if(i < (x.size-1)){
                             if(i > 0){
@@ -136,7 +137,8 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                         }
                     }
                     param["directory"] = name+"/"
-                    param["file"] = fileModel.uri
+                    param["file"] = fileModel
+                    param["file_token"] = filetoken
                     param["deviceToken"] = userModel!!.firebaseToken
                     return param
                 }

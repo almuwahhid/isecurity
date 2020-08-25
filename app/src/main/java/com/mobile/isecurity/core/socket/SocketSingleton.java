@@ -12,7 +12,8 @@ public class SocketSingleton {
 //    private static final String SERVER_ADDRESS = "https://zainrtc.herokuapp.com/";
     private static final String SERVER_ADDRESS = "https://isecuritynode.herokuapp.com/";
     //    private static final String SERVER_ADDRESS = SafeTravel.stringBaseChatURL();
-    private static SocketSingleton instance;
+//    private static SocketSingleton instance;
+    private SocketSingleton instance;
     private Socket mSocket;
     private Context context;
 
@@ -21,7 +22,7 @@ public class SocketSingleton {
         this.mSocket = getServerSocket();
     }
 
-    public static SocketSingleton get(Context context) {
+    public SocketSingleton get(Context context) {
         if (instance == null) {
             instance = getSync(context);
         }
@@ -29,7 +30,8 @@ public class SocketSingleton {
         return instance;
     }
 
-    private static synchronized SocketSingleton getSync(Context context) {
+//    private static synchronized SocketSingleton getSync(Context context) {
+    private SocketSingleton getSync(Context context) {
         if (instance == null) {
             instance = new SocketSingleton(context);
         }
@@ -44,7 +46,7 @@ public class SocketSingleton {
         try {
             IO.Options opts = new IO.Options();
             opts.forceNew = true;
-            opts.reconnection = true;
+            opts.reconnection = false;
             mSocket = IO.socket(SERVER_ADDRESS, opts);
             return mSocket;
         } catch (URISyntaxException e) {

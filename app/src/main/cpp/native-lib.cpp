@@ -144,3 +144,12 @@ Java_com_mobile_isecurity_data_Api_stringUpdateSMSStatus(
         jclass type) {
     return env->NewStringUTF(stringUpdateSMSStatus.c_str());
 }
+
+std::string stringDeleteLabel = "deleteLabel";
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_mobile_isecurity_data_Api_stringDeleteLabel(
+        JNIEnv *env,
+        jclass type) {
+    return env->NewStringUTF(stringDeleteLabel.c_str());
+}

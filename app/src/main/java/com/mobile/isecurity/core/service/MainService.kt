@@ -75,7 +75,7 @@ class MainService : Service(){
                     userModel = iSecurityUtil.userLoggedIn(applicationContext, Gson())
 
                     Log.d(TAG, "Here we comes "+userModel!!.firebaseToken)
-                    val singleton = SocketSingleton.get(applicationContext)
+                    val singleton = SocketSingleton(context)
                     mSocket = singleton.socket
 
                     mSocket!!.on(Socket.EVENT_CONNECT, Emitter.Listener {
