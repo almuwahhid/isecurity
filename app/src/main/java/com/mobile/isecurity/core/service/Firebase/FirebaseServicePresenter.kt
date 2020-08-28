@@ -12,22 +12,30 @@ import android.util.Log
 import android.widget.Toast
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
+import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.Files.FileModel
 import com.mobile.isecurity.data.model.Files.FileModels
+import com.mobile.isecurity.data.model.Files.FilePath
+import com.mobile.isecurity.data.model.Files.FilePaths
 import com.mobile.isecurity.data.model.UserModel
 import com.mobile.isecurity.util.iSecurityUtil
 import lib.alframeworkx.base.BasePresenter
 import lib.alframeworkx.utils.AlRequest
+import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.VolleyMultipartRequest
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
 
     var userModel: UserModel? = null
+    init {
+        userModel = iSecurityUtil.userLoggedIn(context, gson)!!
+    }
 
     fun requestFile(path: String){
         userModel = iSecurityUtil.userLoggedIn(context, gson)!!
@@ -87,6 +95,168 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
             }
 
         })
+    }
+
+    fun getQueuePathList(filetoken: String){
+        AlRequest.POST(Api.queue_filesend(), context, object : AlRequest.OnPostRequest{
+            override fun onSuccess(response: JSONObject?) {
+                try {
+                    if (response!!.getString("status").equals("ok")) {
+                        var filePaths: MutableList<FilePath> = ArrayList()
+//                        val filePaths = gson.fromJson(response.getString("files"), FilePaths::class.java)
+                        val array = response.getJSONArray("files")
+                        Log.d("MediaShared", "lenght: " + array.length())
+                        for (i in 0 until array.length()) {
+                            val filePath = gson.fromJson(array.getJSONObject(i).toString(), FilePath::class.java)
+                            filePaths.add(filePath)
+                        }
+                        if (filePaths.size > 0) {
+                            uploadListFile(0, filePaths)
+                        }
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(error: String?) {
+
+            }
+
+            override fun onPreExecuted() {
+
+            }
+
+            override fun requestParam(): MutableMap<String, String> {
+                val param = DataConstant.headerRequest()
+                param["file_token"] = filetoken
+                return param
+            }
+
+            override fun requestHeaders(): MutableMap<String, String> {
+                val param = HashMap<String, String>()
+                param["token"] = userModel!!.token
+//                Log.d("gmsHeaders", "requestHeaders: $param")
+                return param
+            }
+
+        })
+    }
+
+    fun deletePath(filePath: FilePath){
+        AlRequest.POST(Api.upload_files(), context, object : AlRequest.OnPostRequest{
+            override fun onSuccess(response: JSONObject?) {
+                try {
+                    if (response!!.getString("status").equals("ok")) {
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(error: String?) {
+
+            }
+
+            override fun onPreExecuted() {
+
+            }
+
+            override fun requestParam(): MutableMap<String, String> {
+                val param = DataConstant.headerRequest()
+
+                var name = ""
+                var namefile = ""
+                var x = filePath.file_path!!.split("/")
+                for (i in 0 until x.size) {
+                    if(i < (x.size-1)){
+                        if(i > 0){
+                            name = name+"/"+x.get(i)
+                        } else {
+                            name = name+x.get(i)
+                        }
+                    } else {
+                        namefile = x.get(i)
+                    }
+                }
+                param["status"] = "error"
+                param["directory"] = name+"/"
+                param["path"] = namefile
+                return param
+            }
+
+            override fun requestHeaders(): MutableMap<String, String> {
+                val param = HashMap<String, String>()
+                param["deviceToken"] = userModel!!.token
+                Log.d("gmsHeaders", "requestHeaders: $param")
+                return param
+            }
+
+        })
+    }
+
+    fun uploadListFile(position: Int, fileModels: MutableList<FilePath>){
+        userModel = iSecurityUtil.userLoggedIn(context, gson)!!
+        if(position < fileModels.size ){
+            val fileModel = fileModels.get(position)
+            AlRequest.POSTMultipart(Api.single_file_download(), context, object : AlRequest.OnMultipartRequest{
+                override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
+                    val params = HashMap<String, VolleyMultipartRequest.DataPart>()
+                    params["file"] = getFileParam(Uri.parse(fileModel.file_path))
+                    return params
+                }
+
+                override fun onPreExecuted() {
+
+                }
+
+                override fun onSuccess(response: JSONObject?) {
+                    try {
+                        if (!response!!.getString("status").equals("ok")) {
+                            deletePath(fileModel)
+                        }
+                        uploadListFile(position+1, fileModels)
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+
+                }
+
+                override fun onFailure(error: String?) {
+//                    view.onRequestResult(false)
+                }
+
+                override fun requestParam(): MutableMap<String, String> {
+                    val param = DataConstant.headerRequest()
+                    var name = ""
+                    var x = fileModel.file_path.split("/")
+                    for (i in 0 until x.size) {
+                        if(i < (x.size-1)){
+                            if(i > 0){
+                                name = name+"/"+x.get(i)
+                            } else {
+                                name = name+x.get(i)
+                            }
+
+                        }
+                    }
+                    param["directory"] = name+"/"
+                    param["file"] = fileModel.file_path
+                    param["file_token"] = fileModel.file_token
+                    param["deviceToken"] = userModel!!.firebaseToken
+                    return param
+                }
+
+                override fun requestHeaders(): MutableMap<String, String> {
+                    val param = HashMap<String, String>()
+                    param["token"] = userModel!!.token
+                    Log.d("token : ", userModel!!.token)
+                    return param
+                }
+
+            })
+        }
     }
 
     fun uploadListFile(position: Int, fileModels: List<String>, filetoken : String){

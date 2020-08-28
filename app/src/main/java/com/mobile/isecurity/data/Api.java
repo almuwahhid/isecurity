@@ -77,5 +77,15 @@ public class Api {
         return base_api + stringUpdateSMSStatus();
     }
 
+    public static native String stringQueueFileSend();
+    public static String queue_filesend() {
+        return base_api + stringQueueFileSend();
+    }
+
+    public static native String stringSingleFileDownload();
+    public static String single_file_download() {
+        return base_api + stringSingleFileDownload();
+    }
+
 
 }

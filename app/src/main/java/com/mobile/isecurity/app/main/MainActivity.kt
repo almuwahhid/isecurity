@@ -81,9 +81,9 @@ class MainActivity : iSecurityActivityPermission(), BottomNavigationView.OnNavig
                         } else {
                             startService(intent)
                         }
-                        initTimer()
-                        timer!!.start()
                     }
+                    initTimer()
+                    timer!!.start()
                 }
                 catch (ex: IllegalStateException) {
 

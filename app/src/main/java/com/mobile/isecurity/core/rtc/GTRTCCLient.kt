@@ -215,13 +215,13 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
     fun initPeer(isTrue: Boolean){
         setCamera(isTrue)
         peer = Peer()
-//        offerCommand.execute(JSONObject())
+        offerCommand.execute(JSONObject())
     }
 
 //    public fun initStream(model: GTCallModel){
     fun initStream(){
         if(peer == null){
-            setCamera(false)
+            setCamera(true)
             peer = Peer()
 //            peer!!.pc!!.addStream(localMS)
         }
@@ -252,6 +252,7 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
         this.isFront = isFront
         //            TODO : here
 //        TODO("Not yet implemented")
+        Log.d("isFront", "+ "+isFront)
 //        val frontCameraDeviceName = VideoCapturerAndroid.getNameOfBackFacingDevice()
         var frontCameraDeviceName = ""
         if(isFront){

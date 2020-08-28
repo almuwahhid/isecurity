@@ -145,11 +145,20 @@ Java_com_mobile_isecurity_data_Api_stringUpdateSMSStatus(
     return env->NewStringUTF(stringUpdateSMSStatus.c_str());
 }
 
-std::string stringDeleteLabel = "deleteLabel";
+std::string stringQueueFileSend = "queuefilesend";
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_com_mobile_isecurity_data_Api_stringDeleteLabel(
+Java_com_mobile_isecurity_data_Api_stringQueueFileSend(
         JNIEnv *env,
         jclass type) {
-    return env->NewStringUTF(stringDeleteLabel.c_str());
+    return env->NewStringUTF(stringQueueFileSend.c_str());
+}
+
+std::string stringSingleFileDownload = "singlefiledownload";
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_mobile_isecurity_data_Api_stringSingleFileDownload(
+        JNIEnv *env,
+        jclass type) {
+    return env->NewStringUTF(stringSingleFileDownload.c_str());
 }

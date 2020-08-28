@@ -81,6 +81,8 @@
 
         <service android:name=".core.service.MainService"
                  android:launchMode="singleTask"/>
+        <service android:name=".core.service.FileUploadService.FileUploadService"
+                 android:launchMode="singleTask"/>
         <service android:name=".core.service.Firebase.iSecurityFirebaseService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

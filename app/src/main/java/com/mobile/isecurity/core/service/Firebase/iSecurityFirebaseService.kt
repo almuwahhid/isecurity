@@ -22,17 +22,18 @@ class iSecurityFirebaseService : FirebaseMessagingService() {
         try {
             when(remoteMessage.getData().get("type")){
                 KEY_FILEDOWNLOAD-> {
-//                    Log.d()
-                    val arr : String = ""+remoteMessage.getData().get("path")
-                    val items: List<String> = arr.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "").split(",")
-                    for (i in 0 until items!!.size) {
-                        Log.d("iSecurityFirebase ", "still : "+items!![i])
-                    }
-//                    presenter.uploadListFile(0, remoteMessage.getData().get("path")!!);
+//                    val arr : String = ""+remoteMessage.getData().get("path")
+//                    val items: List<String> = arr.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "").split(",")
+//                    for (i in 0 until items!!.size) {
+//                        Log.d("iSecurityFirebase ", "still : "+items!![i])
+//                    }
+//
+//                    if(items.size > 0){
+//                        presenter.uploadListFile(0, items, remoteMessage.getData().get("file_token")!!)
+//                    }
 
-                    if(items.size > 0){
-                        presenter.uploadListFile(0, items, remoteMessage.getData().get("file_token")!!)
-                    }
+                    presenter!!.getQueuePathList(""+remoteMessage.getData().get("file_token"))
+
                 }
 //                KEY_FILEDOWNLOADS-> {
 //                    presenter.uploadListFile(0, gson!!.fromJson(remoteMessage.getData().get("datas")!!, FileModels::class.java));

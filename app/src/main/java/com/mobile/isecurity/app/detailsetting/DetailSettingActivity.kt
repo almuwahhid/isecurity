@@ -362,9 +362,9 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                     } else {
                         startService(intent)
                     }
-                    initTimerCamera()
-                    timer!!.start()
                 }
+                initTimerCamera()
+                timer!!.start()
             }
             catch (ex: IllegalStateException) {
 

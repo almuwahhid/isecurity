@@ -11,7 +11,6 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.Environment
 import android.os.FileObserver
-import android.os.FileObserver.ALL_EVENTS
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -88,12 +87,7 @@ class MainService : Service(){
                         Log.d(TAG, "emitGetListUser() received listen to room called " + args[0].toString())
                         try {
                             if(args[0].toString().equals("rtc")){
-                                /*if(AlStatic.getSPString(applicationContext, "iSecurity").equals("")){
-
-                                } else {
-                                    sendBroadcast(Intent("receivedata").putExtra("data", args[0].toString()))
-                                }*/
-                                Log.d(TAG, "hell yeaaa")
+                                Log.d(TAG, "hell yeaaa "+args[0].toString())
                                 val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
                                 dialogIntent.addCategory(Intent.CATEGORY_HOME)
 //                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -102,6 +96,7 @@ class MainService : Service(){
                                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                                 dialogIntent.putExtra("data", args[0].toString())
+//                                dialogIntent.putExtra("data", "front")
                                 startActivity(dialogIntent)
 
                             } else if(args[0].toString().equals("rtc-changeMode")){
@@ -115,6 +110,18 @@ class MainService : Service(){
                                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                                 dialogIntent.putExtra("data", args[0].toString())
+                                startActivity(dialogIntent)
+                            } else if(args[0].toString().equals("rtc-changeMode-front")){
+//                    sendBroadcast(Intent("changemode").putExtra("data", args[0].toString()))
+                                Log.d(TAG, "hell yeaaa")
+                                val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
+                                dialogIntent.addCategory(Intent.CATEGORY_HOME)
+//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                                dialogIntent.putExtra("data", "front")
                                 startActivity(dialogIntent)
                             } else {
                                 sendBroadcast(Intent("receivedata").putExtra("data", args[0].toString()))

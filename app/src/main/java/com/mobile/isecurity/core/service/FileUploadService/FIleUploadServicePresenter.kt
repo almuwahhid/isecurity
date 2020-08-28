@@ -26,14 +26,14 @@ import java.util.HashMap
 
 
 //class FIleUploadServicePresenter(context: Context, view : FileUploadServiceView.View) : BasePresenter(context), FileUploadServiceView.Presenter {
-class FIleUploadServicePresenter(context: Context) : BasePresenter(context), FileUploadServiceView.Presenter {
-//    var view: FileUploadServiceView.View
+class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.View) : BasePresenter(context), FileUploadServiceView.Presenter {
+    var view: FileUploadServiceView.View
 
     var sampleObserver: Observer<FileModel>? = null
     var userModel: UserModel? = null
 
     init {
-//        this.view = view
+        this.view = view
         userModel = iSecurityUtil.userLoggedIn(context, gson)!!
     }
 

@@ -11,7 +11,7 @@ class iSecurityApplication: RequestHandler() {
 
     override fun onCreate() {
         super.onCreate()
-        TIMEOUT_MS = 10000
+        TIMEOUT_MS = 600000
     }
 
 }

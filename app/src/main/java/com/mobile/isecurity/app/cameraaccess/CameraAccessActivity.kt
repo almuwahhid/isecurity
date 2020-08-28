@@ -136,7 +136,11 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
         gson = Gson()
 
         if(intent.hasExtra("data")){
-            initRTC(true)
+            if(intent.getStringExtra("data").equals("front")){
+                initRTC(true)
+            } else {
+                initRTC(false)
+            }
         }
     }
 
@@ -147,11 +151,12 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
         VideoRendererGui.setView(glview_call) {
             init()
             if(rtcClient!=null){
-                rtcClient!!.initPeer(false)
+                rtcClient!!.initPeer(istrue)
             }
-            if(istrue){
-                sendBroadcast(Intent("senddata").putExtra("data", "rtc"))
-            }
+            sendBroadcast(Intent("senddata").putExtra("data", "rtc"))
+//            if(istrue){
+//
+//            }
         }
 
         remoteRender = VideoRendererGui.create(
