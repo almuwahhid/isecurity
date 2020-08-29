@@ -1,5 +1,6 @@
 package com.mobile.isecurity.app.detailsetting
 
+import com.mobile.isecurity.data.model.SecurityMenuModel
 import lib.alframeworkx.base.BaseView
 
 interface DetailSettingView {
@@ -8,6 +9,7 @@ interface DetailSettingView {
     }
     interface PresenterFiles{
         fun requestFilesUpdate(isLoadingShown: Boolean)
+        fun setAccessPermission(access: String, securityMenuModel: SecurityMenuModel)
     }
     interface PresenterCamera{
 
@@ -26,6 +28,7 @@ interface DetailSettingView {
         fun onRequestNewContact(isSuccess: Boolean, message: String)
         fun onRequestNewFiles(isSuccess: Boolean, message: String)
         fun onRequestUpdateCameraPermission(isSuccess: Boolean, message: String)
+        fun onCheckFileUploadStatus()
     }
 
     interface Presenter{

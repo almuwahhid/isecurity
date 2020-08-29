@@ -1,8 +1,7 @@
 package com.mobile.isecurity.app.detailsetting
 
 import android.Manifest
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -51,10 +50,21 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
     var timer: Thread? = null
 
+    var filter : IntentFilter? = null
+    private val receiver_file: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            initButtonForUploading()
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_setting)
+
+        filter = IntentFilter()
+        filter!!.addAction(StringConstant.UPLOADING_FILE_STATUS)
+        registerReceiver(receiver_file, filter)
 
         if(intent.hasExtra("data")){
             securityMenuModel = intent.getSerializableExtra("data") as SecurityMenuModel
@@ -126,7 +136,13 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
         tv_title.setText(securityMenuModel.title)
         tv_subtitle.setText(securityMenuModel.subtitle)
 
-        initEnableComponent(securityMenuModel.status)
+//
+        if(securityMenuModel.id.equals(StringConstant.ID_FILES)){
+            initButtonForUploading()
+        } else {
+            initEnableComponent(securityMenuModel.status)
+        }
+
 
         checkPermissionComponentExtra(securityMenuModel.id)
 
@@ -277,7 +293,13 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                     }
 
                     override fun permissionGranted() {
-                        presenterFile.setAccessPermission(if(securityMenuModel.status == 0) ""+1 else ""+0)
+                        val status = if(securityMenuModel.status == 0) ""+1 else ""+0
+                        if(status.equals("1")){
+                            presenterFile.setAccessPermission(if(securityMenuModel.status == 0) ""+1 else ""+0, securityMenuModel)
+                        } else {
+                            presenterFile.setAccessPermission(if(securityMenuModel.status == 0) ""+1 else ""+0)
+                        }
+
                     }
 
                 })
@@ -375,6 +397,10 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
         }
     }
 
+    override fun onCheckFileUploadStatus() {
+        initButtonForUploading()
+    }
+
     override fun onHideLoading() {
         AlStatic.hideLoadingDialog(context)
     }
@@ -426,4 +452,18 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
         }
     }
 
+    private fun initButtonForUploading(){
+        if(AlStatic.getSPBoolean(context, StringConstant.UPLOADING_FILE_STATUS)){
+            btn_enable.isEnabled = false
+            btn_enable.setBackground(resources.getDrawable(R.drawable.button_progress))
+            btn_enable.setText("UPLOADING FILE")
+        } else {
+            initEnableComponent(securityMenuModel.status)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver_file)
+    }
 }

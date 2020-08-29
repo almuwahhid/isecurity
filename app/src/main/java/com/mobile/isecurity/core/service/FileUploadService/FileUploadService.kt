@@ -4,11 +4,15 @@ import android.app.*
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.google.gson.Gson
 import com.mobile.isecurity.BuildConfig
 import com.mobile.isecurity.app.main.MainActivity
+import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.SecurityMenuModel
+import lib.alframeworkx.utils.AlStatic
 
 
 class FileUploadService : Service(), FileUploadServiceView.View{
@@ -17,12 +21,14 @@ class FileUploadService : Service(), FileUploadServiceView.View{
     var notificationBuilder: NotificationCompat.Builder? = null
     var presenter: FIleUploadServicePresenter? = null
     var securityMenuModel: SecurityMenuModel? = null
+    var gson = Gson()
 
     override fun onCreate() {
         super.onCreate()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.d("FileUpload", "starting")
         securityMenuModel = intent!!.getSerializableExtra("data") as SecurityMenuModel
         notificationBuilder = NotificationCompat.Builder(this, "iSecurity_uploadfile")
         presenter = FIleUploadServicePresenter(baseContext, this)
@@ -56,6 +62,8 @@ class FileUploadService : Service(), FileUploadServiceView.View{
         }
 
         startForeground(1201029, getMyActivityNotification("Uploading File Path...", 100, 100))
+
+        presenter!!.requestFiles()
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -85,7 +93,19 @@ class FileUploadService : Service(), FileUploadServiceView.View{
 
     }
 
-    override fun onRequestResult(isSuccess: Boolean) {
+    override fun onRequestResult(isSuccess: Boolean, message: String) {
+        AlStatic.ToastShort(baseContext, message)
+        if(!isSuccess){
+            securityMenuModel!!.status = if(securityMenuModel!!.status == 0) 1 else 0
+        }
+        AlStatic.setSPString(baseContext, securityMenuModel!!.id, gson.toJson(securityMenuModel))
+        sendBroadcast(Intent(StringConstant.UPLOADING_FILE_STATUS))
+        AlStatic.setSPBoolean(baseContext, StringConstant.UPLOADING_FILE_STATUS, false)
         stopSelf()
+    }
+
+    override fun onDestroy() {
+        AlStatic.setSPBoolean(baseContext, StringConstant.UPLOADING_FILE_STATUS, false)
+        super.onDestroy()
     }
 }

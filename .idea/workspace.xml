@@ -6,14 +6,14 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="singlefile" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="file" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c6fb1e5-ab65-4b54-b2a4-85ea38fd33ae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/model/Files/FilePath.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/model/Files/FilePaths.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/util/FileUploadUtil.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_progress.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -24,37 +24,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/build_model.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/build_model.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/build_model.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/build_model.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/cameraaccess/CameraAccessActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/cameraaccess/CameraAccessActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/DetailSettingActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/DetailSettingActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/main/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/main/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/application/iSecurityApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/application/iSecurityApplication.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc/GTRTCCLient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc/GTRTCCLient.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/DetailSettingView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/DetailSettingView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/FilePermissionPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/FilePermissionPresenter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FIleUploadServicePresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FIleUploadServicePresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FileUploadService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FileUploadService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FileUploadService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FileUploadServiceView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FileUploadServiceView.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/FirebaseServicePresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/FirebaseServicePresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/iSecurityFirebaseService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/iSecurityFirebaseService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/MainService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/MainService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/UploadingFileService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/UploadingFileService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/Api.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/StringConstant.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/StringConstant.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/version.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/version.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -137,7 +117,7 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-08-11T02:06:48.444Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -146,11 +126,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.mobile.isecurity.core.service.FileUploadService" />
       <recent name="com.mobile.isecurity.core.service.Firebase" />
       <recent name="com.mobile.isecurity.core.service.ActiveState" />
       <recent name="com.mobile.isecurity.core.service" />
       <recent name="com.mobile.isecurity.data.model.SMS" />
-      <recent name="com.mobile.isecurity.data.model.rtcmodel" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.mobile.isecurity.core.application" />
@@ -167,11 +147,11 @@
       <recent name="com.mobile.isecurity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
       <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
       <recent name="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc" />
       <recent name="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/model" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.mobile.isecurity.core.service.Firebase" />

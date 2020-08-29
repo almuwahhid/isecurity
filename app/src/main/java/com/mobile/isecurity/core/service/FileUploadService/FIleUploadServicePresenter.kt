@@ -6,10 +6,13 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.provider.MediaStore
 import android.util.Log
+import com.mobile.isecurity.app.detailsetting.presenter.FilePermissionPresenter
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
 import com.mobile.isecurity.data.model.Files.FileModel
 import com.mobile.isecurity.data.model.UserModel
+import com.mobile.isecurity.util.FileUploadUtil
+import com.mobile.isecurity.util.FileUploadUtil.Companion.isJsonFileSaved
 import com.mobile.isecurity.util.iSecurityUtil
 import lib.alframeworkx.base.BasePresenter
 import lib.alframeworkx.utils.AlRequest
@@ -25,7 +28,6 @@ import java.io.File
 import java.util.HashMap
 
 
-//class FIleUploadServicePresenter(context: Context, view : FileUploadServiceView.View) : BasePresenter(context), FileUploadServiceView.Presenter {
 class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.View) : BasePresenter(context), FileUploadServiceView.Presenter {
     var view: FileUploadServiceView.View
 
@@ -35,35 +37,6 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
     init {
         this.view = view
         userModel = iSecurityUtil.userLoggedIn(context, gson)!!
-    }
-
-    override fun requestImages() {
-
-        /*sampleObserver = object : Observer<FileModel> {
-            override open fun onCompleted() {}
-            override open fun onError(e: Throwable) {}
-            override open fun onNext(s: FileModel) {
-                Log.d("TestOnNext", "onNext: $s")
-
-            }
-        }
-
-        FilteredFileListRequest(context, object: OnAfterRequstFilteredFiles{
-            override fun afterRequestContact(result: MutableList<FileModel>) {
-                Observable.from(result)
-                    .subscribeOn(Schedulers.io())
-                    .map(Func1<FileModel, FileModel> { s ->
-                        try {
-                            Thread.sleep(200)
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                        s
-                    })
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(sampleObserver)
-            }
-        })*/
     }
 
     protected fun uploadListFile(position: Int, fileModels: MutableList<FileModel>){
@@ -204,6 +177,59 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
 
     private interface OnAfterRequstFilteredFiles{
         fun afterRequestContact(result: MutableList<FileModel>)
+    }
+
+    override fun requestFiles() {
+        FileUploadUtil.FileListRequest(context, object : FileUploadUtil.OnAfterRequestFiles {
+                override fun afterRequestContact(result: MutableList<FileModel>) {
+                    if (isJsonFileSaved(gson, result)) {
+                        AlRequest.POSTMultipart(
+                            Api.update_files(),
+                            context,
+                            object : AlRequest.OnMultipartRequest {
+                                override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
+                                    val params = HashMap<String, VolleyMultipartRequest.DataPart>()
+                                    params["user_file"] = FileUploadUtil.getFileParam(context)
+                                    return params
+                                }
+
+                                override fun onPreExecuted() {
+
+                                }
+
+                                override fun onSuccess(response: JSONObject?) {
+                                    try {
+                                        if (response!!.getString("status").equals("ok")) {
+                                            view.onRequestResult(true, response.getString("message"))
+                                        } else {
+                                            view.onRequestResult(false, response.getString("message"))
+                                        }
+                                    } catch (e: JSONException) {
+                                        e.printStackTrace()
+                                        view.onRequestResult(false, "Something wrong on Server")
+                                    }
+
+                                }
+
+                                override fun onFailure(error: String?) {
+                                    view.onRequestResult(false, error!!)
+                                }
+
+                                override fun requestParam(): MutableMap<String, String> {
+                                    val param = DataConstant.headerRequest()
+                                    return param
+                                }
+
+                                override fun requestHeaders(): MutableMap<String, String> {
+                                    val param = HashMap<String, String>()
+                                    param["token"] = userModel!!.token
+                                    return param
+                                }
+
+                            })
+                    }
+                }
+            }).execute()
     }
 
 }

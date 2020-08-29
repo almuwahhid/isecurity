@@ -79,6 +79,10 @@ class PhoneStateReceiver: BroadcastReceiver(), DetailSettingView.View {
         TODO("Not yet implemented")
     }
 
+    override fun onCheckFileUploadStatus() {
+
+    }
+
     override fun onHideLoading() {
 
     }

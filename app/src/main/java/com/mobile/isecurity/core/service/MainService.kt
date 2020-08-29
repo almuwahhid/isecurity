@@ -95,8 +95,19 @@ class MainService : Service(){
 //                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                                dialogIntent.putExtra("data", args[0].toString())
-//                                dialogIntent.putExtra("data", "front")
+//                                dialogIntent.putExtra("data", args[0].toString())
+                                dialogIntent.putExtra("data", "front")
+                                startActivity(dialogIntent)
+
+                            } else if(args[0].toString().equals("rtc-back")){
+                                Log.d(TAG, "hell yeaaa "+args[0].toString())
+                                val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
+                                dialogIntent.addCategory(Intent.CATEGORY_HOME)
+                                dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+//                                dialogIntent.putExtra("data", args[0].toString())
+                                dialogIntent.putExtra("data", "back")
                                 startActivity(dialogIntent)
 
                             } else if(args[0].toString().equals("rtc-changeMode")){

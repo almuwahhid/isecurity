@@ -1,17 +1,22 @@
 package com.mobile.isecurity.app.detailsetting.presenter
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
 import com.mobile.isecurity.app.detailsetting.DetailSettingView
+import com.mobile.isecurity.core.service.FileUploadService.FileUploadService
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
+import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.Files.FileModel
+import com.mobile.isecurity.data.model.SecurityMenuModel
 import com.mobile.isecurity.data.model.UserModel
 import com.mobile.isecurity.util.iSecurityUtil
 import lib.alframeworkx.utils.AlRequest
+import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.VolleyMultipartRequest
 import org.json.JSONException
 import org.json.JSONObject
@@ -122,6 +127,55 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
         }).execute()
     }
 
+    override fun setAccessPermission(access: String, securityMenuModel: SecurityMenuModel) {
+        super.setAccessPermission(access)
+        securityMenuModel.status = Integer.valueOf(access)
+        AlRequest.POST(Api.update_access_permission(), context, object : AlRequest.OnPostRequest{
+            override fun onSuccess(response: JSONObject?) {
+                view.onHideLoading()
+                try {
+                    if (response!!.getString("status").equals("ok")) {
+                        if(access.equals("1")){
+//                            requestFilesUpdate(false)
+                            context.stopService(Intent(context, FileUploadService::class.java))
+                            context.startService(Intent(context, FileUploadService::class.java).putExtra("data", securityMenuModel))
+                            AlStatic.setSPBoolean(context, StringConstant.UPLOADING_FILE_STATUS, true)
+                            view.onCheckFileUploadStatus()
+                        }
+                    } else {
+                        view!!.onError(response.getString("message"))
+                    }
+                } catch (e: JSONException) {
+                    view.onHideLoading()
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(error: String?) {
+                view!!.onHideLoading()
+                view!!.onError(error)
+            }
+
+            override fun onPreExecuted() {
+                view!!.onLoading()
+            }
+
+            override fun requestParam(): MutableMap<String, String> {
+                val param = DataConstant.headerRequest()
+                param["isFiles"] = ""+access
+                return param
+            }
+
+            override fun requestHeaders(): MutableMap<String, String> {
+                val param = HashMap<String, String>()
+                param["token"] = userModel.token
+                Log.d("gmsHeaders", "requestParam: $param")
+                return param
+            }
+
+        })
+    }
+
     override fun setAccessPermission(access: String) {
         super.setAccessPermission(access)
         AlRequest.POST(Api.update_access_permission(), context, object : AlRequest.OnPostRequest{
@@ -130,6 +184,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                     if (response!!.getString("status").equals("ok")) {
                         if(access.equals("1")){
                             requestFilesUpdate(false)
+//                            context.startService(Intent(context, FileUploadService::class.java))
                         } else {
                             view.onHideLoading()
                             view!!.onRequestNewLocation(true, response.getString("message"))
@@ -168,7 +223,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
         })
     }
 
-    private class FileListRequest(context: Context, onAfterRequestFiles : OnAfterRequestFiles) : AsyncTask<String, String, MutableList<FileModel>>() {
+    public class FileListRequest(context: Context, onAfterRequestFiles : OnAfterRequestFiles) : AsyncTask<String, String, MutableList<FileModel>>() {
 
         val onAfterRequestContact : OnAfterRequestFiles
         val context : Context
@@ -263,11 +318,11 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
     }
 
 
-    private interface OnAfterRequestFiles{
+    interface OnAfterRequestFiles{
         fun afterRequestContact(result: MutableList<FileModel>)
     }
 
-    private fun isJsonFileSaved(result: MutableList<FileModel>) : Boolean {
+    fun isJsonFileSaved(result: MutableList<FileModel>) : Boolean {
 
         val jsont = gson.toJson(result)
         try {

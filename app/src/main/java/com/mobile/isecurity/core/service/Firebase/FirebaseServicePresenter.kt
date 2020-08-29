@@ -197,6 +197,7 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
     }
 
     fun uploadListFile(position: Int, fileModels: MutableList<FilePath>){
+        Log.d("upload file", "position : "+position + " - "+fileModels.size)
         userModel = iSecurityUtil.userLoggedIn(context, gson)!!
         if(position < fileModels.size ){
             val fileModel = fileModels.get(position)
