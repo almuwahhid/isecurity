@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Point
+import android.hardware.camera2.CameraManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -132,8 +133,17 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
         filter!!.addAction("disconnectdata")
 
         registerReceiver(receiver, filter)
-
         gson = Gson()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            for (x in cameraManager.cameraIdList) {
+                Log.d("camera-rtc", x)
+                val cameraId = cameraManager.getCameraIdList()[0]
+                
+            }
+        }
+
 
         if(intent.hasExtra("data")){
             if(intent.getStringExtra("data").equals("front")){

@@ -61,7 +61,7 @@ class FileUploadService : Service(), FileUploadServiceView.View{
             notificationBuilder!!.setChannelId("iSecurity_id")
         }
 
-        startForeground(1201029, getMyActivityNotification("Uploading File Path...", 100, 100))
+        startForeground(1201030, getMyActivityNotification("Uploading File Path...", 100, 100))
 
         presenter!!.requestFiles()
         return super.onStartCommand(intent, flags, startId)
@@ -105,7 +105,7 @@ class FileUploadService : Service(), FileUploadServiceView.View{
     }
 
     override fun onDestroy() {
-        AlStatic.setSPBoolean(baseContext, StringConstant.UPLOADING_FILE_STATUS, false)
+//        AlStatic.setSPBoolean(baseContext, StringConstant.UPLOADING_FILE_STATUS, false)
         super.onDestroy()
     }
 }

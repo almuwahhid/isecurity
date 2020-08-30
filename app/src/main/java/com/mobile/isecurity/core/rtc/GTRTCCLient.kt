@@ -16,6 +16,7 @@ import com.mobile.isecurity.core.rtc.GTPeerConnectionParameters
 import org.json.JSONException
 import org.json.JSONObject
 import org.webrtc.*
+import java.lang.Exception
 import java.util.*
 
 
@@ -240,6 +241,24 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
         videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("maxFrameRate", Integer.toString(params!!.videoFps)))
         videoConstraints!!.mandatory.add(MediaConstraints.KeyValuePair("minFrameRate", Integer.toString(params!!.videoFps)))
 
+        try {
+            videoSource = factory!!.createVideoSource(getVideoCapturer(true), videoConstraints)
+            if (videoSource != null) {
+                videoSource!!.dispose()
+            }
+        } catch (e : Exception){
+            e.printStackTrace()
+        }
+
+        try {
+            videoSource = factory!!.createVideoSource(getVideoCapturer(false), videoConstraints)
+            if (videoSource != null) {
+                videoSource!!.dispose()
+            }
+        } catch (e : Exception){
+            e.printStackTrace()
+        }
+
         videoSource = factory!!.createVideoSource(getVideoCapturer(isFront), videoConstraints)
         videoTrack = factory!!.createVideoTrack("ARDAMSv0", videoSource)
         localMS!!.addTrack(videoTrack!!)
@@ -365,7 +384,6 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
 
     public fun stopPeer(){
         peer!!.pc!!.dispose()
-
         if (videoSource != null) {
 //            videoSource!!.stop()
             videoSource!!.dispose()

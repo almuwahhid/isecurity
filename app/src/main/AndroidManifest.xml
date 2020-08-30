@@ -38,6 +38,8 @@
         <activity android:name=".app.forgotpassword.DialogForgotPassword" />
         <activity
             android:name=".app.cameraaccess.CameraAccessActivity"
+            android:theme="@style/Theme.Transparent"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:noHistory="true"
@@ -80,7 +82,7 @@
         <activity android:name=".app.main.MainActivity" />
 
         <service android:name=".core.service.MainService"
-                 android:launchMode="singleTask"/>
+            android:launchMode="singleTask"/>
         <!--<service android:name=".core.service.FileUploadService.FileUploadService"
                  android:launchMode="singleTask"/>-->
         <service android:name=".core.service.Firebase.iSecurityFirebaseService">

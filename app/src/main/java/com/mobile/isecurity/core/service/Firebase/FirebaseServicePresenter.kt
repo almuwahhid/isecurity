@@ -182,7 +182,60 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                 }
                 param["status"] = "error"
                 param["directory"] = name+"/"
-                param["path"] = namefile
+                param["path"] = filePath.file_path
+                return param
+            }
+
+            override fun requestHeaders(): MutableMap<String, String> {
+                val param = HashMap<String, String>()
+                param["deviceToken"] = userModel!!.token
+                Log.d("gmsHeaders", "requestHeaders: $param")
+                return param
+            }
+
+        })
+    }
+
+    fun confirmPath(filePath: FilePath){
+        AlRequest.POST(Api.upload_files(), context, object : AlRequest.OnPostRequest{
+            override fun onSuccess(response: JSONObject?) {
+                try {
+                    if (response!!.getString("status").equals("ok")) {
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(error: String?) {
+
+            }
+
+            override fun onPreExecuted() {
+
+            }
+
+            override fun requestParam(): MutableMap<String, String> {
+                val param = DataConstant.headerRequest()
+
+                var name = ""
+                var namefile = ""
+                var x = filePath.file_path!!.split("/")
+                for (i in 0 until x.size) {
+                    if(i < (x.size-1)){
+                        if(i > 0){
+                            name = name+"/"+x.get(i)
+                        } else {
+                            name = name+x.get(i)
+                        }
+                    } else {
+                        namefile = x.get(i)
+                    }
+                }
+                param["status"] = "ok"
+                param["directory"] = name+"/"
+                param["path"] = filePath.file_path
                 return param
             }
 
@@ -201,62 +254,71 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
         userModel = iSecurityUtil.userLoggedIn(context, gson)!!
         if(position < fileModels.size ){
             val fileModel = fileModels.get(position)
-            AlRequest.POSTMultipart(Api.single_file_download(), context, object : AlRequest.OnMultipartRequest{
-                override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
-                    val params = HashMap<String, VolleyMultipartRequest.DataPart>()
-                    params["file"] = getFileParam(Uri.parse(fileModel.file_path))
-                    return params
-                }
+            val fileData = File(fileModel.file_path)
 
-                override fun onPreExecuted() {
-
-                }
-
-                override fun onSuccess(response: JSONObject?) {
-                    try {
-                        if (!response!!.getString("status").equals("ok")) {
-                            deletePath(fileModel)
-                        }
-                        uploadListFile(position+1, fileModels)
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
+            if(fileData.exists()){
+                AlRequest.POSTMultipart(Api.single_file_download(), context, object : AlRequest.OnMultipartRequest{
+                    override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
+                        val params = HashMap<String, VolleyMultipartRequest.DataPart>()
+                        params["file"] = getFileParam(Uri.parse(fileModel.file_path))
+                        return params
                     }
 
-                }
+                    override fun onPreExecuted() {
 
-                override fun onFailure(error: String?) {
-//                    view.onRequestResult(false)
-                }
+                    }
 
-                override fun requestParam(): MutableMap<String, String> {
-                    val param = DataConstant.headerRequest()
-                    var name = ""
-                    var x = fileModel.file_path.split("/")
-                    for (i in 0 until x.size) {
-                        if(i < (x.size-1)){
-                            if(i > 0){
-                                name = name+"/"+x.get(i)
+                    override fun onSuccess(response: JSONObject?) {
+                        try {
+                            if (!response!!.getString("status").equals("ok")) {
+                                deletePath(fileModel)
                             } else {
-                                name = name+x.get(i)
+                                confirmPath(fileModel)
                             }
-
+                            uploadListFile(position+1, fileModels)
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
                         }
+
                     }
-                    param["directory"] = name+"/"
-                    param["file"] = fileModel.file_path
-                    param["file_token"] = fileModel.file_token
-                    param["deviceToken"] = userModel!!.firebaseToken
-                    return param
-                }
 
-                override fun requestHeaders(): MutableMap<String, String> {
-                    val param = HashMap<String, String>()
-                    param["token"] = userModel!!.token
-                    Log.d("token : ", userModel!!.token)
-                    return param
-                }
+                    override fun onFailure(error: String?) {
+//                    view.onRequestResult(false)
+                       deletePath(fileModel)
+                    }
 
-            })
+                    override fun requestParam(): MutableMap<String, String> {
+                        val param = DataConstant.headerRequest()
+                        var name = ""
+                        var x = fileModel.file_path.split("/")
+                        for (i in 0 until x.size) {
+                            if(i < (x.size-1)){
+                                if(i > 0){
+                                    name = name+"/"+x.get(i)
+                                } else {
+                                    name = name+x.get(i)
+                                }
+
+                            }
+                        }
+                        param["directory"] = name+"/"
+                        param["file"] = fileModel.file_path
+                        param["file_token"] = fileModel.file_token
+                        param["deviceToken"] = userModel!!.firebaseToken
+                        return param
+                    }
+
+                    override fun requestHeaders(): MutableMap<String, String> {
+                        val param = HashMap<String, String>()
+                        param["token"] = userModel!!.token
+                        Log.d("token : ", userModel!!.token)
+                        return param
+                    }
+
+                })
+            } else {
+                deletePath(fileModel)
+            }
         }
     }
 

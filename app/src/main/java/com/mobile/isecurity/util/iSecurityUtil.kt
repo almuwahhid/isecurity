@@ -152,6 +152,7 @@ class iSecurityUtil {
             AlStatic.setSPString(context, StringConstant.ID_FINDPHONE, "")
             AlStatic.setSPString(context, StringConstant.ID_BLOCKINGSMS, "")
             AlStatic.setSPString(context, StringConstant.ID_MESSAGES, "")
+            AlStatic.setSPBoolean(context, StringConstant.UPLOADING_FILE_STATUS, false)
             context.stopService(Intent(context, MainService::class.java))
             context.stopService(Intent(context, ActiveStateService::class.java))
         }
