@@ -8,7 +8,6 @@ import android.content.IntentFilter
 import android.os.IBinder
 import android.util.Log
 import com.google.gson.Gson
-import com.mobile.isecurity.core.service.MainService
 import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.UserModel
 import com.mobile.isecurity.util.iSecurityUtil

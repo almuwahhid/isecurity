@@ -14,7 +14,7 @@ import com.google.gson.Gson
 import com.mobile.isecurity.R
 import com.mobile.isecurity.app.detailsetting.presenter.*
 import com.mobile.isecurity.core.application.iSecurityActivityPermission
-import com.mobile.isecurity.core.service.MainService
+import com.mobile.isecurity.core.service.Main.MainService
 import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.SecurityMenuModel
 import com.mobile.isecurity.data.model.UserModel
@@ -35,7 +35,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
     private val CameraPermissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
     private val FilePermissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    private val SMSPermissions = arrayOf(Manifest.permission.READ_SMS)
+    private val SMSPermissions = arrayOf(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
     private val LocationPermissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
     private val ContactPermissions = arrayOf(Manifest.permission.READ_CONTACTS)
     private val BlockingPermissions = arrayOf(Manifest.permission.RECEIVE_SMS)

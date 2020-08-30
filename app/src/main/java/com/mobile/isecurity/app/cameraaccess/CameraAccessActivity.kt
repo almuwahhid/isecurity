@@ -21,7 +21,7 @@ import com.almuwahhid.isecurityrtctest.Payload
 import com.google.gson.Gson
 import com.mobile.isecurity.R
 import com.mobile.isecurity.core.rtc.GTPeerConnectionParameters
-import com.mobile.isecurity.core.service.MainService
+import com.mobile.isecurity.core.service.Main.MainService
 import com.mobile.isecurity.util.PermissionChecker
 import com.mobile.isecurity.util.iSecurityUtil
 import kotlinx.android.synthetic.main.activity_camera_access.*
@@ -140,7 +140,7 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
             for (x in cameraManager.cameraIdList) {
                 Log.d("camera-rtc", x)
                 val cameraId = cameraManager.getCameraIdList()[0]
-                
+
             }
         }
 

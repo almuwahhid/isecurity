@@ -11,7 +11,7 @@ import com.google.gson.Gson
 import com.mobile.isecurity.core.service.ActiveState.ActiveStatePresenter
 import com.mobile.isecurity.core.service.ActiveState.ActiveStateService
 import com.mobile.isecurity.core.service.ActiveState.ActiveStateView
-import com.mobile.isecurity.core.service.MainService
+import com.mobile.isecurity.core.service.Main.MainService
 import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.UserModel
 import lib.alframeworkx.utils.AlStatic
@@ -153,6 +153,7 @@ class iSecurityUtil {
             AlStatic.setSPString(context, StringConstant.ID_BLOCKINGSMS, "")
             AlStatic.setSPString(context, StringConstant.ID_MESSAGES, "")
             AlStatic.setSPBoolean(context, StringConstant.UPLOADING_FILE_STATUS, false)
+            AlStatic.setSPBoolean(context, StringConstant.ID_MONITORINGFILES, false)
             context.stopService(Intent(context, MainService::class.java))
             context.stopService(Intent(context, ActiveStateService::class.java))
         }
