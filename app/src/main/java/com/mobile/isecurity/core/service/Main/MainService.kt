@@ -157,6 +157,17 @@ class MainService : Service(){
                 "init-monitoringfiles" -> {
                     observe()
                 }
+                "refresh" -> {
+                    mSocket!!.emit("rtc-receiver"+userModel!!.firebaseToken, "refresh",
+                        object : Ack {
+                            override fun call(vararg args: Any?) {
+                                Log.d("TAGSecurityRTCFore", "call: getDatas " + args.size)
+                                if (args.size > 0) {
+                                    Log.d("TAGSecurityRTCFore", """emitGetListUser() ACK :${args[0]}""".trimIndent())
+                                }
+                            }
+                        })
+                }
             }
         }
     }
@@ -181,6 +192,7 @@ class MainService : Service(){
         filter!!.addAction("stopservice")
         filter!!.addAction("init-socket")
         filter!!.addAction("init-monitoringfiles")
+        filter!!.addAction("refresh")
         registerReceiver(receiver, filter)
 
         presenter = MainPresenter(baseContext)

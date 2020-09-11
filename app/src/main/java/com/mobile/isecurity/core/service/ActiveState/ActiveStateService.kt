@@ -100,6 +100,7 @@ class ActiveStateService : Service(), ActiveStateView.View{
     }
 
     override fun onUpdateActiveState(state : Int) {
+        Log.d("ActivateState", "status : "+state)
         if(state == 0){
             stopSelf()
         }

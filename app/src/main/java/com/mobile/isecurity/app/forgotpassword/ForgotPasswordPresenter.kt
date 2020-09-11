@@ -47,7 +47,9 @@ class ForgotPasswordPresenter(context: Context?, view: ForgotPasswordView.View) 
             }
 
             override fun requestHeaders(): MutableMap<String, String> {
-                return HashMap()
+                val headers = HashMap<String, String>()
+//                headers["Content-Type"] = DataConstant.CONTENT_TYPE
+                return headers
             }
 
         })

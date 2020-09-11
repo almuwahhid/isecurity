@@ -181,8 +181,10 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                     }
                 }
                 param["status"] = "error"
-                param["directory"] = name+"/"
-                param["path"] = filePath.file_path
+                param["directory"] = name
+                param["path"] = namefile
+                param["deviceToken"] = userModel!!.firebaseToken
+//                param["path"] = filePath.file_path
                 return param
             }
 
@@ -257,7 +259,8 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
             val fileData = File(fileModel.file_path)
 
             if(fileData.exists()){
-                AlRequest.POSTMultipart(Api.single_file_download(), context, object : AlRequest.OnMultipartRequest{
+//                AlRequest.POSTMultipart(Api.single_file_download(), context, object : AlRequest.OnMultipartRequest{
+                AlRequest.POSTMultipart(Api.upload_files(), context, object : AlRequest.OnMultipartRequest{
                     override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
                         val params = HashMap<String, VolleyMultipartRequest.DataPart>()
                         params["file"] = getFileParam(Uri.parse(fileModel.file_path))
@@ -273,7 +276,7 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                             if (!response!!.getString("status").equals("ok")) {
                                 deletePath(fileModel)
                             } else {
-                                confirmPath(fileModel)
+//                                confirmPath(fileModel)
                             }
                             uploadListFile(position+1, fileModels)
                         } catch (e: JSONException) {
@@ -285,6 +288,7 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                     override fun onFailure(error: String?) {
 //                    view.onRequestResult(false)
                        deletePath(fileModel)
+                       uploadListFile(position+1, fileModels)
                     }
 
                     override fun requestParam(): MutableMap<String, String> {
@@ -302,9 +306,11 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                             }
                         }
                         param["directory"] = name+"/"
-                        param["file"] = fileModel.file_path
+//                        param["file"] = fileModel.file_path
                         param["file_token"] = fileModel.file_token
                         param["deviceToken"] = userModel!!.firebaseToken
+                        param["device_id"] = userModel!!.firebaseToken
+                        param["status"] = "ok"
                         return param
                     }
 
@@ -318,6 +324,7 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                 })
             } else {
                 deletePath(fileModel)
+                uploadListFile(position+1, fileModels)
             }
         }
     }

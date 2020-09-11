@@ -2,6 +2,7 @@ package com.mobile.isecurity.app.register
 
 import android.content.Context
 import com.mobile.isecurity.data.Api
+import com.mobile.isecurity.data.DataConstant
 import lib.alframeworkx.base.BasePresenter
 import lib.alframeworkx.utils.AlRequest
 import lib.alframeworkx.utils.VolleyMultipartRequest
@@ -46,7 +47,9 @@ class RegisterPresenter(context: Context?, view: RegisterView.View) : BasePresen
                 }
 
                 override fun requestHeaders(): MutableMap<String, String> {
-                    return HashMap()
+                    val headers = HashMap<String, String>()
+//                    headers["Content-Type"] = DataConstant.CONTENT_TYPE
+                    return headers
                 }
 
             })
@@ -87,6 +90,7 @@ class RegisterPresenter(context: Context?, view: RegisterView.View) : BasePresen
 
                 override fun requestHeaders(): MutableMap<String, String> {
                     val headers = HashMap<String, String>()
+//                    headers["Content-Type"] = DataConstant.CONTENT_TYPE
                     return headers
                 }
 

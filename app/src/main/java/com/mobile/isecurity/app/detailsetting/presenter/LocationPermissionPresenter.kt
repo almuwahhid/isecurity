@@ -63,6 +63,7 @@ class LocationPermissionPresenter(context: Context, userModel: UserModel, view: 
                         val param = HashMap<String, String>()
                         param["token"] = userModel.token
                         Log.d("gmsHeaders", "requestHeaders: $param")
+//                        param["Content-Type"] = DataConstant.CONTENT_TYPE
                         return param
                     }
 
@@ -108,6 +109,7 @@ class LocationPermissionPresenter(context: Context, userModel: UserModel, view: 
             override fun requestHeaders(): MutableMap<String, String> {
                 val param = HashMap<String, String>()
                 param["token"] = userModel.token
+//                param["Content-Type"] = DataConstant.CONTENT_TYPE
                 return param
             }
 

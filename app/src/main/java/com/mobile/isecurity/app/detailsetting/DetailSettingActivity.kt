@@ -14,6 +14,7 @@ import com.google.gson.Gson
 import com.mobile.isecurity.R
 import com.mobile.isecurity.app.detailsetting.presenter.*
 import com.mobile.isecurity.core.application.iSecurityActivityPermission
+import com.mobile.isecurity.core.service.FileUploadService.FileUploadService
 import com.mobile.isecurity.core.service.Main.MainService
 import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.SecurityMenuModel
@@ -35,7 +36,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
     private val CameraPermissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
     private val FilePermissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    private val SMSPermissions = arrayOf(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
+    private val SMSPermissions = arrayOf(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS)
     private val LocationPermissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
     private val ContactPermissions = arrayOf(Manifest.permission.READ_CONTACTS)
     private val BlockingPermissions = arrayOf(Manifest.permission.RECEIVE_SMS)
@@ -79,6 +80,21 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
         }
 
         setComponent()
+
+        tv_stop.setOnClickListener({
+            AlertDialogBuilder(context, "Are you sure want to stop the process?", "Yes", "No", object  : AlertDialogBuilder.OnAlertDialog{
+                override fun onPositiveButton(dialog: DialogInterface?) {
+                    stopService(Intent(context, FileUploadService::class.java))
+                    AlStatic.setSPBoolean(context, StringConstant.UPLOADING_FILE_STATUS, false)
+                    initButtonForUploading()
+                }
+
+                override fun onNegativeButton(dialog: DialogInterface?) {
+
+                }
+
+            })
+        })
 
         btn_enable.setOnClickListener({
             val message = "Are you sure to "+(if(securityMenuModel.status == 0) "Enable" else "Disable")+" "+securityMenuModel.title+" Permissions ?"
@@ -179,6 +195,10 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                 checkIsFileMonitoring()
             }
         })
+
+        tv_stop.setOnClickListener({
+
+        })
     }
 
     private fun checkIsSMSBlocked(){
@@ -208,6 +228,12 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
             timer!!.start()
         } else {
             switch_monitoring_files.isChecked = false
+            if(!AlStatic.getSPString(context, StringConstant.ID_CAMERA).equals("")){
+                val securityMenuModel = gson.fromJson(AlStatic.getSPString(context, StringConstant.ID_CAMERA), SecurityMenuModel::class.java)
+                if(securityMenuModel.status == 0){
+                    stopService(Intent(context, MainService::class.java))
+                }
+            }
         }
     }
 
@@ -455,9 +481,12 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
     private fun initButtonForUploading(){
         if(AlStatic.getSPBoolean(context, StringConstant.UPLOADING_FILE_STATUS)){
             btn_enable.isEnabled = false
+//            tv_stop.visibility = View.VISIBLE
             btn_enable.setBackground(resources.getDrawable(R.drawable.button_progress))
             btn_enable.setText("UPLOADING FILE")
         } else {
+            btn_enable.isEnabled = true
+//            tv_stop.visibility = View.GONE
             initEnableComponent(securityMenuModel.status)
         }
     }

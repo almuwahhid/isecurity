@@ -77,6 +77,7 @@ class MainPresenter(context: Context) : BasePresenter(context) {
                     val param = HashMap<String, String>()
                     param["token"] = userModel!!.token
                     Log.d("token : ", userModel!!.token)
+//                    param["Content-Type"] = DataConstant.CONTENT_TYPE
                     return param
                 }
 

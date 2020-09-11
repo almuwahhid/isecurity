@@ -65,6 +65,7 @@ class ContactPermissionPresenter(context: Context, userModel: UserModel, view: D
                     override fun requestHeaders(): MutableMap<String, String> {
                         val param = HashMap<String, String>()
                         param["token"] = userModel.token
+//                        param["Content-Type"] = DataConstant.CONTENT_TYPE
                         return param
                     }
 
@@ -112,6 +113,7 @@ class ContactPermissionPresenter(context: Context, userModel: UserModel, view: D
             override fun requestHeaders(): MutableMap<String, String> {
                 val param = HashMap<String, String>()
                 param["token"] = userModel.token
+//                param["Content-Type"] = DataConstant.CONTENT_TYPE
                 return param
             }
 

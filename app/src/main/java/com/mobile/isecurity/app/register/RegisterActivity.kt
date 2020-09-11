@@ -91,6 +91,7 @@ class RegisterActivity : iSecurityActivityPermission(), RegisterView.View, View.
             param["email"] = edt_email.text.toString()
             param["phone"] = edt_phone.text.toString()
             param["password"] = edt_password.text.toString()
+            param["device_id"] = android.os.Build.MODEL
 //            param["countryCode"] = spinner.selectedItem.toString()
             param["countryCode"] = "+"+ccp.selectedCountryCode
             if(isPictOpened) {

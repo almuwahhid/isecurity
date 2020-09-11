@@ -51,6 +51,7 @@ class ChangePasswordPresenter(context: Context?, view: ChangePasswordView.View) 
             override fun requestHeaders(): MutableMap<String, String> {
                 val param = HashMap<String, String>()
                 param["token"] = userModel.token
+//                param["Content-Type"] = DataConstant.CONTENT_TYPE
                 return param
             }
 

@@ -67,20 +67,10 @@ android {
             def addUrl = { constantName, constantValue ->
                 buildConfigField "String", "${constantName}", "\"${constantValue}\""
             }
-            addUrl("base_api", "http://13.234.168.0/public/projects/api/")
-            addUrl("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
-        }
-
-        signingConfigs {
-            release {
-//                storeFile file('/Users/al/AndroidStudioProjects/legalisasi-dokumen-kemlu/key_legalisasi.jks')
-//                storePassword 'dev@legalisasi'
-//                keyAlias 'KeyLegalisasi'
-//                keyPassword 'dev@legalisasi'
-            }
-            debug {
-
-            }
+//            addUrl("base_api", "http://13.234.168.0/public/projects/api/")
+//            addUrl("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+            addUrl("base_api", "https://www.vspace.health/api/")
+            addUrl("base_image", "https://www.vspace.health/public/uploads/users/")
         }
 
         productFlavors {
@@ -91,8 +81,10 @@ android {
                     manifestPlaceholders += [(constantName): constantValue]
                     buildConfigField "String", "${constantName}", "\"${constantValue}\""
                 }
-                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
-                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+//                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
+//                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+                makeAConstant("base_api", "https://www.vspace.health/api/")
+                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
                 resValue "string", "app_name", "Dev " + app_alias_name
                 makeAConstant("application_name", "Dev " + app_alias_name)
                 /*resValue "string", "google_maps_key",
@@ -115,8 +107,10 @@ android {
                     manifestPlaceholders += [(constantName): constantValue]
                     buildConfigField "String", "${constantName}", "\"${constantValue}\""
                 }
-                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
-                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+//                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
+//                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+                makeAConstant("base_api", "https://www.vspace.health/api/")
+                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
                 makeAConstant("application_name", app_alias_name)
                 resValue "string", "app_name", app_alias_name
                 /*resValue "string", "google_maps_key",
@@ -130,10 +124,27 @@ android {
         throw new GradleException("Could not read version.properties!")
     }
 
+    signingConfigs {
+        release {
+            storeFile file('../key_iSecurity.jks')
+            storePassword '123456'
+            keyAlias 'KeyiSecurity'
+            keyPassword '123456'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     externalNativeBuild {
@@ -167,6 +178,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation "com.google.android.gms:play-services-location:17.0.0"
     implementation "io.reactivex.rxjava2:rxjava:2.1.9"

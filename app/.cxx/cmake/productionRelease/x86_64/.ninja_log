@@ -2,3 +2,5 @@
 1	512	1596535561	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	a5263acc576d648a
 512	614	1596535562	../../../../build/intermediates/cmake/productionRelease/obj/x86_64/libnative-lib.so	d7f4a93e62c03dae
 0	10	0	clean	d24c0432a6a565e2
+3	754	1599043523	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	a5263acc576d648a
+755	863	1599043523	../../../../build/intermediates/cmake/productionRelease/obj/x86_64/libnative-lib.so	d7f4a93e62c03dae

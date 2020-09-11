@@ -2,6 +2,7 @@ package com.mobile.isecurity.app.editprofile
 
 import android.content.Context
 import com.mobile.isecurity.data.Api
+import com.mobile.isecurity.data.DataConstant
 import com.mobile.isecurity.data.model.UserModel
 import lib.alframeworkx.base.BasePresenter
 import lib.alframeworkx.utils.AlRequest
@@ -50,6 +51,7 @@ class EditProfilePresenter(context: Context?, view: EditProfileView.View) : Base
                 override fun requestHeaders(): MutableMap<String, String> {
                     val param = HashMap<String, String>()
                     param["token"] = token
+//                    param["Content-Type"] = DataConstant.CONTENT_TYPE
                     return param
                 }
 
@@ -93,6 +95,7 @@ class EditProfilePresenter(context: Context?, view: EditProfileView.View) : Base
                 override fun requestHeaders(): MutableMap<String, String> {
                     val param = HashMap<String, String>()
                     param["token"] = token
+//                    param["Content-Type"] = DataConstant.CONTENT_TYPE
                     return param
                 }
 

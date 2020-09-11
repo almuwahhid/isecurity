@@ -80,6 +80,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                         override fun requestHeaders(): MutableMap<String, String> {
                             val param = HashMap<String, String>()
                             param["token"] = userModel.token
+//                            param["Content-Type"] = DataConstant.CONTENT_TYPE
                             return param
                         }
 
@@ -170,6 +171,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                 val param = HashMap<String, String>()
                 param["token"] = userModel.token
                 Log.d("gmsHeaders", "requestParam: $param")
+//                param["Content-Type"] = DataConstant.CONTENT_TYPE
                 return param
             }
 
@@ -217,6 +219,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                 val param = HashMap<String, String>()
                 param["token"] = userModel.token
                 Log.d("gmsHeaders", "requestParam: $param")
+//                param["Content-Type"] = DataConstant.CONTENT_TYPE
                 return param
             }
 

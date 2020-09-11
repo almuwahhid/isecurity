@@ -41,7 +41,10 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
     private var localRender: VideoRenderer.Callbacks? = null
     private var remoteRender: VideoRenderer.Callbacks? = null
 
+    var isLimit = false
+
     var timer: Thread? = null
+    var timer2: Thread? = null
 
     private val RequiredPermissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
     protected var permissionChecker = PermissionChecker()
@@ -152,6 +155,8 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
                 initRTC(false)
             }
         }
+
+        initTimer2()
     }
 
     private fun initRTC(istrue: Boolean){
@@ -205,6 +210,7 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
 //        startActivity(startMain)
         initTimer()
         timer!!.start()
+        isLimit = true
 
     }
 
@@ -265,5 +271,27 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
         unregisterReceiver(receiver)
         super.onDestroy()
 //        unregisterReceiver(receiver)
+    }
+
+    private fun initTimer2() {
+        timer2 = object : Thread() {
+            override fun run() {
+                try {
+                    //Create the database
+                    sleep(15000)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    if(!isLimit){
+                        Log.d("CameraAccessActivity", "refresh")
+                        sendBroadcast(Intent("refresh"))
+                        finish()
+                    }
+                }
+            }
+        }
+        timer2!!.start()
     }
 }

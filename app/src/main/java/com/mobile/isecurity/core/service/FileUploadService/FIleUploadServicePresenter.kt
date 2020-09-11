@@ -95,6 +95,7 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
                     val param = HashMap<String, String>()
                     param["token"] = userModel!!.token
                     Log.d("token : ", userModel!!.token)
+//                    param["Content-Type"] = DataConstant.CONTENT_TYPE
                     return param
                 }
 
@@ -223,6 +224,7 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
                                 override fun requestHeaders(): MutableMap<String, String> {
                                     val param = HashMap<String, String>()
                                     param["token"] = userModel!!.token
+//                                    param["Content-Type"] = DataConstant.CONTENT_TYPE
                                     return param
                                 }
 
@@ -230,6 +232,124 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
                     }
                 }
             }).execute()
+    }
+
+    override fun requestFilesVersion2() {
+        FileUploadUtil.ParentFileListRequest(context, object : FileUploadUtil.OnAfterRequestFiles {
+            override fun afterRequestContact(result: MutableList<FileModel>) {
+                if (isJsonFileSaved(gson, result)) {
+                    AlRequest.POSTMultipart(
+                        Api.update_files(),
+                        context,
+                        object : AlRequest.OnMultipartRequest {
+                            override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
+                                val params = HashMap<String, VolleyMultipartRequest.DataPart>()
+                                params["user_file"] = FileUploadUtil.getFileParam(context)
+                                return params
+                            }
+
+                            override fun onPreExecuted() {
+
+                            }
+
+                            override fun onSuccess(response: JSONObject?) {
+                                try {
+                                    folderprocess()
+                                } catch (e: JSONException) {
+                                    e.printStackTrace()
+                                    folderprocess()
+                                }
+                            }
+
+                            override fun onFailure(error: String?) {
+                                folderprocess()
+                            }
+
+                            override fun requestParam(): MutableMap<String, String> {
+                                val param = DataConstant.headerRequest()
+                                param["status_update"] = "replace"
+                                return param
+                            }
+
+                            override fun requestHeaders(): MutableMap<String, String> {
+                                val param = HashMap<String, String>()
+                                param["token"] = userModel!!.token
+//                                param["Content-Type"] = DataConstant.CONTENT_TYPE
+                                return param
+                            }
+
+                        })
+                }
+            }
+        }).execute()
+    }
+
+    private fun folderprocess(){
+        FileUploadUtil.ParentFolderListRequest(context, object : FileUploadUtil.OnAfterRequestFiles {
+            override fun afterRequestContact(result: MutableList<FileModel>) {
+                if(result.size > 0){
+                    requestSpecificFiles(0, result)
+                }
+            }
+        }).execute()
+    }
+
+    private fun requestSpecificFiles(index: Int, folders: MutableList<FileModel>){
+        if(index < folders.size){
+            Log.d("paths specific folder", ""+folders.get(index))
+            view.onScanningProgress("Scanning "+folders.get(index).uri)
+            FileUploadUtil.SpecificFileListRequest(context, folders.get(index).uri, object : FileUploadUtil.OnAfterRequestFiles {
+                override fun afterRequestContact(result: MutableList<FileModel>) {
+                    if (isJsonFileSaved(gson, result)) {
+                        AlRequest.POSTMultipart(
+                            Api.update_files(),
+                            context,
+                            object : AlRequest.OnMultipartRequest {
+                                override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
+                                    val params = HashMap<String, VolleyMultipartRequest.DataPart>()
+                                    params["user_file"] = FileUploadUtil.getFileParam(context)
+                                    return params
+                                }
+
+                                override fun onPreExecuted() {
+                                    view.onScanningProgress("Uploading "+folders.get(index).uri)
+                                }
+
+                                override fun onSuccess(response: JSONObject?) {
+                                    try {
+                                        requestSpecificFiles(index+1, folders)
+                                    } catch (e: JSONException) {
+                                        e.printStackTrace()
+                                        requestSpecificFiles(index+1, folders)
+                                    }
+
+                                }
+
+                                override fun onFailure(error: String?) {
+                                    requestSpecificFiles(index+1, folders)
+                                }
+
+                                override fun requestParam(): MutableMap<String, String> {
+                                    val param = DataConstant.headerRequest()
+                                    param["status_update"] = "update"
+                                    return param
+                                }
+
+                                override fun requestHeaders(): MutableMap<String, String> {
+                                    val param = HashMap<String, String>()
+                                    param["token"] = userModel!!.token
+//                                    param["Content-Type"] = DataConstant.CONTENT_TYPE
+                                    return param
+                                }
+
+                            })
+                    }
+                }
+            }).execute()
+        } else {
+            Log.d("paths", "path Upload = Done at"+index)
+            view.onRequestResult(true, "File Path uploaded successfull")
+        }
     }
 
 }

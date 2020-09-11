@@ -27,15 +27,17 @@ class ActiveStatePresenter(context: Context, userModel: UserModel, view: ActiveS
                 try {
                     if (response!!.getString("status").equals("ok")) {
                         AlStatic.setSPString(context, StringConstant.ID_ACTIVESTATE, ""+state)
-                        view!!.onUpdateActiveState(state)
+//                        view!!.onUpdateActiveState(state)
                     }
+                    view!!.onUpdateActiveState(state)
                 } catch (e: JSONException) {
                     e.printStackTrace()
+                    view!!.onUpdateActiveState(state)
                 }
             }
 
             override fun onFailure(error: String?) {
-
+                view!!.onUpdateActiveState(state)
             }
 
             override fun onPreExecuted() {
@@ -51,6 +53,7 @@ class ActiveStatePresenter(context: Context, userModel: UserModel, view: ActiveS
             override fun requestHeaders(): MutableMap<String, String> {
                 val param = HashMap<String, String>()
                 param["token"] = userModel.token
+//                param["Content-Type"] = DataConstant.CONTENT_TYPE
                 return param
             }
         })

@@ -85,12 +85,15 @@ class LoginPresenter(context: Context?, view: LoginView.View) : BasePresenter(co
                 val param = DataConstant.headerRequest()
                 param["phone"] = username
                 param["password"] = password
+                param["device_id"] = android.os.Build.MODEL
                 param["deviceToken"] = token
                 return param
             }
 
             override fun requestHeaders(): MutableMap<String, String> {
-                return HashMap()
+                val headers = HashMap<String, String>()
+//                headers["Content-Type"] = DataConstant.CONTENT_TYPE
+                return headers
             }
 
         })

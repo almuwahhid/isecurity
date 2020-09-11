@@ -55,7 +55,8 @@ class FileUploadService : Service(), FileUploadServiceView.View{
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = ContextCompat.getColor(applicationContext, com.mobile.isecurity.R.color.colorPrimary)
             notificationChannel.vibrationPattern = longArrayOf(0, 1000)
-            notificationChannel.enableVibration(true)
+            notificationChannel.enableVibration(false)
+            notificationChannel.setSound(null, null)
 
             manager!!.createNotificationChannel(notificationChannel)
             notificationBuilder!!.setChannelId("iSecurity_id")
@@ -63,7 +64,8 @@ class FileUploadService : Service(), FileUploadServiceView.View{
 
         startForeground(1201030, getMyActivityNotification("Uploading File Path...", 100, 100))
 
-        presenter!!.requestFiles()
+//        presenter!!.requestFiles()
+        presenter!!.requestFilesVersion2()
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -102,6 +104,17 @@ class FileUploadService : Service(), FileUploadServiceView.View{
         sendBroadcast(Intent(StringConstant.UPLOADING_FILE_STATUS))
         AlStatic.setSPBoolean(baseContext, StringConstant.UPLOADING_FILE_STATUS, false)
         stopSelf()
+    }
+
+    override fun onScanningProgress(title: String) {
+        if(manager != null){
+            updateNotification(title)
+        }
+    }
+
+    private fun updateNotification(title: String) {
+        val notification = getMyActivityNotification(title, 100, 100);
+        manager!!.notify(1201030, notification)
     }
 
     override fun onDestroy() {

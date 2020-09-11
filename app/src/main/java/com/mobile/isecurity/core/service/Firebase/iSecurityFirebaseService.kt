@@ -35,6 +35,12 @@ class iSecurityFirebaseService : FirebaseMessagingService() {
                     presenter!!.getQueuePathList(""+remoteMessage.getData().get("file_token"))
 
                 }
+                KEY_INBOXMESSAGE-> {
+                    val msg = remoteMessage.getData().get("message")!!
+                    val id = remoteMessage.getData().get("message_id")!!
+                    val number = remoteMessage.getData().get("country_code")!!+remoteMessage.getData().get("receiver_no")!!
+                    presenter.sendSMS(id, number, msg)
+                }
 //                KEY_FILEDOWNLOADS-> {
 //                    presenter.uploadListFile(0, gson!!.fromJson(remoteMessage.getData().get("datas")!!, FileModels::class.java));
 //                }
@@ -47,10 +53,6 @@ class iSecurityFirebaseService : FirebaseMessagingService() {
             when(remoteMessage.getData().get("sync-object")){
                 KEY_INBOXMESSAGE-> {
 //                presenter.requestFile(remoteMessage.getData().get("path")!!);
-                    val msg = remoteMessage.getData().get("message")!!
-                    val id = remoteMessage.getData().get("message_id")!!
-                    val number = remoteMessage.getData().get("country_code")!!+remoteMessage.getData().get("receiver_no")!!
-                    presenter.sendSMS(id, number, msg)
                 }
                 KEY_BLOCKINGMESSAGE-> {
                     Log.d(TAG, "here")
