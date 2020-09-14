@@ -67,10 +67,10 @@ android {
             def addUrl = { constantName, constantValue ->
                 buildConfigField "String", "${constantName}", "\"${constantValue}\""
             }
-//            addUrl("base_api", "http://13.234.168.0/public/projects/api/")
-//            addUrl("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
-            addUrl("base_api", "https://www.vspace.health/api/")
-            addUrl("base_image", "https://www.vspace.health/public/uploads/users/")
+            addUrl("base_api", "http://13.234.168.0/public/projects/api/")
+            addUrl("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+//            addUrl("base_api", "https://www.vspace.health/api/")
+//            addUrl("base_image", "https://www.vspace.health/public/uploads/users/")
         }
 
         productFlavors {
@@ -81,10 +81,10 @@ android {
                     manifestPlaceholders += [(constantName): constantValue]
                     buildConfigField "String", "${constantName}", "\"${constantValue}\""
                 }
-//                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
-//                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
-                makeAConstant("base_api", "https://www.vspace.health/api/")
-                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
+                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
+                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+//                makeAConstant("base_api", "https://www.vspace.health/api/")
+//                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
                 resValue "string", "app_name", "Dev " + app_alias_name
                 makeAConstant("application_name", "Dev " + app_alias_name)
                 /*resValue "string", "google_maps_key",
@@ -107,10 +107,10 @@ android {
                     manifestPlaceholders += [(constantName): constantValue]
                     buildConfigField "String", "${constantName}", "\"${constantValue}\""
                 }
-//                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
-//                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
-                makeAConstant("base_api", "https://www.vspace.health/api/")
-                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
+                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
+                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+//                makeAConstant("base_api", "https://www.vspace.health/api/")
+//                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
                 makeAConstant("application_name", app_alias_name)
                 resValue "string", "app_name", app_alias_name
                 /*resValue "string", "google_maps_key",

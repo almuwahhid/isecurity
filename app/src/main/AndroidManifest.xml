@@ -109,7 +109,7 @@
         </service>
 
         <receiver
-            android:name=".core.service.PhoneStateReceiver"
+            android:name=".core.service.SMSReceiver.SMSManagerReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_SMS">
@@ -117,6 +117,24 @@
             <intent-filter android:priority="9999999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"
                     android:priority="9999999"/>
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".core.service.SMSReceiver.MMSManagerReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_WAP_PUSH">
+            <!-- android:permission="android.permission.BROADCAST_SMS"   -->
+            <intent-filter android:priority="9999999">
+                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
+                <data android:mimeType="application/vnd.wap.mms-message" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".core.service.SMSReceiver.SMSManagerSender"
+            android:permission="android.permission.BROADCAST_SMS" >
+            <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_DELIVER" />
             </intent-filter>
         </receiver>
