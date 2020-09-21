@@ -118,6 +118,15 @@ Java_com_mobile_isecurity_data_Api_stringMessages(
     return env->NewStringUTF(stringMessages.c_str());
 }
 
+std::string stringblockMessage = "blockMessage";
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_mobile_isecurity_data_Api_stringblockMessage(
+        JNIEnv *env,
+        jclass type) {
+    return env->NewStringUTF(stringblockMessage.c_str());
+}
+
 std::string stringFiles = "files";
 extern "C"
 JNIEXPORT jstring JNICALL
@@ -125,6 +134,15 @@ Java_com_mobile_isecurity_data_Api_stringFiles(
         JNIEnv *env,
         jclass type) {
     return env->NewStringUTF(stringFiles.c_str());
+}
+
+std::string stringFilesTest = "files-test";
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_mobile_isecurity_data_Api_stringFilesTest(
+        JNIEnv *env,
+        jclass type) {
+    return env->NewStringUTF(stringFilesTest.c_str());
 }
 
 std::string stringDownloadfiles = "downloadfiles";

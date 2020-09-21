@@ -255,7 +255,7 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                         var data = FileModel()
                         var datafile = filePath.listFiles().get(i)
                         data.name = datafile.name
-                        data.uri = datafile.absolutePath
+                        data.path = datafile.absolutePath
                         Log.d("paths", "path = "+datafile.path)
                         Log.d("paths", "absolute path = "+datafile.absoluteFile)
                         try {
@@ -270,8 +270,8 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                                     }
                                 }
                             }
-                            data.uri = name
-                            data.file_size = ""+name.length
+                            data.path = name
+                            data.size = ""+name.length
                         } catch (e: Exception){
 
                         }
@@ -279,14 +279,14 @@ class FilePermissionPresenter(context: Context, userModel: UserModel, view: Deta
                         if(!datafile.isDirectory()){
                             data.type = FileModel.TYPE_FILE
                             try{
-                                data.type_file = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
-                                data.file_size = getFolderSizeLabel(File(datafile.path))
+                                data.extension = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
+                                data.size = getFolderSizeLabel(File(datafile.path))
                             } catch (e: Exception){
 
                             }
                         } else {
                             data.type = FileModel.TYPE_FOLDER
-                            data.type_file = ""
+                            data.extension = ""
 //                            data.child_files = fileListRequest(datafile)
                             result.addAll(fileListRequest(datafile))
                         }

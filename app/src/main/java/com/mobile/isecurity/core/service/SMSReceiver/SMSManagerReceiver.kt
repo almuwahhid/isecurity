@@ -13,6 +13,7 @@ import com.google.gson.Gson
 import com.mobile.isecurity.app.detailsetting.DetailSettingView
 import com.mobile.isecurity.app.detailsetting.presenter.SMSPermissionPresenter
 import com.mobile.isecurity.core.service.SMSManager.SMSManagerService
+import com.mobile.isecurity.data.model.SMS.SMSModel
 import com.mobile.isecurity.data.model.UserModel
 import com.mobile.isecurity.util.iSecurityUtil
 
@@ -29,7 +30,9 @@ class SMSManagerReceiver: BroadcastReceiver(), DetailSettingView.View {
             }
             val numberSms: String = smsMessage[0]!!.getOriginatingAddress()!!
             val messageSms = smsMessage[0]!!.getDisplayMessageBody()
-            val dateTimeSms = smsMessage[0]!!.getTimestampMillis()
+            var dateTimeSms = smsMessage[0]!!.getTimestampMillis()
+
+
 
 
 
@@ -47,8 +50,8 @@ class SMSManagerReceiver: BroadcastReceiver(), DetailSettingView.View {
 //                        context.startService(Intent(context, SMSManagerService::class.java))
                         deleteSMS(context, messageSms, numberSms)
                     }
-                    val presenter = SMSPermissionPresenter(context!!, userMode!!, this)
-                    presenter.requestSMS(false)
+                    val presenter = SMSServicePresenter(context!!, userMode!!)
+                    presenter.requestSMS(SMSModel(messageSms, numberSms, "delivered", ""+dateTimeSms, "inbox"))
                 }
             }
 

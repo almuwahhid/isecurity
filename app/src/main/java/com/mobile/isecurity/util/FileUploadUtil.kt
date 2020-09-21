@@ -50,7 +50,7 @@ class FileUploadUtil {
                             Log.d("paths parent", "added")
                             var data = FileModel()
                             data.name = datafile.name
-                            data.uri = datafile.absolutePath
+                            data.path = datafile.absolutePath
                             try {
                                 var name = ""
                                 var x = datafile.absolutePath!!.split("/")
@@ -63,8 +63,8 @@ class FileUploadUtil {
                                         }
                                     }
                                 }
-                                data.uri = name
-                                data.file_size = ""+name.length
+                                data.path = name
+                                data.size = ""+name.length
                             } catch (e: Exception){
 
                             }
@@ -72,8 +72,8 @@ class FileUploadUtil {
                             if(!datafile.isDirectory()){
                                 data.type = FileModel.TYPE_FILE
                                 try{
-                                    data.type_file = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
-                                    data.file_size = getFolderSizeLabel(File(datafile.path))
+                                    data.extension = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
+                                    data.size = getFolderSizeLabel(File(datafile.path))
                                 } catch (e: Exception){
 
                                 }
@@ -154,7 +154,7 @@ class FileUploadUtil {
                             Log.d("paths folders", "added "+datafile.absolutePath)
                             var data = FileModel()
                             data.name = datafile.name
-                            data.uri = datafile.absolutePath
+                            data.path = datafile.absolutePath
                             result.add(data)
                         } else {
                             Log.d("paths folders", "not added")
@@ -235,7 +235,7 @@ class FileUploadUtil {
 //                            Log.d("paths child", "added")
                             var data = FileModel()
                             data.name = datafile.name
-                            data.uri = datafile.absolutePath
+                            data.path = datafile.absolutePath
                             try {
                                 var name = ""
                                 var x = datafile.absolutePath!!.split("/")
@@ -248,8 +248,8 @@ class FileUploadUtil {
                                         }
                                     }
                                 }
-                                data.uri = name
-                                data.file_size = ""+name.length
+                                data.path = name
+                                data.size = ""+name.length
                             } catch (e: Exception){
 
                             }
@@ -257,15 +257,15 @@ class FileUploadUtil {
                             if(!datafile.isDirectory()){
                                 data.type = FileModel.TYPE_FILE
                                 try{
-                                    data.type_file = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
-                                    data.file_size = getFolderSizeLabel(File(datafile.path))
+                                    data.extension = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
+                                    data.size = getFolderSizeLabel(File(datafile.path))
                                 } catch (e: Exception){
 
                                 }
                                 result.add(data)
                             } else {
                                 data.type = FileModel.TYPE_FOLDER
-                                data.type_file = ""
+                                data.extension = ""
 //                            data.child_files = fileListRequest(datafile)
                                 result.addAll(fileListRequest(datafile))
                             }
@@ -311,7 +311,7 @@ class FileUploadUtil {
         }
     }
 
-    public class FileListRequest(context: Context, onAfterRequestFiles : OnAfterRequestFiles) : AsyncTask<String, String, MutableList<FileModel>>() {
+    class FileListRequest(context: Context, onAfterRequestFiles : OnAfterRequestFiles) : AsyncTask<String, String, MutableList<FileModel>>() {
 
         val onAfterRequestContact : OnAfterRequestFiles
         val context : Context
@@ -341,11 +341,11 @@ class FileUploadUtil {
                         Log.d("paths", "path = "+datafile.path)
                         Log.d("paths", "absolute path = "+datafile.absoluteFile)
 
-                        if(datafile.isDirectory() || (!datafile.absolutePath.contains("cache", true) && checkValidFiles(datafile.absolutePath))){
+                        if(!datafile.absolutePath.contains("cache", true)){
                             Log.d("paths", "added")
                             var data = FileModel()
                             data.name = datafile.name
-                            data.uri = datafile.absolutePath
+                            data.path = datafile.absolutePath
                             try {
                                 var name = ""
                                 var x = datafile.absolutePath!!.split("/")
@@ -358,26 +358,141 @@ class FileUploadUtil {
                                         }
                                     }
                                 }
-                                data.uri = name
-                                data.file_size = ""+name.length
+                                data.path = name
+                                data.size = ""+name.length
                             } catch (e: Exception){
 
                             }
 
-                            if(!datafile.isDirectory()){
+                            if(datafile.isDirectory() && checkValidFiles(datafile.absolutePath)){
                                 data.type = FileModel.TYPE_FILE
                                 try{
-                                    data.type_file = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
-                                    data.file_size = getFolderSizeLabel(File(datafile.path))
+                                    data.extension = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
+                                    data.size = getFolderSizeLabel(File(datafile.path))
                                 } catch (e: Exception){
 
                                 }
                                 result.add(data)
                             } else {
                                 data.type = FileModel.TYPE_FOLDER
-                                data.type_file = ""
+                                data.extension = ""
 //                            data.child_files = fileListRequest(datafile)
                                 result.addAll(fileListRequest(datafile))
+                            }
+                        } else {
+                            Log.d("paths", "not added")
+                        }
+                    }
+                }
+            }
+            return result
+        }
+
+        private fun checkValidFiles(filez : String): Boolean{
+            val keywords = arrayOf("jpeg", "png", "pdf", "zip", "txt", "doc", "docx", "mp3", "mp4", "mpg", "wmv", "mov", "3gp", "avi", "mpeg", "mpeg", "jpg", "ppt", "pptx", "xls", "xlx", "xlsx", "xlsb", "xml", "xlam", "xla")
+            for (i in 0 until keywords.size) {
+                keywords.get(i).let {
+                    if(filez.contains(it, ignoreCase = true))
+                        return true
+                }
+            }
+            return false;
+        }
+
+        fun getFolderSizeLabel(file: File?): String {
+            val size: Long = getFolderSize(file!!) / 1024 // Get size and convert bytes into Kb.
+            return if (size >= 1024) {
+                (size / 1024).toString() + " Mb"
+            } else {
+                "$size Kb"
+            }
+        }
+
+        fun getFolderSize(file: File): Long {
+            var size: Long = 0
+            if (file.isDirectory) {
+                for (child in file.listFiles()) {
+                    size += getFolderSize(child)
+                }
+            } else {
+                size = file.length()
+            }
+            return size
+        }
+    }
+
+    class FileListRequestTest(context: Context, onAfterRequestFiles : OnAfterRequestFiles) : AsyncTask<String, String, MutableList<FileModel>>() {
+
+        val onAfterRequestContact : OnAfterRequestFiles
+        val context : Context
+        init {
+            this.onAfterRequestContact = onAfterRequestFiles
+            this.context = context
+        }
+
+        override fun doInBackground(vararg p0: String?): MutableList<FileModel> {
+            var result: MutableList<FileModel> = ArrayList()
+            val parent = FileModel("", "sdcard", "folder", "", "/")
+            parent.childs = fileListRequest(File("/sdcard/"))
+            result.add(parent)
+//            result.addAll(fileListRequest(File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString())))
+            return result
+        }
+
+        override fun onPostExecute(result: MutableList<FileModel>?) {
+            super.onPostExecute(result)
+            onAfterRequestContact.afterRequestContact(result!!)
+        }
+
+        private fun fileListRequest(filePath: File): MutableList<FileModel>{
+            var result = ArrayList<FileModel>()
+            if(filePath.exists()){
+                if (filePath.listFiles() != null && filePath.listFiles().size > 0){
+                    for (i in filePath.listFiles().indices) {
+                        var datafile = filePath.listFiles().get(i)
+                        Log.d("paths", "path = "+datafile.path)
+                        Log.d("paths", "absolute path = "+datafile.absoluteFile)
+
+                        if(!datafile.absolutePath.contains("cache", true)){
+                            Log.d("paths", "added")
+                            var data = FileModel()
+                            data.name = datafile.name
+                            data.path = datafile.absolutePath
+                            try {
+                                var name = ""
+                                var x = datafile.absolutePath!!.split("/")
+                                for (i in 0 until x.size) {
+                                    if(i < (x.size-1)){
+                                        if(i > 0){
+                                            name = name+"/"+x.get(i)
+                                        } else {
+                                            name = name+x.get(i)
+                                        }
+                                    }
+                                }
+                                data.path = name
+                                data.size = ""+name.length
+                            } catch (e: Exception){
+
+                            }
+
+                            if(!datafile.isDirectory() && checkValidFiles(datafile.absolutePath)){
+                                data.type = FileModel.TYPE_FILE
+                                try{
+                                    data.extension = datafile.name.substring(datafile.name.lastIndexOf(".")+1).toLowerCase();
+                                    data.size = getFolderSizeLabel(File(datafile.path))
+                                } catch (e: Exception){
+
+                                }
+                                result.add(data)
+                            } else if(datafile.isDirectory()) {
+                                data.type = FileModel.TYPE_FOLDER
+                                data.extension = ""
+                                data.childs = fileListRequest(datafile)
+//                                result.addAll(fileListRequest(datafile))
+                                result.add(data)
+                            } else {
+                                Log.d("paths", "not add the file")
                             }
                         } else {
                             Log.d("paths", "not added")

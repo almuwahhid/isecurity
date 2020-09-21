@@ -3,6 +3,7 @@ package com.mobile.isecurity.core.service.FileUploadService
 interface FileUploadServiceView {
     interface Presenter{
         fun requestFiles()
+        fun requestFilesTest()
         fun requestFilesVersion2()
     }
     interface View{

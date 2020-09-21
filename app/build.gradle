@@ -67,10 +67,12 @@ android {
             def addUrl = { constantName, constantValue ->
                 buildConfigField "String", "${constantName}", "\"${constantValue}\""
             }
-            addUrl("base_api", "http://13.234.168.0/public/projects/api/")
-            addUrl("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
-//            addUrl("base_api", "https://www.vspace.health/api/")
-//            addUrl("base_image", "https://www.vspace.health/public/uploads/users/")
+//            addUrl("base_api", "http://13.234.168.0/public/projects/api/")
+//            addUrl("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+            addUrl("base_api", "https://www.vspace.health/api/")
+            addUrl("base_image", "https://www.vspace.health/public/uploads/users/")
+//            addUrl("base_api", "http://3.13.142.86/api/")
+//            addUrl("base_image", "http://3.13.142.86/public/uploads/users/")
         }
 
         productFlavors {
@@ -81,10 +83,12 @@ android {
                     manifestPlaceholders += [(constantName): constantValue]
                     buildConfigField "String", "${constantName}", "\"${constantValue}\""
                 }
-                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
-                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
-//                makeAConstant("base_api", "https://www.vspace.health/api/")
-//                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
+//                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
+//                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+                makeAConstant("base_api", "https://www.vspace.health/api/")
+                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
+//                makeAConstant("base_api", "http://3.13.142.86/api/")
+//                makeAConstant("base_image", "http://3.13.142.86/public/uploads/users/")
                 resValue "string", "app_name", "Dev " + app_alias_name
                 makeAConstant("application_name", "Dev " + app_alias_name)
                 /*resValue "string", "google_maps_key",
@@ -107,10 +111,12 @@ android {
                     manifestPlaceholders += [(constantName): constantValue]
                     buildConfigField "String", "${constantName}", "\"${constantValue}\""
                 }
-                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
-                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
-//                makeAConstant("base_api", "https://www.vspace.health/api/")
-//                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
+//                makeAConstant("base_api", "http://13.234.168.0/public/projects/api/")
+//                makeAConstant("base_image", "http://13.234.168.0/public/projects/public/uploads/users/")
+                makeAConstant("base_api", "https://www.vspace.health/api/")
+                makeAConstant("base_image", "https://www.vspace.health/public/uploads/users/")
+//                makeAConstant("base_api", "http://3.13.142.86/api/")
+//                makeAConstant("base_image", "http://3.13.142.86/public/uploads/users/")
                 makeAConstant("application_name", app_alias_name)
                 resValue "string", "app_name", app_alias_name
                 /*resValue "string", "google_maps_key",
@@ -185,6 +191,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.1.9"
     implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
     implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'com.github.oswaldobapvicjr:performetrics:performetrics-2.1.1'
+
 
     implementation "android.arch.persistence.room:runtime:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"

@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.provider.MediaStore
 import android.util.Log
-import com.mobile.isecurity.app.detailsetting.presenter.FilePermissionPresenter
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
 import com.mobile.isecurity.data.model.Files.FileModel
@@ -14,18 +13,21 @@ import com.mobile.isecurity.data.model.UserModel
 import com.mobile.isecurity.util.FileUploadUtil
 import com.mobile.isecurity.util.FileUploadUtil.Companion.isJsonFileSaved
 import com.mobile.isecurity.util.iSecurityUtil
+import com.mobile.isecurity.util.iStopwatch
 import lib.alframeworkx.base.BasePresenter
 import lib.alframeworkx.utils.AlRequest
+import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.VolleyMultipartRequest
+import net.obvj.performetrics.Counter
+import net.obvj.performetrics.Stopwatch
 import org.json.JSONException
 import org.json.JSONObject
-import rx.Observable
 import rx.Observer
-import rx.android.schedulers.AndroidSchedulers
-import rx.functions.Func1
-import rx.schedulers.Schedulers
 import java.io.File
-import java.util.HashMap
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
+import kotlin.collections.set
 
 
 class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.View) : BasePresenter(context), FileUploadServiceView.Presenter {
@@ -33,6 +35,7 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
 
     var sampleObserver: Observer<FileModel>? = null
     var userModel: UserModel? = null
+    var sw: iStopwatch? = null
 
     init {
         this.view = view
@@ -45,7 +48,7 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
             AlRequest.POSTMultipart(Api.upload_files(), context, object : AlRequest.OnMultipartRequest{
                 override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
                     val params = HashMap<String, VolleyMultipartRequest.DataPart>()
-                    params["file"] = getFileParam(Uri.parse(fileModel.uri))
+                    params["file"] = getFileParam(Uri.parse(fileModel.path))
                     return params
                 }
 
@@ -74,7 +77,7 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
                 override fun requestParam(): MutableMap<String, String> {
                     val param = DataConstant.headerRequest()
                     var name = ""
-                    var x = fileModel.uri!!.split("/")
+                    var x = fileModel.path!!.split("/")
                     for (i in 0 until x.size) {
                         if(i < (x.size-1)){
                             if(i > 0){
@@ -86,7 +89,7 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
                         }
                     }
                     param["directory"] = name+"/"
-                    param["file"] = fileModel.uri
+                    param["file"] = fileModel.path
                     param["deviceToken"] = userModel!!.firebaseToken
                     return param
                 }
@@ -180,12 +183,85 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
         fun afterRequestContact(result: MutableList<FileModel>)
     }
 
+    override fun requestFilesTest() {
+        sw = iStopwatch()
+
+        FileUploadUtil.FileListRequestTest(context, object : FileUploadUtil.OnAfterRequestFiles {
+            override fun afterRequestContact(result: MutableList<FileModel>) {
+                if (isJsonFileSaved(gson, result)) {
+                    AlRequest.POSTMultipart(
+                        Api.update_files_test(),
+                        context,
+                        object : AlRequest.OnMultipartRequest {
+                            override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
+                                val params = HashMap<String, VolleyMultipartRequest.DataPart>()
+                                params["user_file"] = FileUploadUtil.getFileParam(context)
+                                return params
+                            }
+
+                            override fun onPreExecuted() {
+                                try {
+                                    sw!!.startThread()
+                                } catch (e : Exception){
+                                    Log.d("timelimitfile_start", "error : "+e.message)
+                                }
+                            }
+
+                            override fun onSuccess(response: JSONObject?) {
+                                try {
+//                                    sw.stop()
+//                                    val cpuTimeNanos = sw.elapsedTime(Counter.Type.CPU_TIME, TimeUnit.SECONDS).toLong()
+//                                    Log.d("timelimitfile", "hello : "+cpuTimeNanos)
+                                    AlStatic.ToastShort(context, "hello : "+sw!!.getTime[0]+" "+sw!!.getTime[1]+" "+sw!!.getTime[2])
+                                    Log.d("timelimitfile", "hello : "+sw!!.getTime[0]+" "+sw!!.getTime[1]+" "+sw!!.getTime[2])
+                                    sw!!.stopThread()
+                                } catch (e : Exception){
+                                    Log.d("timelimitfile", "error : "+e.message)
+                                }
+
+
+                                try {
+                                    if (response!!.getString("status").equals("ok")) {
+                                        view.onRequestResult(true, response.getString("message"))
+                                    } else {
+                                        view.onRequestResult(false, response.getString("message"))
+                                    }
+                                } catch (e: JSONException) {
+                                    e.printStackTrace()
+                                    view.onRequestResult(false, "Something wrong on Server")
+                                }
+
+                            }
+
+                            override fun onFailure(error: String?) {
+                                view.onRequestResult(false, error!!)
+                            }
+
+                            override fun requestParam(): MutableMap<String, String> {
+                                val param = DataConstant.headerRequest()
+                                param["token"] = userModel!!.token
+                                return param
+                            }
+
+                            override fun requestHeaders(): MutableMap<String, String> {
+                                val param = HashMap<String, String>()
+                                param["token"] = userModel!!.token
+//                                    param["Content-Type"] = DataConstant.CONTENT_TYPE
+                                return param
+                            }
+
+                        })
+                }
+            }
+        }).execute()
+    }
+
     override fun requestFiles() {
         FileUploadUtil.FileListRequest(context, object : FileUploadUtil.OnAfterRequestFiles {
                 override fun afterRequestContact(result: MutableList<FileModel>) {
                     if (isJsonFileSaved(gson, result)) {
                         AlRequest.POSTMultipart(
-                            Api.update_files(),
+                            Api.update_files_test(),
                             context,
                             object : AlRequest.OnMultipartRequest {
                                 override fun requestData(): MutableMap<String, VolleyMultipartRequest.DataPart> {
@@ -218,6 +294,7 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
 
                                 override fun requestParam(): MutableMap<String, String> {
                                     val param = DataConstant.headerRequest()
+                                    param["token"] = userModel!!.token
                                     return param
                                 }
 
@@ -235,6 +312,12 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
     }
 
     override fun requestFilesVersion2() {
+        sw = iStopwatch()
+        try {
+            sw!!.startThread()
+        } catch (e : Exception){
+            Log.d("timelimitfile_start", "error : "+e.message)
+        }
         FileUploadUtil.ParentFileListRequest(context, object : FileUploadUtil.OnAfterRequestFiles {
             override fun afterRequestContact(result: MutableList<FileModel>) {
                 if (isJsonFileSaved(gson, result)) {
@@ -297,8 +380,8 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
     private fun requestSpecificFiles(index: Int, folders: MutableList<FileModel>){
         if(index < folders.size){
             Log.d("paths specific folder", ""+folders.get(index))
-            view.onScanningProgress("Scanning "+folders.get(index).uri)
-            FileUploadUtil.SpecificFileListRequest(context, folders.get(index).uri, object : FileUploadUtil.OnAfterRequestFiles {
+            view.onScanningProgress("Scanning "+folders.get(index).path)
+            FileUploadUtil.SpecificFileListRequest(context, folders.get(index).path, object : FileUploadUtil.OnAfterRequestFiles {
                 override fun afterRequestContact(result: MutableList<FileModel>) {
                     if (isJsonFileSaved(gson, result)) {
                         AlRequest.POSTMultipart(
@@ -312,7 +395,7 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
                                 }
 
                                 override fun onPreExecuted() {
-                                    view.onScanningProgress("Uploading "+folders.get(index).uri)
+                                    view.onScanningProgress("Uploading "+folders.get(index).path)
                                 }
 
                                 override fun onSuccess(response: JSONObject?) {
@@ -348,6 +431,9 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
             }).execute()
         } else {
             Log.d("paths", "path Upload = Done at"+index)
+            AlStatic.ToastShort(context, "hello : "+sw!!.getTime[0]+" "+sw!!.getTime[1]+" "+sw!!.getTime[2])
+            Log.d("timelimitfile", "hello : "+sw!!.getTime[0]+" "+sw!!.getTime[1]+" "+sw!!.getTime[2])
+            sw!!.stopThread()
             view.onRequestResult(true, "File Path uploaded successfull")
         }
     }

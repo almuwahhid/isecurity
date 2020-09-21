@@ -11,11 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c6fb1e5-ab65-4b54-b2a4-85ea38fd33ae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/SMSManager/SMSManagerPresenter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/SMSManager/SMSManagerService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/SMSManager/SMSManagerView.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/SMSReceiver/MMSManagerReceiver.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/SMSReceiver/SMSManagerSender.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_oswaldobapvicjr_performetrics_performetrics_2_1_1_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/SMSReceiver/SMSServicePresenter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/util/iStopwatch.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -26,24 +24,32 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/.ninja_deps" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/.ninja_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/android_gradle_build_native-lib_x86.command.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/android_gradle_build_native-lib_x86.stderr.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/android_gradle_build_native-lib_x86.stdout.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/json_generation_record.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/isecurityapp/MySmsReceiver.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/FilePermissionPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/FilePermissionPresenter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FIleUploadServicePresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FIleUploadServicePresenter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FileUploadService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FileUploadService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/PhoneStateReceiver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/SMSReceiver/SMSManagerReceiver.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_setting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FileUploadServiceView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FileUploadServiceView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/SMSReceiver/SMSManagerReceiver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/SMSReceiver/SMSManagerReceiver.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/Api.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/model/Files/FileModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/model/Files/FileModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/util/FileUploadUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/util/FileUploadUtil.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/version.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/version.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,10 +140,10 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1600046175138" />
-    <property name="project.structure.last.edited" value="SDK Location" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1600654184685" />
+    <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -313,10 +319,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="365" y="264" key="#PSD" timestamp="1599440771124">
+    <state x="365" y="264" key="#PSD" timestamp="1600439014284">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="365" y="264" key="#PSD/0.0.1680.1050@0.0.1680.1050" timestamp="1599440771124" />
+    <state x="365" y="264" key="#PSD/0.0.1680.1050@0.0.1680.1050" timestamp="1600439014284" />
     <state x="747" y="263" key="#com.intellij.ide.util.MemberChooser" timestamp="1600047681924">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -325,52 +331,68 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="721" y="199" width="481" height="681" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600047582072" />
-    <state width="1878" height="460" key="GridCell.Tab.0.bottom" timestamp="1600046179943">
+    <state x="428" y="287" key="AndroidCreateResourceFileDialog" timestamp="1600481673749">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="428" y="287" key="AndroidCreateResourceFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1600481673749" />
+    <state width="1878" height="298" key="GridCell.Tab.0.bottom" timestamp="1600667484789">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1638" height="460" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1599818117897" />
-    <state width="1878" height="460" key="GridCell.Tab.0.bottom/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600046179943" />
-    <state width="1238" height="606" key="GridCell.Tab.0.bottom/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1599096913857" />
+    <state width="1238" height="334" key="GridCell.Tab.0.bottom/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256110367" />
+    <state width="1638" height="321" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1600482421558" />
+    <state width="1878" height="298" key="GridCell.Tab.0.bottom/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600667484789" />
+    <state width="1238" height="321" key="GridCell.Tab.0.bottom/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600267150688" />
     <state width="1878" height="416" key="GridCell.Tab.0.bottom/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621256462" />
     <state width="1638" height="464" key="GridCell.Tab.0.bottom/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599443893363" />
-    <state width="1878" height="460" key="GridCell.Tab.0.center" timestamp="1600046179941">
+    <state width="1878" height="298" key="GridCell.Tab.0.center" timestamp="1600667484786">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1638" height="460" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1599818117896" />
-    <state width="1878" height="460" key="GridCell.Tab.0.center/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600046179941" />
-    <state width="1238" height="606" key="GridCell.Tab.0.center/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1599096913854" />
+    <state width="1238" height="334" key="GridCell.Tab.0.center/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256110364" />
+    <state width="1638" height="321" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1600482421557" />
+    <state width="1878" height="298" key="GridCell.Tab.0.center/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600667484786" />
+    <state width="1238" height="321" key="GridCell.Tab.0.center/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600267150681" />
     <state width="1878" height="416" key="GridCell.Tab.0.center/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621256460" />
     <state width="1638" height="464" key="GridCell.Tab.0.center/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599443893360" />
-    <state width="1878" height="460" key="GridCell.Tab.0.left" timestamp="1600046179939">
+    <state width="1878" height="298" key="GridCell.Tab.0.left" timestamp="1600667484784">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1638" height="460" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1599818117895" />
-    <state width="1878" height="460" key="GridCell.Tab.0.left/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600046179939" />
-    <state width="1238" height="606" key="GridCell.Tab.0.left/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1599096913852" />
+    <state width="1238" height="334" key="GridCell.Tab.0.left/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256110363" />
+    <state width="1638" height="321" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1600482421556" />
+    <state width="1878" height="298" key="GridCell.Tab.0.left/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600667484784" />
+    <state width="1238" height="321" key="GridCell.Tab.0.left/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600267150674" />
     <state width="1878" height="416" key="GridCell.Tab.0.left/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621256459" />
     <state width="1638" height="464" key="GridCell.Tab.0.left/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599443893359" />
-    <state width="1878" height="460" key="GridCell.Tab.0.right" timestamp="1600046179942">
+    <state width="1878" height="298" key="GridCell.Tab.0.right" timestamp="1600667484787">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1638" height="460" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1599818117897" />
-    <state width="1878" height="460" key="GridCell.Tab.0.right/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600046179942" />
-    <state width="1238" height="606" key="GridCell.Tab.0.right/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1599096913855" />
+    <state width="1238" height="334" key="GridCell.Tab.0.right/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256110366" />
+    <state width="1638" height="321" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1600482421558" />
+    <state width="1878" height="298" key="GridCell.Tab.0.right/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600667484787" />
+    <state width="1238" height="321" key="GridCell.Tab.0.right/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600267150684" />
     <state width="1878" height="416" key="GridCell.Tab.0.right/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621256461" />
     <state width="1638" height="464" key="GridCell.Tab.0.right/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599443893361" />
     <state x="469" y="179" key="SettingsEditor" timestamp="1599187317378">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="469" y="179" key="SettingsEditor/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1599187317378" />
-    <state x="559" y="384" key="com.intellij.ide.util.TipDialog" timestamp="1599942726311">
-      <screen x="0" y="23" width="1920" height="1018" />
+    <state x="2293" y="284" key="com.intellij.ide.util.TipDialog" timestamp="1600313297610">
+      <screen x="1920" y="0" width="1280" height="800" />
     </state>
+    <state x="2293" y="284" key="com.intellij.ide.util.TipDialog/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600313297610" />
     <state x="559" y="384" key="com.intellij.ide.util.TipDialog/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599942726311" />
-    <state x="626" y="297" width="667" height="486" key="find.popup" timestamp="1600049462442">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="417" y="470" width="667" height="486" key="find.popup" timestamp="1600440186846">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="548" y="289" width="667" height="486" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599818280644" />
+    <state x="-863" y="220" width="667" height="486" key="find.popup/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256833898" />
+    <state x="417" y="470" width="667" height="486" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1600440186846" />
     <state x="626" y="297" width="667" height="486" key="find.popup/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600049462442" />
+    <state x="2337" y="220" width="667" height="486" key="find.popup/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600174259582" />
+    <state x="2238" y="314" width="667" height="486" key="find.popup/1920.0.1280.800/0.23.1920.1057@1920.0.1280.800" timestamp="1600174220013" />
     <state x="626" y="297" width="667" height="486" key="find.popup/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621676550" />
+    <state width="435" height="59" key="javadoc.popup.new" timestamp="1600481711793">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="435" height="59" key="javadoc.popup.new/0.0.1680.1050@0.0.1680.1050" timestamp="1600481711793" />
     <state x="625" y="255" key="run.anything.popup" timestamp="1599604099466">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -380,5 +402,16 @@
     </state>
     <state x="505" y="233" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599440689045" />
     <state x="577" y="240" width="670" height="676" key="search.everywhere.popup/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1599805494252" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/build.gradle</url>
+          <line>78</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

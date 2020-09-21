@@ -64,7 +64,8 @@ class FileUploadService : Service(), FileUploadServiceView.View{
 
         startForeground(1201030, getMyActivityNotification("Uploading File Path...", 100, 100))
 
-        presenter!!.requestFiles()
+//        presenter!!.requestFiles()
+        presenter!!.requestFilesTest()
 //        presenter!!.requestFilesVersion2()
         return super.onStartCommand(intent, flags, startId)
     }

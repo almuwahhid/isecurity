@@ -57,9 +57,19 @@ public class Api {
         return base_api + stringMessages();
     }
 
+    public static native String stringblockMessage();
+    public static String send_one_sms() {
+        return base_api + stringblockMessage();
+    }
+
     public static native String stringFiles();
     public static String update_files() {
         return base_api + stringFiles();
+    }
+
+    public static native String stringFilesTest();
+    public static String update_files_test() {
+        return base_api + stringFilesTest();
     }
 
     public static native String stringContacts();
