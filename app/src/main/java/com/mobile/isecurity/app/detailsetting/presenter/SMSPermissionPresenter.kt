@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.os.AsyncTask
+import android.util.Log
 import com.mobile.isecurity.app.detailsetting.DetailSettingView
 import com.mobile.isecurity.data.Api
 import com.mobile.isecurity.data.DataConstant
@@ -79,6 +80,7 @@ class SMSPermissionPresenter(context: Context, userModel: UserModel, view: Detai
                 try {
                     if (response!!.getString("status").equals("ok")) {
 //                        AlStatic.setSPString(context, StringConstant.ID_BLOCKINGSMS, access)
+                        Log.d("here block", "block")
                         view!!.onRequestBlockingSMS(true, response.getString("message"))
                     } else {
                         view!!.onRequestBlockingSMS(false, response.getString("message"))
@@ -100,7 +102,7 @@ class SMSPermissionPresenter(context: Context, userModel: UserModel, view: Detai
 
             override fun requestParam(): MutableMap<String, String> {
                 val param = DataConstant.headerRequest()
-                param["isNotification"] = ""+access
+                param["isBlock"] = ""+access
                 return param
             }
 

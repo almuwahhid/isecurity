@@ -63,8 +63,8 @@ class GTRTCCLient(ctx: Context, peerParam: GTPeerConnectionParameters, rtcListen
 
 
     private fun initRTC(){
-        iceServers.add(PeerConnection.IceServer("stun:stun-cjt.kemlu.go.id:5349"))
-        iceServers.add(PeerConnection.IceServer("stun:stun.stunprotocol.org:3478"))
+//        iceServers.add(PeerConnection.IceServer("stun:stun-cjt.kemlu.go.id:5349"))
+//        iceServers.add(PeerConnection.IceServer("stun:stun.stunprotocol.org:3478"))
         iceServers.add(PeerConnection.IceServer("stun:stun.l.google.com:19302"))
         pcConstraints.mandatory.add(MediaConstraints.KeyValuePair("OfferToReceiveAudio", "false"))
         pcConstraints.mandatory.add(MediaConstraints.KeyValuePair("OfferToReceiveVideo", "true"))

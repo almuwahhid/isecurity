@@ -20,6 +20,7 @@ class StringConstant {
         const val UPDATE_STATE = BuildConfig.APPLICATION_ID + "_updatestate"
         const val STATE_ACTIVE = BuildConfig.APPLICATION_ID + "_activestate"
         const val CHECK_STATE_ISTOP = BuildConfig.APPLICATION_ID + "_checkstateisstop"
+        const val UPDATE_PERMISSON = BuildConfig.APPLICATION_ID + "_updatepermission"
 
         const val UPLOADING_FILE_STATUS = BuildConfig.APPLICATION_ID + "_uploading_file_status"
     }

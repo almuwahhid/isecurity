@@ -1,0 +1,2 @@
+ninja: Entering directory `/Users/al/AndroidStudioProjects/iSecurity/app/.cxx/cmake/productionRelease/x86'
+ninja: no work to do.

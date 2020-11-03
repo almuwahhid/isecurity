@@ -1,6 +1,9 @@
 package com.mobile.isecurity.app.securitymenu
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +26,17 @@ class SecurityFragment : FragmentPermission() {
     lateinit var list: MutableList<SecurityMenuModel>
     var gson = Gson()
 
+    var filter : IntentFilter? = null
+    private val receiver_file: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            when(intent.action){
+                StringConstant.UPDATE_PERMISSON -> {
+                    initPermission()
+                }
+            }
+        }
+    }
+
     companion object {
         fun newInstance(): SecurityFragment {
             return SecurityFragment()
@@ -32,6 +46,10 @@ class SecurityFragment : FragmentPermission() {
 
     override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.activity_security_fragment, container, false)
+
+        filter = IntentFilter()
+        filter!!.addAction(StringConstant.UPDATE_PERMISSON)
+        context!!.registerReceiver(receiver_file, filter)
 
         list = ArrayList()
         list.addAll(SecurityHelper.SecurityMenus(context))
@@ -47,8 +65,17 @@ class SecurityFragment : FragmentPermission() {
         return view
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        context!!.unregisterReceiver(receiver_file)
+    }
+
     override fun onResume() {
         super.onResume()
+        initPermission()
+    }
+
+    private fun initPermission(){
         for (i in 0 until list.size) {
             when(list.get(i).id){
                 StringConstant.ID_FILES -> {
@@ -99,6 +126,5 @@ class SecurityFragment : FragmentPermission() {
             }
             adapter.notifyDataSetChanged()
         }
-
     }
 }

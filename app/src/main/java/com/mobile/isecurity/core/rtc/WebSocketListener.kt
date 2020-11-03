@@ -1,11 +1,12 @@
 package chat.rocket.android.call.GTRTC
 
 import android.util.Log
-import okhttp3.Response
-import okhttp3.WebSocket
-import okhttp3.WebSocketListener
+//import okhttp3.Response
+//import okhttp3.WebSocket
+//import okhttp3.WebSocketListener
 import okio.ByteString
 
+/*
 class WebSocketListener: WebSocketListener() {
     private val TAG: String = "WebSocketListener"
 
@@ -44,4 +45,4 @@ class WebSocketListener: WebSocketListener() {
     interface OnStatusChange{
         fun onTextChange(text: String?)
     }
-}
+}*/

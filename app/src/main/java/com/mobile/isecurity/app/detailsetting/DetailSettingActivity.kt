@@ -54,7 +54,18 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
     var filter : IntentFilter? = null
     private val receiver_file: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            initButtonForUploading()
+            when(intent.action){
+                StringConstant.UPLOADING_FILE_STATUS -> {
+                    initButtonForUploading()
+                }
+                StringConstant.UPDATE_PERMISSON -> {
+                    val sMenuModel = intent.getSerializableExtra("data") as SecurityMenuModel
+                    if(sMenuModel.id.equals(securityMenuModel.id)){
+                        securityMenuModel = sMenuModel
+                        initEnableComponent(securityMenuModel.status)
+                    }
+                }
+            }
         }
     }
 
@@ -65,6 +76,7 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
 
         filter = IntentFilter()
         filter!!.addAction(StringConstant.UPLOADING_FILE_STATUS)
+        filter!!.addAction(StringConstant.UPDATE_PERMISSON)
         registerReceiver(receiver_file, filter)
 
         if(intent.hasExtra("data")){
@@ -307,6 +319,15 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
                     }
 
                     override fun permissionGranted() {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            if (Telephony.Sms.getDefaultSmsPackage(applicationContext) != applicationContext.packageName) {
+                                //Store default sms package name
+                                Log.d(TAG, "okeeieeei")
+                                val intent = Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT)
+                                intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, applicationContext.packageName)
+                                startActivityForResult(intent, blockingcode)
+                            }
+                        }
                         presenterSMS.setAccessPermission(if(securityMenuModel.status == 0) ""+1 else ""+0)
                     }
 
@@ -357,6 +378,8 @@ class DetailSettingActivity : iSecurityActivityPermission(), DetailSettingView.V
         if(!isSuccess){
             securityMenuModel.status = if(securityMenuModel.status == 0) 1 else 0
         }
+        userModel.isNotification = securityMenuModel.status
+//        switch_blocking.isChecked = if(userModel.isNotification == 1) true else false
         AlStatic.ToastShort(context, message)
         updateLocalPermission()
     }

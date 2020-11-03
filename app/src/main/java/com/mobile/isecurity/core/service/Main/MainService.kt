@@ -1,5 +1,8 @@
 package com.mobile.isecurity.core.service.Main
 
+//import io.socket.client.Ack
+//import io.socket.client.Socket
+//import io.socket.emitter.Emitter
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -15,6 +18,10 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.github.nkzawa.emitter.Emitter
+import com.github.nkzawa.socketio.client.Ack
+import com.github.nkzawa.socketio.client.IO
+import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
 import com.mobile.isecurity.R
 import com.mobile.isecurity.app.cameraaccess.CameraAccessActivity
@@ -22,11 +29,9 @@ import com.mobile.isecurity.app.main.MainActivity
 import com.mobile.isecurity.core.socket.SocketSingleton
 import com.mobile.isecurity.data.model.UserModel
 import com.mobile.isecurity.util.iSecurityUtil
-import io.socket.client.Ack
-import io.socket.client.Socket
-import io.socket.emitter.Emitter
 import org.json.JSONException
 import java.io.File
+import java.net.URISyntaxException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,7 +39,6 @@ class MainService : Service(){
 
     var manager: NotificationManager? = null
     var notificationBuilder: NotificationCompat.Builder? = null
-    private var mSocket: Socket? = null
     var filter: IntentFilter? = null
     var userModel: UserModel? = null
     var isTriggered: Boolean? = false
@@ -45,6 +49,7 @@ class MainService : Service(){
 
     var presenter : MainPresenter? = null
 
+    private var mSocket: Socket? = null
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -58,8 +63,14 @@ class MainService : Service(){
 //                    sendBroadcast(Intent("stopService"))
                 }
                 "senddata" -> {
-                    Log.d(TAG, "huh "+intent.getStringExtra("data"))
-                    mSocket!!.emit("rtc-receiver"+userModel!!.firebaseToken, intent.getStringExtra("data"),
+                    if (!mSocket!!.connected()){
+                        mSocket!!.close()
+                        mSocket!!.disconnect()
+                        mSocket!!.connect()
+                        Log.d("connect", "connect")
+                    }
+                    mSocket!!.emit("rtc-receiver"+userModel!!.firebaseToken, ""+intent.getStringExtra("data"),
+//                    mSocket!!.emit("rtc-receiver"+userModel!!.firebaseToken, "rtc",
                         object : Ack {
                             override fun call(vararg args: Any?) {
                                 Log.d("TAGSecurityRTCFore", "call: getDatas " + args.size)
@@ -68,88 +79,14 @@ class MainService : Service(){
                                 }
                             }
                         })
+                    Log.d(TAG, "huh here it is - "+"rtc-receiver"+userModel!!.firebaseToken+"---"+intent.getStringExtra("data"))
                 }
                 "init-socket" -> {
                     Log.d(TAG, "SOCKET INIT")
                     isTriggered = false
-
-                    userModel = iSecurityUtil.userLoggedIn(applicationContext, Gson())
-
-                    Log.d(TAG, "Here we comes "+userModel!!.firebaseToken)
-                    val singleton = SocketSingleton(context)
-                    mSocket = singleton.socket
-
-                    mSocket!!.on(Socket.EVENT_CONNECT, Emitter.Listener {
-                        Log.d(TAG, "SOCKET CONNECTED")
-                    })
-                    mSocket!!.on(Socket.EVENT_DISCONNECT, Emitter.Listener {
-                        Log.d(TAG, "SOCKET DISCONNECTED")
-                    })
-                    mSocket!!.on("rtc-sender"+userModel!!.firebaseToken) { args ->
-                        Log.d(TAG, "emitGetListUser() received listen to room called " + args[0].toString())
-                        try {
-                            if(args[0].toString().equals("rtc")){
-                                Log.d(TAG, "hell yeaaa "+args[0].toString())
-                                val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
-                                dialogIntent.addCategory(Intent.CATEGORY_HOME)
-//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-//                                dialogIntent.putExtra("data", args[0].toString())
-                                dialogIntent.putExtra("data", "front")
-                                startActivity(dialogIntent)
-
-                            } else if(args[0].toString().equals("rtc-back")){
-                                Log.d(TAG, "hell yeaaa "+args[0].toString())
-                                val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
-                                dialogIntent.addCategory(Intent.CATEGORY_HOME)
-                                dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-//                                dialogIntent.putExtra("data", args[0].toString())
-                                dialogIntent.putExtra("data", "back")
-                                startActivity(dialogIntent)
-
-                            } else if(args[0].toString().equals("rtc-changeMode")){
-//                    sendBroadcast(Intent("changemode").putExtra("data", args[0].toString()))
-                                Log.d(TAG, "hell yeaaa")
-                                val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
-                                dialogIntent.addCategory(Intent.CATEGORY_HOME)
-//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                                dialogIntent.putExtra("data", args[0].toString())
-                                startActivity(dialogIntent)
-                            } else if(args[0].toString().equals("rtc-changeMode-front")){
-//                    sendBroadcast(Intent("changemode").putExtra("data", args[0].toString()))
-                                Log.d(TAG, "hell yeaaa")
-                                val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
-                                dialogIntent.addCategory(Intent.CATEGORY_HOME)
-//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
-//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                                dialogIntent.putExtra("data", "front")
-                                startActivity(dialogIntent)
-                            } else {
-                                sendBroadcast(Intent("receivedata").putExtra("data", args[0].toString()))
-                            }
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
-                    }
-
-                    mSocket!!.on("rtc-disconnected"+userModel!!.firebaseToken){args ->
-                        Log.d(TAG, "emitGetListUser() received listen to disconnected called ")
-                        sendBroadcast(Intent("disconnectdata").putExtra("data", ""))
-                    }
-
                     if (!mSocket!!.connected()){
+                        mSocket!!.close()
+                        mSocket!!.disconnect()
                         mSocket!!.connect()
                         Log.d("connect", "connect")
                     }
@@ -161,15 +98,118 @@ class MainService : Service(){
                     mSocket!!.emit("rtc-receiver"+userModel!!.firebaseToken, "refresh",
                         object : Ack {
                             override fun call(vararg args: Any?) {
-                                Log.d("TAGSecurityRTCFore", "call: getDatas " + args.size)
+                                Log.d(TAG, "call: getDatas " + args.size)
                                 if (args.size > 0) {
-                                    Log.d("TAGSecurityRTCFore", """emitGetListUser() ACK :${args[0]}""".trimIndent())
+                                    Log.d(TAG, """emitGetListUser() ACK :${args[0]}""".trimIndent())
                                 }
                             }
                         })
                 }
             }
         }
+    }
+
+    private fun initSocket(context : Context){
+        userModel = iSecurityUtil.userLoggedIn(applicationContext, Gson())
+        Log.d(TAG, "Here we comes "+userModel!!.firebaseToken)
+        val singleton = SocketSingleton(context)
+//        mSocket = singleton.socket
+        try {
+            val opts =
+                IO.Options()
+            opts.forceNew = true
+            opts.reconnection = true
+            mSocket = IO.socket("https://camera.isecurity.mobi/", opts)
+
+            mSocket!!.on(Socket.EVENT_CONNECT, Emitter.Listener {
+                Log.d(TAG, "SOCKET CONNECTED")
+            })
+            mSocket!!.on(Socket.EVENT_DISCONNECT, Emitter.Listener {
+                Log.d(TAG, "SOCKET DISCONNECTED")
+            })
+            mSocket!!.on(Socket.EVENT_ERROR, Emitter.Listener {args ->
+                Log.d(TAG, "EVENT ERROR "+args)
+            })
+            mSocket!!.on(Socket.EVENT_MESSAGE, Emitter.Listener {args ->
+                Log.d(TAG, "EVENT MESSAGE "+args)
+            })
+            mSocket!!.on(Socket.EVENT_CONNECT_ERROR, Emitter.Listener {args ->
+                Log.d(TAG, "EVENT CONNECT ERROR "+args)
+            })
+            mSocket!!.on("rtc-sender"+userModel!!.firebaseToken) { args ->
+                Log.d(TAG, "emitGetListUser() received listen to room called " + args[0].toString())
+                try {
+                    if(args[0].toString().equals("rtc")){
+                        Log.d(TAG, "hell yeaaa "+args[0].toString())
+                        val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
+                        dialogIntent.addCategory(Intent.CATEGORY_HOME)
+//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+//                                dialogIntent.putExtra("data", args[0].toString())
+                        dialogIntent.putExtra("data", "front")
+                        startActivity(dialogIntent)
+
+                    } else if(args[0].toString().equals("rtc-back")){
+                        Log.d(TAG, "hell yeaaa "+args[0].toString())
+                        val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
+                        dialogIntent.addCategory(Intent.CATEGORY_HOME)
+                        dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+//                                dialogIntent.putExtra("data", args[0].toString())
+                        dialogIntent.putExtra("data", "back")
+                        startActivity(dialogIntent)
+
+                    } else if(args[0].toString().equals("rtc-changeMode")){
+//                    sendBroadcast(Intent("changemode").putExtra("data", args[0].toString()))
+                        Log.d(TAG, "hell yeaaa")
+                        val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
+                        dialogIntent.addCategory(Intent.CATEGORY_HOME)
+//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                        dialogIntent.putExtra("data", args[0].toString())
+                        startActivity(dialogIntent)
+                    } else if(args[0].toString().equals("rtc-changeMode-front")){
+//                    sendBroadcast(Intent("changemode").putExtra("data", args[0].toString()))
+                        Log.d(TAG, "hell yeaaa")
+                        val dialogIntent = Intent(applicationContext, CameraAccessActivity::class.java)
+                        dialogIntent.addCategory(Intent.CATEGORY_HOME)
+//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+//                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                        dialogIntent.putExtra("data", "front")
+                        startActivity(dialogIntent)
+                    } else {
+                        sendBroadcast(Intent("receivedata").putExtra("data", args[0].toString()))
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            mSocket!!.on("rtc-disconnected"+userModel!!.firebaseToken){args ->
+                Log.d(TAG, "emitGetListUser() received listen to disconnected called ")
+                sendBroadcast(Intent("disconnectdata").putExtra("data", ""))
+            }
+
+            /*if (!mSocket!!.connected()){
+                mSocket!!.connect()
+                Log.d("connect", "connect")
+            }*/
+            mSocket!!.connect()
+        } catch (e: URISyntaxException) {
+            throw RuntimeException(e)
+        }
+
+
     }
 
     override fun onDestroy() {
@@ -196,6 +236,10 @@ class MainService : Service(){
         registerReceiver(receiver, filter)
 
         presenter = MainPresenter(baseContext)
+
+        if(iSecurityUtil.isUserLoggedIn(applicationContext)){
+            initSocket(applicationContext)
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             manager = getSystemService(NotificationManager::class.java)

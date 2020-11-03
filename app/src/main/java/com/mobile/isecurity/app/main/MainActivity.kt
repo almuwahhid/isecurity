@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -18,6 +19,7 @@ import com.mobile.isecurity.data.StringConstant
 import com.mobile.isecurity.data.model.SecurityMenuModel
 import com.mobile.isecurity.util.iSecurityUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import lib.alframeworkx.Activity.Interfaces.PermissionResultInterface
 import lib.alframeworkx.utils.AlStatic
 import lib.alframeworkx.utils.BottomNavDisable
 
@@ -35,13 +37,22 @@ class MainActivity : iSecurityActivityPermission(), BottomNavigationView.OnNavig
     var timer: Thread? = null
     var timer_monitoring: Thread? = null
 
-    private val allpermissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_CONTACTS, Manifest.permission.RECEIVE_SMS)
+    private val allpermissions = arrayOf(Manifest.permission.CAMERA,
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_SMS,
+        Manifest.permission.RECEIVE_SMS,
+        Manifest.permission.SEND_SMS,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.READ_CONTACTS)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*askCompactPermissions(allpermissions!!, object : PermissionResultInterface {
+        askCompactPermissions(allpermissions!!, object : PermissionResultInterface {
             override fun permissionDenied() {
                 Log.d("MainActivity", "nooo")
                 AlStatic.ToastShort(context, "You must to accept all permissions first")
@@ -52,7 +63,7 @@ class MainActivity : iSecurityActivityPermission(), BottomNavigationView.OnNavig
 
             }
 
-        })*/
+        })
 
         BottomNavDisable.disableShiftMode(navigation)
 

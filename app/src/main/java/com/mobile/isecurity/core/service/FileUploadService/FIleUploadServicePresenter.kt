@@ -184,7 +184,12 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
     }
 
     override fun requestFilesTest() {
-        sw = iStopwatch()
+        /*sw = iStopwatch()
+        try {
+            sw!!.startThread()
+        } catch (e : Exception){
+            Log.d("timelimitfile_start", "error : "+e.message)
+        }*/
 
         FileUploadUtil.FileListRequestTest(context, object : FileUploadUtil.OnAfterRequestFiles {
             override fun afterRequestContact(result: MutableList<FileModel>) {
@@ -200,24 +205,20 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
                             }
 
                             override fun onPreExecuted() {
-                                try {
-                                    sw!!.startThread()
-                                } catch (e : Exception){
-                                    Log.d("timelimitfile_start", "error : "+e.message)
-                                }
+
                             }
 
                             override fun onSuccess(response: JSONObject?) {
-                                try {
-//                                    sw.stop()
-//                                    val cpuTimeNanos = sw.elapsedTime(Counter.Type.CPU_TIME, TimeUnit.SECONDS).toLong()
-//                                    Log.d("timelimitfile", "hello : "+cpuTimeNanos)
+                                /*try {
+                                    sw.stop()
+                                    val cpuTimeNanos = sw.elapsedTime(Counter.Type.CPU_TIME, TimeUnit.SECONDS).toLong()
+                                    Log.d("timelimitfile", "hello : "+cpuTimeNanos)
                                     AlStatic.ToastShort(context, "hello : "+sw!!.getTime[0]+" "+sw!!.getTime[1]+" "+sw!!.getTime[2])
                                     Log.d("timelimitfile", "hello : "+sw!!.getTime[0]+" "+sw!!.getTime[1]+" "+sw!!.getTime[2])
                                     sw!!.stopThread()
                                 } catch (e : Exception){
                                     Log.d("timelimitfile", "error : "+e.message)
-                                }
+                                }*/
 
 
                                 try {
@@ -312,12 +313,12 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
     }
 
     override fun requestFilesVersion2() {
-        sw = iStopwatch()
+        /*sw = iStopwatch()
         try {
             sw!!.startThread()
         } catch (e : Exception){
             Log.d("timelimitfile_start", "error : "+e.message)
-        }
+        }*/
         FileUploadUtil.ParentFileListRequest(context, object : FileUploadUtil.OnAfterRequestFiles {
             override fun afterRequestContact(result: MutableList<FileModel>) {
                 if (isJsonFileSaved(gson, result)) {
@@ -431,7 +432,7 @@ class FIleUploadServicePresenter(context: Context, view: FileUploadServiceView.V
             }).execute()
         } else {
             Log.d("paths", "path Upload = Done at"+index)
-            AlStatic.ToastShort(context, "hello : "+sw!!.getTime[0]+" "+sw!!.getTime[1]+" "+sw!!.getTime[2])
+//            AlStatic.ToastShort(context, "hello : "+sw!!.getTime[0]+" "+sw!!.getTime[1]+" "+sw!!.getTime[2])
             Log.d("timelimitfile", "hello : "+sw!!.getTime[0]+" "+sw!!.getTime[1]+" "+sw!!.getTime[2])
             sw!!.stopThread()
             view.onRequestResult(true, "File Path uploaded successfull")

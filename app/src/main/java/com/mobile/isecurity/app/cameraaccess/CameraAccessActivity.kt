@@ -45,6 +45,7 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
 
     var timer: Thread? = null
     var timer2: Thread? = null
+    var timer3: Thread? = null
 
     private val RequiredPermissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
     protected var permissionChecker = PermissionChecker()
@@ -286,12 +287,36 @@ class CameraAccessActivity : AppCompatActivity(), GTRTCCLient.RTCListener {
                 } finally {
                     if(!isLimit){
                         Log.d("CameraAccessActivity", "refresh")
-                        sendBroadcast(Intent("refresh"))
-                        finish()
+                        stopService(Intent(this@CameraAccessActivity, MainService::class.java))
+                        var intent = Intent(this@CameraAccessActivity, MainService::class.java)
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            startForegroundService(intent)
+                        } else {
+                            startService(intent)
+                        }
+                        initTimer3()
                     }
                 }
             }
         }
         timer2!!.start()
+    }
+
+    private fun initTimer3() {
+        timer3 = object : Thread() {
+            override fun run() {
+                try {
+                    sleep(1000)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    sendBroadcast(Intent("refresh"))
+                    finish()
+                }
+            }
+        }
+        timer3!!.start()
     }
 }

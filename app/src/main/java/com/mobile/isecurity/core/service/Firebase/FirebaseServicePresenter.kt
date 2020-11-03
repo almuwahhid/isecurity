@@ -183,15 +183,17 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                 param["status"] = "error"
                 param["directory"] = name
                 param["path"] = namefile
-                param["deviceToken"] = userModel!!.firebaseToken
+                param["file_token"] = filePath.file_token
+                param["deviceToken"] = userModel!!.device_id
+                param["device_id"] = userModel!!.firebaseToken
 //                param["path"] = filePath.file_path
                 return param
             }
 
             override fun requestHeaders(): MutableMap<String, String> {
                 val param = HashMap<String, String>()
-                param["deviceToken"] = userModel!!.token
-                Log.d("gmsHeaders", "requestHeaders: $param")
+                param["token"] = userModel!!.token
+                Log.d("token : ", userModel!!.token)
                 return param
             }
 
@@ -274,8 +276,9 @@ class FirebaseServicePresenter(context: Context) : BasePresenter(context) {
                     override fun onSuccess(response: JSONObject?) {
                         try {
                             if (!response!!.getString("status").equals("ok")) {
-                                deletePath(fileModel)
+//                                deletePath(fileModel)
                             } else {
+//                                AlStatic.ToastShort(context, "Successfull Uploaded : "+fileModel.file_path)
 //                                confirmPath(fileModel)
                             }
                             uploadListFile(position+1, fileModels)
