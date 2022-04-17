@@ -11,106 +11,74 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c6fb1e5-ab65-4b54-b2a4-85ea38fd33ae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_nkzawa_engine_io_client_0_6_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_nkzawa_socket_io_client_0_6_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp_okhttp_2_4_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp_okhttp_ws_2_4_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_4_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_json_json_20090211_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/app/iSecurity.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_multidex_multidex_instrumentation_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_core_1_2_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_2_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_2_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_ext_junit_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_1_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_1_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_1_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_1_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_1_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_1_1_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_1_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_1_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_room_room_common_2_0_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_room_room_common_2_0_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__cat_ereza_customactivityoncrash_2_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__cat_ereza_customactivityoncrash_2_2_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_airbnb_android_lottie_2_5_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_airbnb_android_lottie_2_5_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_jkwiecien_EasyImage_2_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_jkwiecien_EasyImage_2_0_2_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_joielechong_countrycodepicker_2_4_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_joielechong_countrycodepicker_2_4_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_8_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_13_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_nkzawa_engine_io_client_0_6_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_nkzawa_engine_io_client_0_6_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_nkzawa_socket_io_client_0_6_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_nkzawa_socket_io_client_0_6_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_oswaldobapvicjr_performetrics_performetrics_2_1_1_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_oswaldobapvicjr_performetrics_performetrics_2_1_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_auto_value_auto_value_annotations_1_6_5_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_auto_value_auto_value_annotations_1_6_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_5_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_dagger_dagger_2_24_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_dagger_dagger_2_24.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_mcxiaoke_volley_library_1_0_19_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_mcxiaoke_volley_library_1_0_19.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp_okhttp_2_4_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp_okhttp_2_4_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp_okhttp_ws_2_4_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp_okhttp_ws_2_4_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_4_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_4_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_wdullaer_materialdatetimepicker_3_5_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_wdullaer_materialdatetimepicker_3_5_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_socket_engine_io_client_1_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_socket_socket_io_client_1_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxjava_2_1_9_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxjava_2_1_9.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava_1_1_6_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava_1_1_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_android_extensions_runtime_1_3_71_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_android_extensions_runtime_1_3_71.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_71_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_71.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_71_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_71.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_71_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_71.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_json_json_20090211_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_json_json_20090211.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_reactivestreams_reactive_streams_1_0_2_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_reactivestreams_reactive_streams_1_0_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/arm64-v8a/json_generation_record.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/developmentDebug/x86/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/arm64-v8a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/arm64-v8a/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/arm64-v8a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/arm64-v8a/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/arm64-v8a/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/arm64-v8a/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/armeabi-v7a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/armeabi-v7a/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/armeabi-v7a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/armeabi-v7a/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/android_gradle_build_native-lib_x86.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/android_gradle_build_native-lib_x86.stdout.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/android_gradle_build_native-lib_x86_64.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/android_gradle_build_native-lib_x86_64.stdout.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionDebug/x86_64/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/build_model.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/build_model.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/arm64-v8a/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/android_gradle_build_native-lib_x86_64.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/android_gradle_build_native-lib_x86_64.stdout.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/build_model.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/build_model.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/armeabi-v7a/json_generation_record.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/json_generation_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/cmake/productionRelease/x86_64/json_generation_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.cxx/ndk_locator_record.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/.cxx/ndk_locator_record.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/cameraaccess/CameraAccessActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/cameraaccess/CameraAccessActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/DetailSettingActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/DetailSettingActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/LocationPermissionPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/LocationPermissionPresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/SMSPermissionPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/detailsetting/presenter/SMSPermissionPresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/main/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/main/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/securitymenu/SecurityFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/app/securitymenu/SecurityFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc/GTRTCCLient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc/GTRTCCLient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc/WebSocketListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/rtc/WebSocketListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FIleUploadServicePresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/FileUploadService/FIleUploadServicePresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/FirebaseServicePresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/FirebaseServicePresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/iSecurityFirebaseService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Firebase/iSecurityFirebaseService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Main/MainService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/service/Main/MainService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/socket/SocketSingleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/core/socket/SocketSingleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/StringConstant.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/StringConstant.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/model/UserModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobile/isecurity/data/model/UserModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/version.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/version.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iSecurity.iml" beforeDir="false" afterPath="$PROJECT_DIR$/iSecurity.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="UFKRK19318000508" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[UFKRK19318000508]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -154,9 +122,6 @@
       </state>
     </system>
   </component>
-  <component name="FavoritesManager">
-    <favorites_list name="iSecurity" />
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -182,7 +147,6 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -192,8 +156,9 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-08-11T02:06:48.444Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1604305136155" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1626933353619" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -252,12 +217,13 @@
       </method>
     </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="app" />
+      <module name="iSecurity.app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -293,11 +259,16 @@
       </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
@@ -360,118 +331,37 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="365" y="264" key="#PSD" timestamp="1600439014284">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state x="365" y="264" key="#PSD/0.0.1680.1050@0.0.1680.1050" timestamp="1600439014284" />
-    <state x="654" y="256" key="#com.intellij.ide.util.MemberChooser" timestamp="1601596233392">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state x="654" y="256" key="#com.intellij.ide.util.MemberChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1601596233392" />
-    <state x="747" y="263" key="#com.intellij.ide.util.MemberChooser/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600047681924" />
-    <state x="721" y="199" width="481" height="681" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1600047582072">
+    <state width="1878" height="874" key="GridCell.Tab.0.bottom" timestamp="1626334791996">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="721" y="199" width="481" height="681" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600047582072" />
-    <state x="428" y="287" key="AndroidCreateResourceFileDialog" timestamp="1600481673749">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state x="428" y="287" key="AndroidCreateResourceFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1600481673749" />
-    <state width="1638" height="845" key="GridCell.Tab.0.bottom" timestamp="1604064885194">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state width="1238" height="334" key="GridCell.Tab.0.bottom/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256110367" />
-    <state width="656" height="320" key="GridCell.Tab.0.bottom/-1280.0.1280.800/0.0.1360.768@0.0.1360.768" timestamp="1600739862894" />
-    <state width="1318" height="149" key="GridCell.Tab.0.bottom/-1280.23.1280.777/0.23.1360.706@0.23.1360.706" timestamp="1600737512284" />
-    <state width="1638" height="845" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1604064885194" />
-    <state width="1318" height="259" key="GridCell.Tab.0.bottom/0.768.1280.800/0.0.1360.768@0.0.1360.768" timestamp="1600878195662" />
-    <state width="1878" height="269" key="GridCell.Tab.0.bottom/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1601887235077" />
-    <state width="1238" height="321" key="GridCell.Tab.0.bottom/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600267150688" />
-    <state width="1878" height="416" key="GridCell.Tab.0.bottom/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621256462" />
-    <state width="1638" height="464" key="GridCell.Tab.0.bottom/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599443893363" />
-    <state width="1638" height="845" key="GridCell.Tab.0.center" timestamp="1604064885191">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state width="1238" height="334" key="GridCell.Tab.0.center/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256110364" />
-    <state width="656" height="320" key="GridCell.Tab.0.center/-1280.0.1280.800/0.0.1360.768@0.0.1360.768" timestamp="1600739862891" />
-    <state width="1318" height="149" key="GridCell.Tab.0.center/-1280.23.1280.777/0.23.1360.706@0.23.1360.706" timestamp="1600737512284" />
-    <state width="1638" height="845" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1604064885191" />
-    <state width="1318" height="259" key="GridCell.Tab.0.center/0.768.1280.800/0.0.1360.768@0.0.1360.768" timestamp="1600878195659" />
-    <state width="1878" height="269" key="GridCell.Tab.0.center/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1601887235070" />
-    <state width="1238" height="321" key="GridCell.Tab.0.center/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600267150681" />
-    <state width="1878" height="416" key="GridCell.Tab.0.center/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621256460" />
-    <state width="1638" height="464" key="GridCell.Tab.0.center/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599443893360" />
-    <state width="1638" height="845" key="GridCell.Tab.0.left" timestamp="1604064885188">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state width="1238" height="334" key="GridCell.Tab.0.left/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256110363" />
-    <state width="656" height="320" key="GridCell.Tab.0.left/-1280.0.1280.800/0.0.1360.768@0.0.1360.768" timestamp="1600739862889" />
-    <state width="1318" height="149" key="GridCell.Tab.0.left/-1280.23.1280.777/0.23.1360.706@0.23.1360.706" timestamp="1600737512283" />
-    <state width="1638" height="845" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1604064885188" />
-    <state width="1318" height="259" key="GridCell.Tab.0.left/0.768.1280.800/0.0.1360.768@0.0.1360.768" timestamp="1600878195656" />
-    <state width="1878" height="269" key="GridCell.Tab.0.left/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1601887235056" />
-    <state width="1238" height="321" key="GridCell.Tab.0.left/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600267150674" />
-    <state width="1878" height="416" key="GridCell.Tab.0.left/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621256459" />
-    <state width="1638" height="464" key="GridCell.Tab.0.left/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599443893359" />
-    <state width="1638" height="845" key="GridCell.Tab.0.right" timestamp="1604064885193">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state width="1238" height="334" key="GridCell.Tab.0.right/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256110366" />
-    <state width="656" height="320" key="GridCell.Tab.0.right/-1280.0.1280.800/0.0.1360.768@0.0.1360.768" timestamp="1600739862892" />
-    <state width="1318" height="149" key="GridCell.Tab.0.right/-1280.23.1280.777/0.23.1360.706@0.23.1360.706" timestamp="1600737512284" />
-    <state width="1638" height="845" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1604064885193" />
-    <state width="1318" height="259" key="GridCell.Tab.0.right/0.768.1280.800/0.0.1360.768@0.0.1360.768" timestamp="1600878195660" />
-    <state width="1878" height="269" key="GridCell.Tab.0.right/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1601887235074" />
-    <state width="1238" height="321" key="GridCell.Tab.0.right/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600267150684" />
-    <state width="1878" height="416" key="GridCell.Tab.0.right/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621256461" />
-    <state width="1638" height="464" key="GridCell.Tab.0.right/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599443893361" />
-    <state x="469" y="179" key="SettingsEditor" timestamp="1599187317378">
+    <state width="1878" height="874" key="GridCell.Tab.0.bottom/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1626334791996" />
+    <state width="1878" height="874" key="GridCell.Tab.0.center" timestamp="1626334791985">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="469" y="179" key="SettingsEditor/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1599187317378" />
-    <state x="560" y="383" key="com.intellij.ide.util.TipDialog" timestamp="1600767091398">
+    <state width="1878" height="874" key="GridCell.Tab.0.center/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1626334791985" />
+    <state width="1878" height="874" key="GridCell.Tab.0.left" timestamp="1626334791983">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="560" y="383" key="com.intellij.ide.util.TipDialog/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1600767091398" />
-    <state x="2293" y="284" key="com.intellij.ide.util.TipDialog/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600313297610" />
-    <state x="559" y="384" key="com.intellij.ide.util.TipDialog/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1599942726311" />
-    <state x="417" y="470" width="667" height="486" key="find.popup" timestamp="1604274374439">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state x="-863" y="220" width="667" height="486" key="find.popup/-1280.0.1280.800/0.0.1360.768@-1280.0.1280.800" timestamp="1600256833898" />
-    <state x="417" y="470" width="667" height="486" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1604274374439" />
-    <state x="338" y="282" width="667" height="486" key="find.popup/0.768.1280.800/0.0.1360.768@0.0.1360.768" timestamp="1600884218828" />
-    <state x="626" y="297" width="667" height="486" key="find.popup/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1601883792500" />
-    <state x="2337" y="220" width="667" height="486" key="find.popup/1920.0.1280.800/0.0.1920.1080@1920.0.1280.800" timestamp="1600174259582" />
-    <state x="2238" y="314" width="667" height="486" key="find.popup/1920.0.1280.800/0.23.1920.1057@1920.0.1280.800" timestamp="1600174220013" />
-    <state x="626" y="297" width="667" height="486" key="find.popup/1920.23.1280.777/0.0.1920.1080@0.0.1920.1080" timestamp="1599621676550" />
-    <state x="477" y="479" width="763" height="486" key="find.popup/1920.23.1280.777/0.23.1920.1018@0.23.1920.1018" timestamp="1600861460353" />
-    <state width="498" height="61" key="javadoc.popup.new" timestamp="1601884982236">
+    <state width="1878" height="874" key="GridCell.Tab.0.left/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1626334791983" />
+    <state width="1878" height="874" key="GridCell.Tab.0.right" timestamp="1626334791994">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="435" height="59" key="javadoc.popup.new/0.0.1680.1050@0.0.1680.1050" timestamp="1601602410341" />
-    <state width="498" height="61" key="javadoc.popup.new/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1601884982236" />
-    <state x="625" y="255" key="run.anything.popup" timestamp="1599604099466">
+    <state width="1878" height="874" key="GridCell.Tab.0.right/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1626334791994" />
+    <state x="661" y="281" width="651" height="518" key="find.popup" timestamp="1626933412118">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="625" y="255" key="run.anything.popup/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1599604099466" />
-    <state x="577" y="240" width="670" height="676" key="search.everywhere.popup" timestamp="1599805494252">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="505" y="233" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1599440689045" />
-    <state x="577" y="240" width="670" height="676" key="search.everywhere.popup/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1599805494252" />
+    <state x="661" y="281" width="651" height="518" key="find.popup/1920.0.1280.800/0.0.1920.1080@0.0.1920.1080" timestamp="1626933412118" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

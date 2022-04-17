@@ -37,7 +37,6 @@
             android:enabled="true"
             android:exported="true"></receiver>
 
-        <activity android:name=".app.forgotpassword.DialogForgotPassword" />
         <activity
             android:name=".app.cameraaccess.CameraAccessActivity"
             android:theme="@style/Theme.Transparent"
@@ -47,13 +46,10 @@
             android:noHistory="true"
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true" />
-        <activity android:name=".app.securitymenu.SecurityAdapter" />
         <activity android:name=".app.register.RegisterActivity" />
         <activity android:name=".app.login.LoginActivity" />
         <activity android:name=".app.editprofile.EditProfileAcitivity" />
         <activity android:name=".app.changepassword.ChangePasswordActivity" />
-        <activity android:name=".app.accountmenu.AccountFragment" />
-        <activity android:name=".app.securitymenu.SecurityFragment" />
         <activity android:name=".app.detailsetting.DetailSettingActivity"
             android:enabled="true"
             android:exported="true"

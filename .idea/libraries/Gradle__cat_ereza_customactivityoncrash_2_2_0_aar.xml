@@ -2,11 +2,31 @@
   <library name="Gradle: cat.ereza:customactivityoncrash:2.2.0@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/40af853ba5ca359a038817c92a34a3d0/jetified-customactivityoncrash-2.2.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dbdddd7af4cb8eaf79c9a6ea1d076c1e/jetified-customactivityoncrash-2.2.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a30ef5a1652ad4aa7b5d64802c29c9f7/jetified-customactivityoncrash-2.2.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c68111521253f560c3ccf4dafc5400e7/jetified-customactivityoncrash-2.2.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5b2107252135e3194381e25753e638b2/jetified-customactivityoncrash-2.2.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e0d79a278be1ee96a00cc334b02cd6ce/jetified-customactivityoncrash-2.2.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/40af853ba5ca359a038817c92a34a3d0/jetified-customactivityoncrash-2.2.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/40af853ba5ca359a038817c92a34a3d0/jetified-customactivityoncrash-2.2.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/40af853ba5ca359a038817c92a34a3d0/jetified-customactivityoncrash-2.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dbdddd7af4cb8eaf79c9a6ea1d076c1e/jetified-customactivityoncrash-2.2.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dbdddd7af4cb8eaf79c9a6ea1d076c1e/jetified-customactivityoncrash-2.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dbdddd7af4cb8eaf79c9a6ea1d076c1e/jetified-customactivityoncrash-2.2.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a30ef5a1652ad4aa7b5d64802c29c9f7/jetified-customactivityoncrash-2.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a30ef5a1652ad4aa7b5d64802c29c9f7/jetified-customactivityoncrash-2.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a30ef5a1652ad4aa7b5d64802c29c9f7/jetified-customactivityoncrash-2.2.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c68111521253f560c3ccf4dafc5400e7/jetified-customactivityoncrash-2.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c68111521253f560c3ccf4dafc5400e7/jetified-customactivityoncrash-2.2.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c68111521253f560c3ccf4dafc5400e7/jetified-customactivityoncrash-2.2.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5b2107252135e3194381e25753e638b2/jetified-customactivityoncrash-2.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5b2107252135e3194381e25753e638b2/jetified-customactivityoncrash-2.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5b2107252135e3194381e25753e638b2/jetified-customactivityoncrash-2.2.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e0d79a278be1ee96a00cc334b02cd6ce/jetified-customactivityoncrash-2.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e0d79a278be1ee96a00cc334b02cd6ce/jetified-customactivityoncrash-2.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e0d79a278be1ee96a00cc334b02cd6ce/jetified-customactivityoncrash-2.2.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cat.ereza/customactivityoncrash/2.2.0/fd01d2f6b864628d39507486eb3f2469c6ee84b4/customactivityoncrash-2.2.0-javadoc.jar!/" />
